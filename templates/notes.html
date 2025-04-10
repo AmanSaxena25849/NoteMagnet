@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoteMagnet - Your Digital Notebook</title>
+  <link rel="stylesheet" href="{% static "notes.css" %}">
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="/api/placeholder/40/40" alt="">
+        NoteMagnet
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      
+      <div class="auth-buttons">
+        <button class="button login-btn">Login</button>
+        <button class="button signup-btn">Sign Up</button>
+      </div>
+      
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+    
+    <!-- Sidebar for mobile -->
+    <div class="sidebar">
+      <button class="close-btn">&times;</button>
+      <ul class="sidebar-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="sidebar-auth">
+        <button class="button login-btn">Login</button>
+        <button class="button signup-btn">Sign Up</button>
+      </div>
+    </div>
+    <div class="overlay"></div>
+  </header>
+
+  <main>
+  <!-- Header Section -->
+    <div class="header">
+      <h1>Welcome to NoteMagnet</h1>
+      <p>Discover, create, and share notes that stick with you. Your digital notebook for everything important.</p>
+      <button class="button signup-btn">Get Started</button>
+    </div>
+    
+    <!-- Popular Notes Section -->
+    <section class="notes-section">
+      <h2 class="section-title">Popular Notes</h2>
+      <div class="notes-container">
+        <!-- Note Card 1 -->
+        <div class="note-card">
+          <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
+          <div class="note-content">
+            <h3 class="note-title">How to Master Time Management</h3>
+            <p class="note-desc">Effective strategies for managing your time and boosting productivity with practical examples...</p>
+            <div class="note-meta">
+              <div class="user-info">
+                <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
+                <span>Sarah Johnson</span>
+              </div>
+              <span>2 days ago</span>
+            </div>
+            <a href="#" class="read-more">Read More</a>
+          </div>
+        </div>
+        
+        <!-- Note Card 2 -->
+        <div class="note-card">
+          <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
+          <div class="note-content">
+            <h3 class="note-title">The Ultimate Study Guide</h3>
+            <p class="note-desc">Comprehensive study techniques for better learning and retention. Perfect for students and lifelong learners...</p>
+            <div class="note-meta">
+              <div class="user-info">
+                <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
+                <span>Mike Chen</span>
+              </div>
+              <span>1 week ago</span>
+            </div>
+            <a href="#" class="read-more">Read More</a>
+          </div>
+        </div>
+        
+        <!-- Note Card 3 -->
+        <div class="note-card">
+          <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
+          <div class="note-content">
+            <h3 class="note-title">Beginner's Guide to Meditation</h3>
+            <p class="note-desc">Simple and effective meditation techniques for reducing stress and improving focus in daily life...</p>
+            <div class="note-meta">
+              <div class="user-info">
+                <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
+                <span>Priya Patel</span>
+              </div>
+              <span>3 days ago</span>
+            </div>
+            <a href="#" class="read-more">Read More</a>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="view-all">View All Popular Notes</a>
+    </section>
+    
+    <!-- All Notes Section -->
+    <section class="notes-section">
+      <h2 class="section-title">All Notes</h2>
+      <div class="notes-container">
+        <!-- Note Card 1 -->
+        <div class="note-card">
+          <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
+          <div class="note-content">
+            <h3 class="note-title">5 Essential Cooking Techniques</h3>
+            <p class="note-desc">Master these fundamental cooking methods to elevate your culinary skills and create delicious meals...</p>
+            <div class="note-meta">
+              <div class="user-info">
+                <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
+                <span>Chef Alex</span>
+              </div>
+              <span>1 day ago</span>
+            </div>
+            <a href="#" class="read-more">Read More</a>
+          </div>
+        </div>
+        
+        <!-- Note Card 2 -->
+        <div class="note-card">
+          <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
+          <div class="note-content">
+            <h3 class="note-title">Digital Marketing Basics</h3>
+            <p class="note-desc">An introduction to key digital marketing concepts and strategies for beginners and small business owners...</p>
+            <div class="note-meta">
+              <div class="user-info">
+                <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
+                <span>Jordan Lee</span>
+              </div>
+              <span>5 days ago</span>
+            </div>
+            <a href="#" class="read-more">Read More</a>
+          </div>
+        </div>
+        
+        <!-- Note Card 3 -->
+        <div class="note-card">
+          <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
+          <div class="note-content">
+            <h3 class="note-title">Healthy Morning Routines</h3>
+            <p class="note-desc">Start your day right with these science-backed morning habits that boost energy and productivity...</p>
+            <div class="note-meta">
+              <div class="user-info">
+                <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
+                <span>Emma Wilson</span>
+              </div>
+              <span>2 weeks ago</span>
+            </div>
+            <a href="#" class="read-more">Read More</a>
+          </div>
+        </div>
+        
+        <!-- Note Card 4 -->
+        <div class="note-card">
+          <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
+          <div class="note-content">
+            <h3 class="note-title">Basic Web Development Guide</h3>
+            <p class="note-desc">A beginner-friendly introduction to HTML, CSS and JavaScript with practical examples to get started...</p>
+            <div class="note-meta">
+              <div class="user-info">
+                <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
+                <span>Dev Martinez</span>
+              </div>
+              <span>4 days ago</span>
+            </div>
+            <a href="#" class="read-more">Read More</a>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="view-all">Explore All Notes</a>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#" class="social-icon">f</a>
+      <a href="#" class="social-icon">t</a>
+      <a href="#" class="social-icon">in</a>
+      <a href="#" class="social-icon">ig</a>
+    </div>
+    <p>&copy; 2025 NoteMagnet. All rights reserved.</p>
+  </footer>
+  
+  <script>
+    // JavaScript for mobile navigation
+    const burger = document.querySelector('.burger');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    const closeBtn = document.querySelector('.close-btn');
+    
+    burger.addEventListener('click', () => {
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+    
+    function closeSidebar() {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    
+    closeBtn.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+  </script>
+</body>
+</html>
