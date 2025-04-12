@@ -13,7 +13,7 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="/api/placeholder/40/40" alt="">
+        <img src="" alt="">
         NoteMagnet
       </div>
       
@@ -26,7 +26,8 @@
       
       <div class="auth-buttons">
         <button class="button login-btn">Login</button>
-        <button class="button signup-btn">Sign Up</button>
+        {% comment %} <button class="button signup-btn">Sign Up</button> {% endcomment %}
+        <a class="button signup-btn" href="{% url "signup" %}">Sign Up</a>
       </div>
       
       <div class="burger">

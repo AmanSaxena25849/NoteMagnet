@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoteMagnet - Sign Up</title>
+  <link rel="stylesheet" href="{% static "accounts/signup.css" %}">
+  <script defer src="{% static "accounts/signup.js" %}"></script>
+</head>
+<body>
+  <header>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <a href="#" class="logo">
+        <img src="/api/placeholder/40/40" alt="">
+        NoteMagnet
+      </a>
+      
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      
+      <div class="auth-buttons">
+        <a href="#" class="button login-btn">Login</a>
+        <a href="#" class="button signup-btn">Sign Up</a>
+      </div>
+      
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+    
+    <!-- Sidebar for mobile -->
+    <div class="sidebar">
+      <button class="close-btn">&times;</button>
+      <ul class="sidebar-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="sidebar-auth">
+        <a href="#" class="button login-btn">Login</a>
+        <a href="#" class="button signup-btn">Sign Up</a>
+      </div>
+    </div>
+    <div class="overlay"></div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1 class="page-title">Create Your Account</h1>
+    
+    <form class="signup-form" id="signup-form">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          {{form.first_name}}
+          <div class="error-message" id="first-name-error">Please enter your first name</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          {{form.last_name}}
+          <div class="error-message" id="last-name-error">Please enter your last name</div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="username">Username</label>
+        {{form.username}}
+        <div class="error-message" id="username-error">Username must be at least 3 characters</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="age">Age</label>
+        {{form.age}}
+        <div class="error-message" id="age-error">You must be at least 13 years old</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        {{form.email}}
+        <div class="error-message" id="email-error">Please enter a valid email address</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        {{form.phone_number}}
+        <div class="error-message" id="phone-error">Please enter a valid phone number</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-wrapper">
+          {{form.password}}
+          <button type="button" class="toggle-password" id="toggle-password">Show</button>
+        </div>
+        <div class="password-strength">
+          <div class="password-strength-bar" id="password-strength-bar"></div>
+        </div>
+        <div class="password-strength-text" id="password-strength-text">Password strength</div>
+        <div class="error-message" id="password-error">Password must be at least 8 characters</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <div class="password-wrapper">
+          {{form.confirm_password}}
+          <button type="button" class="toggle-password" id="toggle-confirm-password">Show</button>
+        </div>
+        <div class="error-message" id="confirm-password-error">Passwords do not match</div>
+      </div>
+      
+      <div class="checkbox-group">
+        {{form.agree}}
+        <label for="terms">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
+      </div>
+      
+      <div class="checkbox-group">
+        {{form.notifications}}
+        <label for="newsletter">Sign up for our newsletter to receive updates and special offers</label>
+      </div>
+      
+      <button type="submit" class="button btn-primary">Create Account</button>
+      
+      <div class="login-link">
+        Already have an account? <a href="#">Log In</a>
+      </div>
+      
+      <div class="social-signup">
+        <p>Or sign up with</p>
+        <div class="social-buttons">
+          <a href="#" class="social-button">f</a>
+          <a href="#" class="social-button">g</a>
+          <a href="#" class="social-button">in</a>
+        </div>
+      </div>
+    </form>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 NoteMagnet. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
