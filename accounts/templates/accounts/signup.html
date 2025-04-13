@@ -1,100 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {% load static %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NoteMagnet - Sign Up</title>
-  <link rel="stylesheet" href="{% static "accounts/signup.css" %}">
-  <script defer src="{% static "accounts/signup.js" %}"></script>
-</head>
-<body>
-  <header>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-      <a href="#" class="logo">
-        <img src="/api/placeholder/40/40" alt="">
-        NoteMagnet
-      </a>
-      
-      <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Features</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      
-      <div class="auth-buttons">
-        <a href="#" class="button login-btn">Login</a>
-        <a href="#" class="button signup-btn">Sign Up</a>
-      </div>
-      
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
-    </nav>
-    
-    <!-- Sidebar for mobile -->
-    <div class="sidebar">
-      <button class="close-btn">&times;</button>
-      <ul class="sidebar-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Features</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <div class="sidebar-auth">
-        <a href="#" class="button login-btn">Login</a>
-        <a href="#" class="button signup-btn">Sign Up</a>
-      </div>
-    </div>
-    <div class="overlay"></div>
-  </header>
+{% extends "base.html" %}
 
+{% block head %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'accounts/signup.css' %}">
+  <script defer src="{% static 'accounts/signup.js' %}"></script>
+{% endblock head %}
+
+{% block main %}
   <!-- Main Content -->
   <main class="main-content">
     <h1 class="page-title">Create Your Account</h1>
     
-    <form class="signup-form" id="signup-form">
+    <form method="POST" class="signup-form" id="signup-form">
       {% csrf_token %}
       <div class="form-row">
         <div class="form-group">
           <label for="first-name">First Name</label>
           {{form.first_name}}
-          <div class="error-message" id="first-name-error">Please enter your first name</div>
+          <div class="error-message" id="first-name-error">{{form.first_name.errors}}</div>
         </div>
         
         <div class="form-group">
           <label for="last-name">Last Name</label>
           {{form.last_name}}
-          <div class="error-message" id="last-name-error">Please enter your last name</div>
+          <div class="error-message" id="last-name-error">{{form.last_name.errors}}</div>
         </div>
       </div>
       
       <div class="form-group">
         <label for="username">Username</label>
         {{form.username}}
-        <div class="error-message" id="username-error">Username must be at least 3 characters</div>
+        <div class="error-message" id="username-error">{{form.username.errors}}</div>
       </div>
       
       <div class="form-group">
         <label for="age">Age</label>
         {{form.age}}
-        <div class="error-message" id="age-error">You must be at least 13 years old</div>
+        <div class="error-message" id="age-error">{{form.age.errors}}</div>
       </div>
       
       <div class="form-group">
         <label for="email">Email Address</label>
         {{form.email}}
-        <div class="error-message" id="email-error">Please enter a valid email address</div>
+        <div class="error-message" id="email-error">{{form.email.errors}}</div>
       </div>
       
       <div class="form-group">
         <label for="phone">Phone Number</label>
         {{form.phone_number}}
-        <div class="error-message" id="phone-error">Please enter a valid phone number</div>
+        <div class="error-message" id="phone-error">{{form.phone_number.errors}}</div>
       </div>
       
       <div class="form-group">
@@ -107,7 +61,7 @@
           <div class="password-strength-bar" id="password-strength-bar"></div>
         </div>
         <div class="password-strength-text" id="password-strength-text">Password strength</div>
-        <div class="error-message" id="password-error">Password must be at least 8 characters</div>
+        <div class="error-message" id="password-error">{{form.password.errors}}</div>
       </div>
       
       <div class="form-group">
@@ -116,13 +70,15 @@
           {{form.confirm_password}}
           <button type="button" class="toggle-password" id="toggle-confirm-password">Show</button>
         </div>
-        <div class="error-message" id="confirm-password-error">Passwords do not match</div>
+        <div class="error-message" id="confirm-password-error">{{form.confirm_password.errors}}</div>
       </div>
       
+      <div class="error-message" id="confirm-password-error">{{form.agree.errors}}</div>
       <div class="checkbox-group">
         {{form.agree}}
         <label for="terms">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
       </div>
+      
       
       <div class="checkbox-group">
         {{form.notifications}}
@@ -145,11 +101,4 @@
       </div>
     </form>
   </main>
-  
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 NoteMagnet. All rights reserved.</p>
-  </footer>
-
-</body>
-</html>
+{% endblock main %}

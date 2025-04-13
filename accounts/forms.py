@@ -45,6 +45,12 @@ class SignupForm(forms.ModelForm):
             'password': forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'}),
         }
         
+        error_messages = {
+            'phone_number':{
+                'invalid': 'Please enter a valid US phone number.',
+            }
+        }
+        
 
     def clean(self):
         cleaned_data = super().clean()

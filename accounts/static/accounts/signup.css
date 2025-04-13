@@ -156,7 +156,6 @@ body {
 .form-row {
     display: flex;
     gap: 1rem;
-    margin-bottom: 1.5rem;
 }
 
 .form-group {
@@ -207,7 +206,6 @@ body {
     color: var(--error);
     font-size: 0.9rem;
     margin-top: 0.5rem;
-    display: none;
 }
 
 .password-strength {

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoteMagnet - Your Digital Notebook</title>
+  <link rel="stylesheet" href="{% static "notes.css" %}">
+  {% block head %}
+
+  {% endblock head %}
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="" alt="">
+        NoteMagnet
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href="{% url "home" %}">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      
+      <div class="auth-buttons">
+        <button class="button login-btn">Login</button>
+        <a class="button signup-btn" href="{% url "signup" %}">Sign Up</a>
+      </div>
+      
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+    
+    <!-- Sidebar for mobile -->
+    <div class="sidebar">
+      <button class="close-btn">&times;</button>
+      <ul class="sidebar-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="sidebar-auth">
+        <button class="button login-btn">Login</button>
+        <button class="button signup-btn">Sign Up</button>
+      </div>
+    </div>
+    <div class="overlay"></div>
+  </header>
+
+  {% block main %}
+  
+
+  {% endblock main %}
+
+   <!-- Footer -->
+   <footer>
+    <div class="social-links">
+      <a href="#" class="social-icon">f</a>
+      <a href="#" class="social-icon">t</a>
+      <a href="#" class="social-icon">in</a>
+      <a href="#" class="social-icon">ig</a>
+    </div>
+    <p>&copy; 2025 NoteMagnet. All rights reserved.</p>
+  </footer>
+  
+  <script>
+    // JavaScript for mobile navigation
+    const burger = document.querySelector('.burger');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    const closeBtn = document.querySelector('.close-btn');
+    
+    burger.addEventListener('click', () => {
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+    
+    function closeSidebar() {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    
+    closeBtn.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+  </script>
+</body>
+</html>

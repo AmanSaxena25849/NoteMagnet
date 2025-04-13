@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% load static %}
+<meta http-equiv="refresh" content="10;url={% url 'home' %}">
+<link rel="stylesheet" href="{% static "accounts/redirect.css" %}">
+{% endblock head %}
+
+{% block main %}
+  <main>
+  <!-- Header Section -->
+    <div class="success-box">
+      <h1>Your account has been created successfully.</h1>
+      <p>You'll be redirected in a few seconds...</p>
+    </div>
+  </main>
+{% endblock main %}
