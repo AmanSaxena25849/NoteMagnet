@@ -1,61 +1,42 @@
 from django import forms
-from .models import users
+from allauth.account.forms import SignupForm
 
-class SignupForm(forms.ModelForm):
+class CustomSignupForm(SignupForm):
     
-    confirm_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control','type':'password','id':'confirm-password'}),
-        label='Confirm Password',
-        required=True
-    )
+    first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id':'first-name'}))
     
-    agree = forms.BooleanField(
-        label="I agree to the Terms and Conditions and Privacy Policy",
-        required=True,
-    )
+    last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id':'last-name'}))
     
-    class Meta:
-        model = users
-        fields = ['first_name', 'last_name', 'username', 'age', 'email', 'phone_number', 'password', 'notifications']
-        
-        lables = {
-            'first_name': 'First Name',
-            'last_name': 'Last Name',
-            'username': 'Username',
-            'age': 'Age',
-            'email': 'Email Address*',
-            'phone_number': 'Phone Number',
-            'password': 'Password',
-            'notifications': 'Sign up for our newsletter to receive updates and special offers',
-        }
-        
-        widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control', 'id':'first-name'}),
-            
-            'last_name': forms.TextInput(attrs={'class': 'form-control', 'id':'last-name'}),
-            
-            'username': forms.TextInput(attrs={'class': 'form-control', 'id':'username'}),
-            
-            'age': forms.NumberInput(attrs={'class': 'form-control', 'id':'age', 'type':'number', 'min':'10'}),
-            
-            'email': forms.EmailInput(attrs={'class': 'form-control','id':'email', 'type':'email'}),
-            
-            'phone_number': forms.TextInput(attrs={'class':'form-control','id':'phone', 'type':'tel','placeholder':'e.g. (123) 456-7890'}),
-            
-            'password': forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'}),
-        }
-        
-        error_messages = {
-            'phone_number':{
-                'invalid': 'Please enter a valid US phone number.',
-            }
-        }
-        
+    age = forms.IntegerField(required=True, label='Age', widget=forms.NumberInput(attrs={'class': 'form-control', 'id':'age', 'type':'number', 'min':'10'}))
+    
+    phone_number = forms.CharField(required=False, max_length=15, widget=forms.TextInput(attrs={'class':'form-control','id':'phone', 'type':'tel','placeholder':'e.g. +91 123456789'}))
+    
+    notifications = forms.BooleanField(required=False )
+    agree = forms.BooleanField(required=True)
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get('password')
-        confirm_password = cleaned_data.get('confirm_password')
-
-        if password != confirm_password:
-            self.add_error('confirm_password', "Passwords do not match")
+    
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control', 'id':'username'})
+        
+        self.fields['email'].widget = forms.EmailInput(attrs={
+            'placeholder': 'Your email address',
+            'class': 'form-control'
+        })
+        
+        self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'})
+        
+        self.fields['password2'].widget =  forms.PasswordInput(attrs={'class': 'form-control', 'id':'confirm-password', 'type':'password'})
+        
+    def save(self, request):
+        user = super().save(request)
+        user.age = self.cleaned_data['age']
+        user.phone_number = self.cleaned_data['phone_number']
+        user.notifications = self.cleaned_data['notifications']
+        user.agree= self.cleaned_data['agree']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
+        return user

@@ -9,7 +9,7 @@ from django.db.models import JSONField
 
 class users(AbstractUser):
     age = models.PositiveIntegerField(validators=[MinValueValidator(9), MaxValueValidator(110)], null=True)
-    phone_number = PhoneNumberField(unique=True, blank=True, null=True)
+    phone_number = PhoneNumberField(max_length=20, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     social_links = models.JSONField(blank=True, null=True)
     notifications = models.BooleanField(default=False)

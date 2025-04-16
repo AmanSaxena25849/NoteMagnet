@@ -54,7 +54,7 @@
       <div class="form-group">
         <label for="password">Password</label>
         <div class="password-wrapper">
-          {{form.password}}
+          {{form.password1}}
           <button type="button" class="toggle-password" id="toggle-password">Show</button>
         </div>
         <div class="password-strength">
@@ -67,7 +67,7 @@
       <div class="form-group">
         <label for="confirm-password">Confirm Password</label>
         <div class="password-wrapper">
-          {{form.confirm_password}}
+          {{form.password2}}
           <button type="button" class="toggle-password" id="toggle-confirm-password">Show</button>
         </div>
         <div class="error-message" id="confirm-password-error">{{form.confirm_password.errors}}</div>
@@ -92,9 +92,12 @@
       </div>
       
       <div class="social-signup">
+        {% load socialaccount %}
         <p>Or sign up with</p>
         <div class="social-buttons">
-          <a href="#" class="social-button">f</a>
+          <a class="btn btn-danger" href="{% provider_login_url 'google' method='oauth2' process='signup' %}">
+            <img src="https://img.icons8.com/?size=30&id=V5cGWnc9R4xj&format=png&color=000000" alt="">
+          </a>
           <a href="#" class="social-button">g</a>
           <a href="#" class="social-button">in</a>
         </div>
