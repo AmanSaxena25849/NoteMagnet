@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/login/login.css' %}">
+    <script defer src="{% static 'accounts/login/login.js' %}"></script>
+{% endblock head %}
+ 
+{% block main %}
+    <main class="main-content">
+        <h1 class="page-title">Sign In to Your Account</h1>
+        <form method="post" class="signin-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{form.login}}
+                <div class="error-message" id="username-error">Username must be at least 3 characters</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        {{form.password}}
+                        <button type="button" class="toggle-password" id="toggle-password">Show</button>
+                    </div>
+                <a href="/account/password/reset">Forgot your password?</a>
+            </div>
+
+            <label class="Remember">Remember me:</label>
+            {{form.remember}}
+            
+            <button type="submit" class="button btn-primary">Log In</button>
+
+                <div class="login-link">
+                    Don't have an account? <a href="#">Sign Up</a>
+                    </div>
+
+                <div class="social-signin">
+                    <p>Or sign in with</p>
+                    <div class="social-buttons">
+                        <a href="#" class="social-button">f</a>
+                        <a href="#" class="social-button">g</a>
+                        <a href="#" class="social-button">in</a>
+                    </div>
+                    </div>
+        </form>
+    </main>
+{% endblock main %}

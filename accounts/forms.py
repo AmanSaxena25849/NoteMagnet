@@ -1,5 +1,5 @@
 from django import forms
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm
 
 class CustomSignupForm(SignupForm):
     
@@ -40,3 +40,17 @@ class CustomSignupForm(SignupForm):
         user.last_name = self.cleaned_data['last_name']
         user.save()
         return user
+    
+
+
+class CustomLoginForm(LoginForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.fields['login'].widget = forms.TextInput(attrs={'class': 'form-control', 'id':'username', 'type':'text'})
+        
+        self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'})
+        
+    
+    

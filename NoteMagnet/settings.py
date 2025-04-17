@@ -153,6 +153,7 @@ AUTH_USER_MODEL = 'accounts.users'
 
 ACCOUNT_FORMS = {
     'signup': 'accounts.forms.CustomSignupForm',
+    'login': 'accounts.forms.CustomLoginForm',
 }
 
 AUTHENTICATION_BACKENDS = [
