@@ -122,13 +122,13 @@
     background-color: transparent;
     border: 1px solid var(--accent);
     color: var(--text-dark);
+    text-decoration: none;
   }
   
   .signup-btn {
     background-color: var(--accent);
     color: white;
-    text-decoration: none;
-    font-size: 0.85em;
+    text-decoration: none; 
   }
   
   .button:hover {
@@ -328,6 +328,7 @@
   
   /* Responsive design */
   @media screen and (max-width: 768px) {
+
     .nav-links, .auth-buttons {
       display: none;
     }
@@ -442,5 +443,12 @@
     
     .header h1 {
       font-size: 2.5rem;
+    }
+
+    footer {
+      background-color: var(--secondary-bg);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-dark);
     }
   }
