@@ -1,5 +1,5 @@
 from django import forms
-from allauth.account.forms import SignupForm, LoginForm
+from allauth.account.forms import SignupForm, LoginForm, ResetPasswordKeyForm
 
 class CustomSignupForm(SignupForm):
     
@@ -52,5 +52,13 @@ class CustomLoginForm(LoginForm):
         
         self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'})
         
+ 
     
+class CustomResetPasswordKeyForm(ResetPasswordKeyForm):
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'})
+        
+        self.fields['password2'].widget =  forms.PasswordInput(attrs={'class': 'form-control', 'id':'confirm-password', 'type':'password'})
