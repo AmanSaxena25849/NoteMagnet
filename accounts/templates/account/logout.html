@@ -11,12 +11,12 @@
     <form method="post" action="{% url 'account_logout' %}" class="center">
 
       {% csrf_token %}
-      <h1>Signing Out as <a href="">Aman25849.</a></h1>
+      <h1>Signing Out as <a href="">{{user}}.</a></h1>
       <p>Are you sure you want to sign out?</p>
 
       <div class="action-buttons">
-        <a href="{% url 'home' %}" class="button">Cancle</a>
-        <button type="submit" class="button">Sign out</button>
+        <button type="submit" class="button action">Sign out</button>
+        <a href="{% url 'home' %}" class="button action">Cancle</a>
       </div>
       
     </form>

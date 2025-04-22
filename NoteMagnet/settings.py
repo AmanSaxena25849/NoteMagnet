@@ -155,6 +155,7 @@ ACCOUNT_FORMS = {
     'signup': 'accounts.forms.CustomSignupForm',
     'login': 'accounts.forms.CustomLoginForm',
     'reset_password_from_key': 'accounts.forms.CustomResetPasswordKeyForm',
+    'reauthenticate': 'accounts.forms.CustomReauthenticateForm'
 }
 
 AUTHENTICATION_BACKENDS = [
@@ -167,5 +168,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = '/' 
 ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 ACCOUNT_LOGIN_METHODS = {"username", "email"}

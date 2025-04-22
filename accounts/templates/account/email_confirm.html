@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block head %}
+ {% load static %}
+ <link rel="stylesheet" href="{% static "accounts/email_confirm/email_confirm.css" %}">
+{% endblock head %}
+
+{% block main %}
+  <main>
+  <!-- Header Section -->
+    <div class="center">
+      <h1>Confirm Your Email Address.</h1>
+      <p>Please confirm that {{email}} is an email address for user {{user}}.</p>
+
+      <form method="post" action="{% url 'account_confirm_email' confirmation.key %}" >
+        {% csrf_token %}
+        <button type="'submit" class="button">Confirm</button>
+      </form>
+    </div>
+    
+  </main>
+{% endblock main %}

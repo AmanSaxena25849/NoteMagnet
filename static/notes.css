@@ -104,6 +104,11 @@
     text-align: center;
   }
 
+  .auth-info ul li a{
+    text-decoration: none;
+    color: var(--text-dark);
+  }
+
   .auth-buttons {
     display: flex;
     gap: 1rem;

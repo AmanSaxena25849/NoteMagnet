@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'accounts/reauthenticate/reauthenticate.css' %}">
+  <script defer src="{% static 'accounts/reauthenticate/reauthenticate.js' %}"></script>
+{% endblock head %}
+
+
+{% block main %}
+  <main>
+  <!-- Header Section -->
+    <div class="center">
+      <h1>Confirm Email.</h1>
+      <p>Please reauthenticate to safeguard your account.</p>
+      
+      <form action="{% url 'reauth_with_email' %}" method="post" >
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="password">Enter your password:</label>
+          <div class="password-wrapper">
+            {{form.password}}
+            <button type="button" class="toggle-password" id="toggle-password">Show</button>
+          </div>
+          <div class="error-message" id="confirm-error">{{form.password.errors}}</div>
+          {{form.password.errors}}
+        </div>
+
+        <button type="submit" class="submit button">Confirm</button>
+
+      </form>
+
+    </div>
+    
+  </main>
+{% endblock main %}

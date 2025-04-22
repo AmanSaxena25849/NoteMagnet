@@ -32,13 +32,17 @@
             <button type="submit" class="button btn-primary">Log In</button>
 
                 <div class="login-link">
-                    Don't have an account? <a href="#">Sign Up</a>
+                    Don't have an account? 
+                    <a href="{% url "account_signup" %}">Sign Up</a>
                     </div>
 
                 <div class="social-signin">
+                    {% load socialaccount %}
                     <p>Or sign in with</p>
                     <div class="social-buttons">
-                        <a href="#" class="social-button">f</a>
+                        <a class="btn btn-danger" href="{% provider_login_url 'google' method='oauth2' process='login' %}">
+                            <img src="https://img.icons8.com/?size=30&id=V5cGWnc9R4xj&format=png&color=000000" alt="">
+                        </a>
                         <a href="#" class="social-button">g</a>
                         <a href="#" class="social-button">in</a>
                     </div>

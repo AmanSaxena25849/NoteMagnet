@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from accounts.views import reauth_with_email, dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.home, name="home"),
     path('accounts/', include('allauth.urls')),
+    path('accounts/reauth/', reauth_with_email, name='reauth_with_email'),
+    path('acounts/dashboard/', dashboard, name='dashboard'),    
 ]

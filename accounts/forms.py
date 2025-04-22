@@ -1,5 +1,7 @@
 from django import forms
-from allauth.account.forms import SignupForm, LoginForm, ResetPasswordKeyForm
+from allauth.account.forms import SignupForm, LoginForm, ResetPasswordKeyForm, ReauthenticateForm
+
+
 
 class CustomSignupForm(SignupForm):
     
@@ -15,7 +17,6 @@ class CustomSignupForm(SignupForm):
     agree = forms.BooleanField(required=True)
 
     
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -29,6 +30,7 @@ class CustomSignupForm(SignupForm):
         self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'})
         
         self.fields['password2'].widget =  forms.PasswordInput(attrs={'class': 'form-control', 'id':'confirm-password', 'type':'password'})
+   
         
     def save(self, request):
         user = super().save(request)
@@ -62,3 +64,17 @@ class CustomResetPasswordKeyForm(ResetPasswordKeyForm):
         self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'})
         
         self.fields['password2'].widget =  forms.PasswordInput(attrs={'class': 'form-control', 'id':'confirm-password', 'type':'password'})
+        
+
+
+
+class CustomReauthenticateForm(ReauthenticateForm):
+    
+     def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.fields['password'].widget = forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'type': 'password',
+            'id': 'password'
+        })
