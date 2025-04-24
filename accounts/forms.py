@@ -1,4 +1,5 @@
 from django import forms
+from .models import users
 from allauth.account.forms import SignupForm, LoginForm, ResetPasswordKeyForm, ReauthenticateForm
 
 
@@ -78,3 +79,35 @@ class CustomReauthenticateForm(ReauthenticateForm):
             'type': 'password',
             'id': 'password'
         })
+        
+        
+
+class DashboardForm(forms.ModelForm):
+    
+    class Meta:
+        model = users
+        fields = [
+            'first_name', 'last_name', 'username', 'age', 'phone_number', 'email', 'bio', 'profile_image'
+        ]
+        
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'id': 'first-name', 'readonly': 'true'}),
+            
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'id': 'last-name', 'readonly': 'true'}),
+            
+            'username': forms.TextInput(attrs={'class': 'form-control', 'id': 'username', 'readonly': 'true'}),
+            
+            'age': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'age', 'type': 'number', 'min': '10', 'readonly': 'true'
+            }),
+            
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'readonly': 'true'}),
+            
+            'phone_number': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'phone', 'type': 'tel', 'placeholder': 'e.g. +91 123456789', 'readonly': 'true'
+            }),
+            
+            'bio': forms.Textarea(attrs={'class': 'form-control bio-text', 'id': 'bio', 'readonly': 'true'}),
+            
+            'profile_image': forms.FileInput(attrs={'class':'note-image', 'id':'note-image', 'type':'file', 'accept':'image/*'})
+        }

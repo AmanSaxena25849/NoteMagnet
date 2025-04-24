@@ -171,3 +171,9 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 ACCOUNT_LOGIN_METHODS = {"username", "email"}
+
+
+
+# MEDIA SETTINGS
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = '/media/'

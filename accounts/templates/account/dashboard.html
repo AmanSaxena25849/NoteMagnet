@@ -3,93 +3,104 @@
 {% block head %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'accounts/dashboard/dashboard.css' %}">
+    <script defer src="{% static 'accounts/dashboard/dashboard.js' %}"></script>
 {% endblock head %}
 
 {% block main %}
         <main>
             <!-- User Dashboard Section -->
             <section class="dashboard-section">
-                <h1 class="section-title">User Dashboard</h1>
+                <h1 class="section-title">{{user.username}}</h1>
 
-                <div class="profile-container">
-                    <img
-                        src="/api/placeholder/150/150"
-                        alt="Profile Picture"
-                        class="profile-picture"
-                    />
-                    <h2 class="username">Aman25849</h2>
-                </div>
-
-                <div class="center-user-info">
-                    <div class="info-group">
-                        <div class="info-item">
-                            <div class="info-label">First Name</div>
-                            <div class="info-value">{{user.first_name}}</div>
-                        </div>
-
-                        <div class="info-item">
-                            <div class="info-label">Last Name</div>
-                            <div class="info-value">{{user.last_name}}</div>
-                        </div>
-
-                        <div class="info-item">
-                            <div class="info-label">User Name</div>
-                            <div class="info-value">{{user}}</div>
-                        </div>
-
-                        <div class="info-item">
-                            <div class="info-label">Age</div>
-                            <div class="info-value">{{user.age}}</div>
-                        </div>
-
-                        <div class="info-item">
-                            <div class="info-label">Phone Number</div>
-                            <div class="info-value">+091 9695123248</div>
-                        </div>
-
-                        <div class="info-item">
-                            <div class="info-label">Email</div>
-                            <div class="info-value">{{user.email}}</div>
+                <form action="{% url "dashboard" %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="profile-container">
+                        {% if form.profile_image %}
+                            <img
+                                src="{{user.profile_image.url}}"
+                                alt="Profile Picture"
+                                class="profile-picture"
+                            />
+                        {% else %}
+                            <img src="https://img.icons8.com/office/150/user.png"
+                                 alt="user" 
+                            />
+                        {% endif %}
+                        
+                        <div class="stats">
+                            <p>1k followers</p>
+                            <p>100 Notes</p>
                         </div>
                     </div>
-                </div>
 
-                <div class="bio-section">
-                    <div class="info-label">Bio</div>
-                    <div class="bio-text">
-                        Hi, I'm Aman! I'm a web developer with a passion for
-                        creating user-friendly interfaces. I love sharing notes
-                        about coding, productivity, and personal development. In
-                        my free time, I enjoy hiking and playing guitar. Feel
-                        free to check out my notes and connect with me!
+                    <div class="center-user-info">
+                        <div class="info-group">
+                            <div class="info-item">
+                                <label for="" class="info-label">First Name</label>
+                                {{form.first_name}}
+                            </div>
+
+                            <div class="info-item">
+                                <label for="" class="info-label">Last Name</label>
+                                {{form.last_name}}
+                            </div>
+
+                            <div class="info-item">
+                                <label for="" class="info-label">User Name</label>
+                                {{form.username}}
+                            </div>
+
+                            <div class="info-item">
+                                <label for="" class="info-label">Age</label>
+                                {{form.age}}
+                            </div>
+
+                            <div class="info-item">
+                                <label for="" class="info-label">Phone Number</label>
+                                {{form.phone_number}}
+                            </div>
+
+                            <div class="info-item">
+                                <label for="" class="info-label">Email</label>
+                                {{form.email}}
+                            </div>
+                            
+                        </div>
                     </div>
-                </div>
 
-                <div class="social-links-section">
-                    <div class="info-label">Social Links</div>
-                    <div class="social-links-container">
-                        <a href="#" class="social-link">
-                            <span class="social-icon">f</span>
-                            Facebook
-                        </a>
-                        <a href="#" class="social-link">
-                            <span class="social-icon">t</span>
-                            Twitter
-                        </a>
-                        <a href="#" class="social-link">
-                            <span class="social-icon">in</span>
-                            LinkedIn
-                        </a>
-                        <a href="#" class="social-link">
-                            <span class="social-icon">ig</span>
-                            Instagram
-                        </a>
+                    <div class="bio-section">
+                        <label for="" class="info-label">Bio</label>
+                        {{form.bio}}
                     </div>
-                </div>
 
-                <button class="button edit-btn edit-profile-btn">
-                    Edit Profile
-                </button>
+                    <div class="info-item file" id='file'>
+                        <label>Note Image (optional)</label>
+                        <div class="file-input-wrapper">
+                        <button type="button" class="file-input-button">Choose Image</button>
+                        {{form.profile_image}}
+                        </div>
+                        <span class="file-name" id="file-name">No file chosen</span>
+                        
+                        <div class="image-preview" id="image-preview">
+                        <span class="image-preview-placeholder">Image preview will appear here</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="button edit-btn edit-profile-btn">
+                            Edit Profile
+                        </button>
+                        <button type="button" class="button edit-btn edit-profile-btn cancle" style="display: none;">
+                            Cancle
+                        </button>
+                        <button type="submit" class="button edit-btn save-profile-btn">
+                            Save Profile
+                        </button>
+                    </div>
+                
+
+                </form>
 
                 <div class="account-options">
                     <h3 class="account-options-title">Account Settings</h3>
@@ -101,10 +112,8 @@
                                 <a href="{% url "account_reauthenticate" %}" class="account-link">Verify Email Address</a>
                             {% endif %}
                         {% endif %}
-                        <a href="#" class="account-link">Change Password</a>
-                        <a href="#" class="account-link delete"
-                            >Delete Account</a
-                        >
+                        <a href="{% url "account_change_password" %}" class="account-link">Change Password</a>
+                        <a href="#" class="account-link delete">Delete Account</a>
                     </div>
                 </div>
             </section>

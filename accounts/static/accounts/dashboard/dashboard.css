@@ -197,6 +197,19 @@ body {
     color: var(--text-dark);
 }
 
+.stats{
+    display: flex;
+    gap: 1rem;
+}
+
+.stats p{
+    border: 4px solid var(--accent);
+    background-color: var(--primary-bg);
+    border-radius: 25px;
+    padding: 3px 8px;
+    margin: .5rem;
+}
+
 .center-user-info {
     width: 100%;
     margin-top: 2rem;
@@ -210,6 +223,12 @@ body {
 
 .info-item {
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item:focus{
+    outline: none;
 }
 
 .info-label {
@@ -218,15 +237,20 @@ body {
     color: var(--text-light);
 }
 
-.info-value {
+.form-control {
     padding: 0.75rem;
     background-color: var(--primary-bg);
     border-radius: 4px;
     margin-top: 0.25rem;
+    border: 2px solid transparent;
+    transition: 50ms linear;
+    box-sizing: border-box;
 }
 
 .bio-section {
     margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .bio-text {
@@ -234,42 +258,98 @@ body {
     background-color: var(--primary-bg);
     border-radius: 4px;
     line-height: 1.6;
+    height: auto;
+    max-height: 500px;
 }
 
-.social-links-section {
-    margin-bottom: 2rem;
+.bio-text::-webkit-scrollbar{
+    display: none;
 }
 
-.social-links-container {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+.file{
+    display: none;
 }
 
-.social-link {
+.image-preview {
+    margin-top: 1rem;
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+    background-color: #f0f0f0;
     display: flex;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.image-preview-placeholder {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+.file-input-button {
+    display: inline-block;
     padding: 0.5rem 1rem;
     background-color: var(--secondary-bg);
-    border-radius: 4px;
-    text-decoration: none;
     color: var(--text-dark);
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
     transition: all 0.3s;
 }
 
-.social-link:hover {
+.file-input-button:hover {
     background-color: var(--accent);
     color: white;
 }
 
-.social-icon {
-    margin-right: 0.5rem;
-    font-weight: bold;
+.file-name {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.action-buttons{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
 }
 
 .edit-profile-btn {
     display: block;
-    margin: 2rem auto;
+    margin: 2rem;
+    padding: 0.75rem 2rem;
+}
+
+.save-profile-btn {
+    display: block;
+    margin: 2rem;
     padding: 0.75rem 2rem;
 }
 

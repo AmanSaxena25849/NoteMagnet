@@ -11,9 +11,10 @@ class users(AbstractUser):
     age = models.PositiveIntegerField(validators=[MinValueValidator(9), MaxValueValidator(110)], null=True)
     phone_number = PhoneNumberField(max_length=20, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
-    social_links = models.JSONField(blank=True, null=True)
     notifications = models.BooleanField(default=False)
     varified = models.BooleanField(default=False)
+    profile_image = models.ImageField(upload_to='user_profile_image', blank=True, null=True)
+    
     
     def __str__(self):
         return self.username
