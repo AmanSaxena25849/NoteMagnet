@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "accounts/confirm_account_delete/confirm_account_delete.css" %}">
+{% endblock head %}
+
+{% block main %}
+    <main>
+        <div class="center">
+            <h1>Delete Your account.</h1>
+            <p class='warning'>Last Warning: All data, including your notes and follower count, will be deleted and cannot be recovered.</p>
+            
+            <div class="btns">
+                <a class='button submit' href="{% url "home" %}">Cancel</a>
+
+                <a class='button submit delete' href="{% url "delete_account" %}">Delete Account</a>
+            </div>
+            
+        </div>
+    </main>
+
+{% endblock main %}

@@ -29,7 +29,12 @@
 
       {% if user.is_authenticated %}
         <div class="auth-info">
-          <img src="https://img.icons8.com/office/32/user.png" alt="user" />
+          {% if user.profile_image %}
+            <img src="{{user.profile_image.url}}" alt="user" width='45' height='45' />
+          {% else %}
+            <img src="https://img.icons8.com/office/32/user.png" alt="user" />
+          {% endif %}
+          
           <ul>
             <li class="button"><a href="{% url 'dashboard' %}">Profile</a></li>
             <li class="button">My Notes</li>
@@ -60,8 +65,18 @@
       </ul>
       {% if user.is_authenticated %}
         <div class="sidebar-auth-info">
-          <img src="https://img.icons8.com/material-rounded/24/user.png" alt="user"/>
-          <a href="">Aman25849</a>
+          {% if user.profile_image %}
+            <div>
+              <img src="{{user.profile_image.url}}" alt="user" width='32' height='32' />
+              <p>{{user.username}}</p>
+            </div>
+            <a href="{% url 'dashboard' %}">Profile</a>
+            <a href="">My notes</a>
+            <a href="{% url 'account_logout' %}">Sign out</a>
+            
+          {% else %}
+          {% endif %}
+          
         </div>
       {% else %}
         <div class="sidebar-auth">

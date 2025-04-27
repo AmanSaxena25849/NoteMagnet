@@ -13,6 +13,9 @@
     
     <form method="POST" class="signup-form" id="signup-form">
       {% csrf_token %}
+      {% for error in form.non_field_errors %}
+          <p>&#x2022; {{ error }}</p>
+      {% endfor %}
       <div class="form-row">
         <div class="form-group">
           <label for="first-name">First Name</label>

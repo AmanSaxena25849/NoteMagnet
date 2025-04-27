@@ -14,9 +14,13 @@
 
                 <form action="{% url "dashboard" %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
+                    {% for error in form.non_field_errors %}
+                        <p>&#x2022; {{ error }}</p>
+                    {% endfor %}
+
                     
                     <div class="profile-container">
-                        {% if form.profile_image %}
+                        {% if user.profile_image %}
                             <img
                                 src="{{user.profile_image.url}}"
                                 alt="Profile Picture"
@@ -105,15 +109,20 @@
                 <div class="account-options">
                     <h3 class="account-options-title">Account Settings</h3>
                     <div class="account-links">
+
                         {% if user.is_authenticated %}
                             {% if user.emailaddress_set.first.verified %}
+                                <a href="/accounts/social/connections/" class="account-link">social connections</a>
+
+                                <a href="{% url "account_email" %}" class="account-link">Add email address</a>
+
                                 <p class='account-link done'>Your email is verified.</p>
-                            {% else %}
-                                <a href="{% url "account_reauthenticate" %}" class="account-link">Verify Email Address</a>
                             {% endif %}
                         {% endif %}
+
                         <a href="{% url "account_change_password" %}" class="account-link">Change Password</a>
-                        <a href="#" class="account-link delete">Delete Account</a>
+
+                        <a href="{% url "confirm_account_delete" %}" class="account-link delete">Delete Account</a>
                     </div>
                 </div>
             </section>

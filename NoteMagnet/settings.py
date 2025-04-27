@@ -155,6 +155,7 @@ ACCOUNT_FORMS = {
     'signup': 'accounts.forms.CustomSignupForm',
     'login': 'accounts.forms.CustomLoginForm',
     'reset_password_from_key': 'accounts.forms.CustomResetPasswordKeyForm',
+    'set_password': 'accounts.forms.CustomSetPasswordForm',
     'reauthenticate': 'accounts.forms.CustomReauthenticateForm'
 }
 

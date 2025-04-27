@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "socialaccount/login.css" %}">
+{% endblock head %}
+
+{% block main %}
+    <main>
+        <div class='center'>
+            <h1>Sign Up.</h1>
+            <p>You are about to use your Google account to login.</p>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class='button submit' type="submit">Sign Up</button>
+            </form>
+        </div>
+    </main>
+{% endblock main %}

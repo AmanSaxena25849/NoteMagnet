@@ -20,132 +20,6 @@ body {
     color: var(--text-dark);
 }
 
-/* Navigation */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: var(--secondary-bg);
-    box-shadow: 0 2px 5px var(--shadow);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--text-dark);
-}
-
-.logo img {
-    height: 40px;
-    margin-right: 10px;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 1.5rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: var(--accent);
-}
-
-.auth-info {
-    position: relative;
-    right: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 10px;
-}
-
-.auth-info img {
-    border: 2px solid var(--text-dark);
-    background-color: rgba(235, 235, 235, 0.425);
-    padding: 5px;
-    border-radius: 50%;
-}
-
-.auth-info ul {
-    display: none;
-    flex-direction: column;
-    gap: 0.5rem;
-    position: absolute;
-    top: 50px;
-    list-style: none;
-    min-width: 100px;
-    z-index: 100;
-    padding-top: 10px;
-}
-
-.auth-info:hover ul,
-.auth-info ul:hover {
-    display: flex;
-}
-
-.auth-info ul li {
-    background-color: var(--accent);
-    padding: 5px 10px;
-    text-align: center;
-}
-
-.button {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s;
-}
-
-.login-btn {
-    background-color: transparent;
-    border: 1px solid var(--accent);
-    color: var(--text-dark);
-}
-
-.signup-btn,
-.edit-btn {
-    background-color: var(--accent);
-    color: white;
-}
-
-.button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px var(--shadow);
-}
-
-.burger {
-    display: none;
-    cursor: pointer;
-}
-
-.burger div {
-    width: 25px;
-    height: 3px;
-    background-color: var(--text-dark);
-    margin: 5px;
-    transition: all 0.3s ease;
-}
-
-.sidebar {
-    display: none;
-}
 
 /* Dashboard section */
 .dashboard-section {
@@ -345,12 +219,14 @@ body {
     display: block;
     margin: 2rem;
     padding: 0.75rem 2rem;
+    background-color: var(--accent);
 }
 
 .save-profile-btn {
     display: block;
     margin: 2rem;
     padding: 0.75rem 2rem;
+    background-color: var(--accent);
 }
 
 .account-options {
@@ -434,92 +310,6 @@ footer p {
 
 /* Responsive design */
 @media screen and (max-width: 768px) {
-    .nav-links,
-    .auth-info {
-        display: none;
-    }
-
-    .burger {
-        display: block;
-    }
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: 0;
-        height: 100vh;
-        width: 250px;
-        background-color: var(--secondary-bg);
-        z-index: 1000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in;
-        box-shadow: -2px 0 5px var(--shadow);
-        padding: 2rem;
-        display: unset;
-    }
-
-    .sidebar.active {
-        transform: translateX(0);
-    }
-
-    .close-btn {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--text-dark);
-    }
-
-    .sidebar-links {
-        list-style: none;
-        margin-top: 3rem;
-    }
-
-    .sidebar-links li {
-        margin-bottom: 1.5rem;
-    }
-
-    .sidebar-links a {
-        text-decoration: none;
-        color: var(--text-dark);
-        font-weight: 500;
-        font-size: 1.2rem;
-        transition: color 0.3s;
-    }
-
-    .sidebar-links a:hover {
-        color: var(--accent);
-    }
-
-    .sidebar-auth-info {
-        border-top: 3px solid var(--accent);
-        margin-top: 1rem;
-        padding-top: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .sidebar-auth-info img {
-        border: 2px solid var(--text-dark);
-        background-color: rgba(235, 235, 235, 0.425);
-        padding: 5px;
-        border-radius: 50%;
-    }
-
-    .sidebar-auth-info a {
-        position: relative;
-        bottom: 3px;
-        color: var(--text-dark);
-        font-weight: 500;
-    }
-
-    .sidebar-auth-info a:hover {
-        color: var(--accent);
-    }
 
     .overlay {
         position: fixed;

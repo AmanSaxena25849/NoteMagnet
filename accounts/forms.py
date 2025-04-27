@@ -1,6 +1,6 @@
 from django import forms
 from .models import users
-from allauth.account.forms import SignupForm, LoginForm, ResetPasswordKeyForm, ReauthenticateForm
+from allauth.account.forms import SignupForm, LoginForm, ResetPasswordKeyForm, ReauthenticateForm, SetPasswordForm
 
 
 
@@ -66,6 +66,16 @@ class CustomResetPasswordKeyForm(ResetPasswordKeyForm):
         
         self.fields['password2'].widget =  forms.PasswordInput(attrs={'class': 'form-control', 'id':'confirm-password', 'type':'password'})
         
+        
+class CustomSetPasswordForm(SetPasswordForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'})
+        
+        self.fields['password2'].widget =  forms.PasswordInput(attrs={'class': 'form-control', 'id':'confirm-password', 'type':'password'})
+        
 
 
 
@@ -111,3 +121,5 @@ class DashboardForm(forms.ModelForm):
             
             'profile_image': forms.FileInput(attrs={'class':'note-image', 'id':'note-image', 'type':'file', 'accept':'image/*'})
         }
+        
+        

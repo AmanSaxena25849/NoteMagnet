@@ -19,15 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from accounts.views import reauth_with_email, dashboard
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.home, name="home"),
-    path('accounts/', include('allauth.urls')),
-    path('accounts/reauth/', reauth_with_email, name='reauth_with_email'),
-    path('accounts/dashboard/', dashboard, name='dashboard'),    
+    path('accounts/', include('accounts.urls')),
+        
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

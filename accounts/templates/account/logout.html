@@ -11,6 +11,9 @@
     <form method="post" action="{% url 'account_logout' %}" class="center">
 
       {% csrf_token %}
+      {% for error in form.non_field_errors %}
+          <p>&#x2022; {{ error }}</p>
+      {% endfor %}
       <h1>Signing Out as <a href="">{{user}}.</a></h1>
       <p>Are you sure you want to sign out?</p>
 

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "socialaccount/login_cancelled.css" %}">
+{% endblock head %}
+
+{% block main %}
+    <main>
+        <div class="center">
+            <h1>Login Cancelled</h1>
+            <p>You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to sign in.</p>
+            
+            <a class='button submit' href="{% url "account_login" %}">Sign In</a>
+        </div>
+    </main>
+
+{% endblock main %}

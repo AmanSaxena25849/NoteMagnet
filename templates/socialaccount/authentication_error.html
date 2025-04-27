@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "socialaccount/authentication_error.css" %}">
+{% endblock head %}
+
+{% block main %}
+    <main>
+        <div class="center">
+            <h1>Third-Party Login Failure</h1>
+            <p>An error occurred while attempting to login via your third-party account. Please try again.</p>
+            
+            <a class='button submit' href="{% url "account_login" %}">Sign In</a>
+        </div>
+    </main>
+
+{% endblock main %}

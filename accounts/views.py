@@ -2,7 +2,8 @@ import os
 from allauth.account.utils import send_email_confirmation
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from allauth.account.models import EmailAddress
+from allauth.account.models import EmailAddress, get_user_model
+from django.contrib.auth.models import User
 from .forms import DashboardForm
 
 # Create your views here.
@@ -13,7 +14,7 @@ def reauth_with_email(request):
     return redirect('home')
     
     
-    
+@login_required    
 def dashboard(request):
     user =request.user
     
@@ -45,3 +46,16 @@ def dashboard(request):
             })
         
     return render(request, "account/dashboard.html", {"form":form})
+
+
+@login_required
+def confirm_account_delete(request):
+    return render (request, 'account/confirm_account_delete.html')
+
+
+@login_required
+def delete_account(request):
+    user:str = request.user
+    UserModel = get_user_model()
+    UserModel.objects.get(username=user).delete()
+    return redirect('home')
