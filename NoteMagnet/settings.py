@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     #user apps
     'accounts',
+    'notes',
     
     #default apps
     'django.contrib.admin',

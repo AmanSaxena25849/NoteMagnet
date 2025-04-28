@@ -117,6 +117,8 @@
                                 <a href="{% url "account_email" %}" class="account-link">Add email address</a>
 
                                 <p class='account-link done'>Your email is verified.</p>
+                            {% else %}
+                                <a href="{% url "account_reauthenticate" %}" class="account-link">Verify Email Address</a>
                             {% endif %}
                         {% endif %}
 

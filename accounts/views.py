@@ -2,7 +2,7 @@ import os
 from allauth.account.utils import send_email_confirmation
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from allauth.account.models import EmailAddress, get_user_model
+from allauth.account.models import  get_user_model
 from django.contrib.auth.models import User
 from .forms import DashboardForm
 
