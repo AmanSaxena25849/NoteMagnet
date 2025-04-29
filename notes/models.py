@@ -26,7 +26,7 @@ class Notes(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     note_image = models.ImageField(upload_to='note_image', blank=True, null=True)
-    private = models.BooleanField(default=True)
+    public = models.BooleanField(default=True)
     tag = models.ManyToManyField(Tags, related_name='Notes')
     views_count = models.IntegerField(default=0)
     created_at = models.DateField(auto_now=False, auto_now_add=True)

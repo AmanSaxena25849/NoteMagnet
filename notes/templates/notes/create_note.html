@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "notes/create_note/create_note.css" %}">
+    <script defer src="{% static "notes/create_note/create_note.js" %}"></script>
+{% endblock head %}
+
+
+{% block main %}
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">Create a New Note</h1>
+        
+        <form class="create-note-form" method="post" action="{% url "create_note" %}">
+            {% csrf_token %}
+            {% for error in form.non_field_errors %}
+                <p>&#x2022; {{ error }}</p>
+            {% endfor %}
+
+            <div class="date-info">
+                <span>Created: <span id="current-date">April 5, 2025</span></span>
+                <span>Author: {{user.first_name}} {{user.last_name}}</span>
+            </div>
+            
+            
+            <div class="form-group">
+                <label for="note-title">Note Title</label>
+                {{form.title}}
+            </div>
+            
+            <div class="form-group">
+                <label for="note-tags">Tags (optional)</label>
+                <div class="tag-input">
+                    <div class="tag">
+                        Notes <button type="button" class="tag-remove">&times;</button>
+                    </div>
+                    <input type="text" placeholder="Add tags..." id="tag-input-field">
+                    <!-- Hidden input to store tags as JSON array -->
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="note-content">Note Content</label>
+                {{form.content}}
+            </div>
+            
+            <div class="form-group">
+                <label>Note Image (optional)</label>
+                <div class="file-input-wrapper">
+                <button type="button" class="file-input-button">Choose Image</button>
+                {{form.note_image}}
+                </div>
+                <span class="file-name" id="file-name">No file chosen</span>
+                
+                <div class="image-preview" id="image-preview">
+                <span class="image-preview-placeholder">Image preview will appear here</span>
+                </div>
+            </div>
+            
+            <div class="form-group checkbox">
+                <label for="note-public">Make this note public(All users will see this note).</label>
+                {{form.public}}
+            </div>
+            
+            
+            <div class="button-group">
+                <button type="submit" class="button btn-primary">Publish Note</button>
+            </div>
+        </form>
+    </main> 
+{% endblock main %}

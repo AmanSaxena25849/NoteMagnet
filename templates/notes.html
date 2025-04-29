@@ -9,9 +9,9 @@
       <h1>Welcome to NoteMagnet</h1>
       <p>Discover, create, and share notes that stick with you. Your digital notebook for everything important.</p>
       {% if user.is_authenticated%}
-        <a class="button signup-btn" href="">Get Started</a>
+        <a class="button signup-btn" href="{% url "create_note" %}">Get Started</a>
       {% else %}
-        <a class="button signup-btn" href="">Get Started</a>
+        <a class="button signup-btn" href="{% url "account_login" %}">Get Started</a>
       {% endif %}
     </div>
     

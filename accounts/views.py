@@ -26,10 +26,9 @@ def dashboard(request):
             
         form = DashboardForm(request.POST,request.FILES, instance=request.user)
         if form.is_valid():
-            if form.is_valid():
-                if old_image and 'profile_image' in request.FILES:
-                    if os.path.isfile(old_image):
-                        os.remove(old_image)
+            if old_image and 'profile_image' in request.FILES:
+                if os.path.isfile(old_image):
+                    os.remove(old_image)
 
             form.save()
             return redirect('dashboard')
