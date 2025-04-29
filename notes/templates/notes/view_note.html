@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static "notes/view_note/view_note.css" %}">
+{% endblock head %}
+
+{% block main %}
+  <main>
+    <div class="note-container">
+      <!-- Note Header -->
+      <div class="note-header">
+        <h1 class="note-title">{{note.title}}</h1>
+        <div class="note-meta">
+          <div class="author-info">
+            <img src="{{note.author.profile_image.url}}" alt="Author Avatar" class="author-avatar">
+            <div class="author-details">
+              <span class="author-name">{{note.author.username}}</span>
+              <span class="publication-date">Published on {{note.created_at}}</span>
+            </div>
+          </div>
+          <div class="action-buttons">
+            <button class="follow-btn">
+              <span class="button-icon">+</span> Follow
+            </button>
+            <button class="star-btn">
+              <span class="button-icon">★</span> Add to Bookmarks
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <img src="{{note.note_image.url}}" alt="Time Management" class="note-cover-img">
+      
+      <!-- Note Content -->
+      <div class="note-body">
+        {{note.content}}
+        
+        <div class="note-footer">
+          <div class="note-tags">
+            <span class="tag">Productivity</span>
+            <span class="tag">Self-Improvement</span>
+            <span class="tag">Work-Life Balance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Related Notes Section -->
+    <section class="related-notes">
+      <div class="note-container">
+        <h2>Related Notes</h2>
+        <div class="related-cards">
+          <!-- Related Note 1 -->
+          <div class="note-card">
+            <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
+            <div class="note-content">
+              <h3 class="note-title">The Ultimate Study Guide</h3>
+              <p class="note-desc">Comprehensive study techniques for better learning and retention. Perfect for students and lifelong learners...</p>
+              <div class="note-meta">
+                <div class="user-info">
+                  <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
+                  <span>Mike Chen</span>
+                </div>
+                <span>1 week ago</span>
+              </div>
+              <a href="#" class="read-more">Read More</a>
+            </div>
+          </div>
+          
+          <!-- Related Note 2 -->
+          <div class="note-card">
+            <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
+            <div class="note-content">
+              <h3 class="note-title">Healthy Morning Routines</h3>
+              <p class="note-desc">Start your day right with these science-backed morning habits that boost energy and productivity...</p>
+              <div class="note-meta">
+                <div class="user-info">
+                  <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
+                  <span>Emma Wilson</span>
+                </div>
+                <span>2 weeks ago</span>
+              </div>
+              <a href="#" class="read-more">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+{% endblock main %}

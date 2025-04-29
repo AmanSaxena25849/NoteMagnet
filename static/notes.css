@@ -212,6 +212,37 @@
     max-width: 1200px;
     margin: 0 auto;
   }
+
+  .create-new-note{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+
+  .create-new-center{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    height: auto;
+  }
+
+  .create-new-center img{
+    margin-bottom: 1rem;
+    background-color: #f1f1f1;
+    padding: 25px;
+    border-radius: 15px;
+  }
+
+  .create-new-note a{
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-dark);
+  }
   
   .note-card {
     background-color: var(--card-bg);

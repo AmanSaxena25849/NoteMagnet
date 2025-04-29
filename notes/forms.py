@@ -4,7 +4,7 @@ from .models import Notes
 class NotesForm(forms.ModelForm):
     class Meta:
         model = Notes
-        fields = ['user_id', 'title', 'content', 'note_image', 'public']
+        fields = ['author', 'title', 'content', 'note_image', 'public']
         widgets = {
             "title": forms.TextInput(attrs={
                 "class":"form-control",
@@ -22,7 +22,7 @@ class NotesForm(forms.ModelForm):
             "note_image": forms.FileInput(attrs={
                 "id":"note-image",
                 "type": "file",
-                "accept": "image/*"
+                "accept": "image/*",
             }),
             
             "public": forms.CheckboxInput(attrs={

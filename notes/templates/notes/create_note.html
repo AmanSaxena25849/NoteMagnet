@@ -12,7 +12,7 @@
     <main class="main-content">
         <h1 class="page-title">Create a New Note</h1>
         
-        <form class="create-note-form" method="post" action="{% url "create_note" %}">
+        <form class="create-note-form" method="post" action="{% url "create_note" %}" enctype="multipart/form-data">
             {% csrf_token %}
             {% for error in form.non_field_errors %}
                 <p>&#x2022; {{ error }}</p>
@@ -48,8 +48,8 @@
             <div class="form-group">
                 <label>Note Image (optional)</label>
                 <div class="file-input-wrapper">
-                <button type="button" class="file-input-button">Choose Image</button>
-                {{form.note_image}}
+                    <button type="button" class="file-input-button">Choose Image</button>
+                    {{form.note_image}}
                 </div>
                 <span class="file-name" id="file-name">No file chosen</span>
                 

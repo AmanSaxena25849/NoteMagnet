@@ -22,11 +22,11 @@ class Notes(models.Model):
     class Meta:
         verbose_name_plural = "Notes" 
     
-    user_id = models.ForeignKey(user, on_delete=models.CASCADE, related_name='Notes')
+    author = models.ForeignKey(user, on_delete=models.CASCADE, related_name='Notes')
     title = models.CharField(max_length=255)
     content = models.TextField()
-    note_image = models.ImageField(upload_to='note_image', blank=True, null=True)
-    public = models.BooleanField(default=True)
+    note_image = models.ImageField(upload_to='note_image',blank=True, null=True)
+    public = models.BooleanField(default=False)
     tag = models.ManyToManyField(Tags, related_name='Notes')
     views_count = models.IntegerField(default=0)
     created_at = models.DateField(auto_now=False, auto_now_add=True)
