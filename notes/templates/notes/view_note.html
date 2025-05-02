@@ -38,9 +38,9 @@
         
         <div class="note-footer">
           <div class="note-tags">
-            <span class="tag">Productivity</span>
-            <span class="tag">Self-Improvement</span>
-            <span class="tag">Work-Life Balance</span>
+            {% for tag in note.tag.all %}
+              <span class="tag">{{tag.tag_name}}</span>
+            {% endfor %}
           </div>
         </div>
       </div>

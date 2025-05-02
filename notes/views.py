@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NotesForm
 from .models import Notes, Tags
 
 # Create your views here.
-
+@login_required
 def create_note(request):
     if request.method == 'POST':
         tag_list = request.POST.getlist('tags')
@@ -28,6 +29,12 @@ def create_note(request):
 def view_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     return render(request, 'notes/view_note.html', {'note':note})
+
+@login_required
+def my_notes(request):
+    user_id = request.user.id
+    my_notes = Notes.objects.filter(author_id=user_id).order_by('-created_at').prefetch_related('tag')
+    return render(request, "notes/my_notes.html", {"my_notes":my_notes})
 
 
 

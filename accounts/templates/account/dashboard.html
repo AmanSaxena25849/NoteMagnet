@@ -112,11 +112,11 @@
 
                         {% if user.is_authenticated %}
                             {% if user.emailaddress_set.first.verified %}
+
                                 <a href="/accounts/social/connections/" class="account-link">social connections</a>
 
                                 <a href="{% url "account_email" %}" class="account-link">Add email address</a>
 
-                                <p class='account-link done'>Your email is verified.</p>
                             {% else %}
                                 <a href="{% url "account_reauthenticate" %}" class="account-link">Verify Email Address</a>
                             {% endif %}
