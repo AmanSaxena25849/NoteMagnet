@@ -21,15 +21,6 @@
         <h2 class="section-title">My Notes</h2>
 
         <div class="notes-container">
-          <div class="note-card create-new-note">
-            <a href="{% url "create_note" %}">
-              <div class="create-new-center">
-                <img src="https://img.icons8.com/ios/100/add--v1.png" alt="add--v1"/>
-                <p>Create new note</p>
-              </div>
-            </a>
-          </div>
-
           {% for note in my_notes %}
             <div class="note-card">
               {% if note.note_image %}

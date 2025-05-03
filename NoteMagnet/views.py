@@ -4,7 +4,7 @@ from notes.models import Notes
 def home(request):
     if request.user:
         user_id = request.user.id
-        my_notes = Notes.objects.filter(author = user_id, )[:2]
+        my_notes = Notes.objects.filter(author = user_id, )[:3]
         all_notes = Notes.objects.filter(public=True)[:6]
         popular_notes = Notes.objects.filter(public=True).order_by('views_count')[:3]
     else:

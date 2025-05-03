@@ -9,7 +9,7 @@ def create_note(request):
     if request.method == 'POST':
         tag_list = request.POST.getlist('tags')
         data = request.POST.copy()
-        data['auther'] = request.user.id 
+        data['author'] = request.user.id 
         form = NotesForm(data, request.FILES)
         if form.is_valid():
             note = form.save()

@@ -6,6 +6,7 @@
     --text-light: #6B5B4B;
     --shadow: rgba(0, 0, 0, 0.1);
     --card-bg: #FFFFFF;
+    --error: #f75353;
   }
   
   * {
@@ -156,6 +157,50 @@
 
   .sidebar{
     display: none;
+  }
+
+  .messages{
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate3d(-50%, -50%, 0px);
+    min-width: fit-content;
+    background-color: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow);
+    padding: 1rem 3rem;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    list-style: none;
+    opacity: 100%;
+    animation: message-in-out 5s forwards;
+  }
+
+  @keyframes message-in-out {
+    0%{
+        top: 0%;
+        opacity: 0%;
+    }
+
+    20%{
+        top: 10%;
+        opacity: 100%;
+    }
+
+    80%{
+        top: 10%;
+        opacity: 100%;
+    }
+
+    100%{
+        top: 0%;
+        opacity: 0%;
+    }
   }
   
   .field_error{

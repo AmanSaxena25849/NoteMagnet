@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 load_dotenv()
@@ -182,3 +183,7 @@ ACCOUNT_LOGIN_METHODS = {"username", "email"}
 # MEDIA SETTINGS
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
+
+
+#MESSAGE STORAGE SETTINGs
+MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
