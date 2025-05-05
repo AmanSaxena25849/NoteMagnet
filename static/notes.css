@@ -185,6 +185,7 @@
     0%{
         top: 0%;
         opacity: 0%;
+        display: flex;
     }
 
     20%{
@@ -200,6 +201,7 @@
     100%{
         top: 0%;
         opacity: 0%;
+        display: none;
     }
   }
   
@@ -419,6 +421,13 @@
       display: none;
     }
     
+    .messages{
+      width: 90vw;
+      min-width: fit-content;
+      padding: 1rem 1rem;
+      font-size: 1.2rem;
+    }
+
     .burger {
       display: block;
     }

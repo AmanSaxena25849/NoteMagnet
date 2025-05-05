@@ -19,7 +19,9 @@
             {% endfor %}
 
             <div class="date-info">
-                <span>Created: <span id="current-date">April 5, 2025</span></span>
+                <span>Created: 
+                    <span id="current-date">{% now "F j, Y" %}</span>
+                </span>
                 <span>Author: {{user.first_name}} {{user.last_name}}</span>
             </div>
             
@@ -36,7 +38,7 @@
                         Notes <button type="button" class="tag-remove">&times;</button>
                     </div>
                     <input type="text" placeholder="Add tags..." id="tag-input-field">
-                    <!-- Hidden input to store tags as JSON array -->
+                    
                 </div>
             </div>
             

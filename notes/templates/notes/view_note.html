@@ -3,6 +3,7 @@
 {% block head %}
   {% load static %}
   <link rel="stylesheet" href="{% static "notes/view_note/view_note.css" %}">
+  <script defer src="{% static "notes/view_note/view_note.js" %}"></script>
 {% endblock head %}
 
 {% block main %}
@@ -19,14 +20,48 @@
               <span class="publication-date">Published on {{note.created_at}}</span>
             </div>
           </div>
+          {% if user.is_authenticated %}
+            {% if user == note.author %}
+
+              <div class="action-buttons">
+                <a class="edit-btn"> Edit Note </a>
+                <button id="delete-btn" class="delete-btn">Delete Note</button>
+              </div>
+
+              <div class="delete-form">
+                <div class="heading-pera">
+                  <h1>Deleting Note: </h1>
+                  <p>How to Master Time Management</p>
+                </div>
+                <div class="warning-pera">
+                  <h3>Warning: </h3>
+                  <p>Once deleted note can not be recoverd.</p>
+                </div>
+                
+                <div class="btns">
+                  <button class="cancel-btn">Cancel</button>
+                  <form action="{% url "delete_note" %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="note_id" value="{{ note.id }}">
+                    <button  class="delete-btn" type="submit">Delete</button>
+                  </form>
+                </div>
+              </div>
+            {% else %}
+              <div class="action-buttons">
+                <button class="follow-btn">
+                  <span class="button-icon">+</span> Follow
+                </button>
+                <button class="star-btn">
+                  <span class="button-icon">★</span> Add to Bookmarks
+                </button>
+              </div>
+            {% endif %}
+          {% else %}
           <div class="action-buttons">
-            <button class="follow-btn">
-              <span class="button-icon">+</span> Follow
-            </button>
-            <button class="star-btn">
-              <span class="button-icon">★</span> Add to Bookmarks
-            </button>
+            <a href="{% url 'account_login' %}" class="follow-btn">Sign in to Follow</a>
           </div>
+          {% endif %}
         </div>
       </div>
       

@@ -2,8 +2,8 @@
 
 {% block head %}
   {% load static %}
-  <link rel="stylesheet" href="{% static "notes/my_notes/my_notes.css" %}">
-  <script defer src="{% static "notes/my_notes/my_notes.js" %}"></script>
+  <link rel="stylesheet" href="{% static "notes/all_notes/all_notes.css" %}">
+  <script defer src="{% static "notes/all_notes/all_notes.js" %}"></script>
 {% endblock head %}
 
 {% block main %}
@@ -11,15 +11,15 @@
     <!-- Breadcrumb -->
     <div class="breadcrumb">
       <a href="{% url "home" %}">Home</a> &gt;
-      <span>My Notes</span>
+      <span>All Notes</span>
     </div>
 
-    <!-- My Notes Section -->
+    <!-- all Notes Section -->
     <section class="notes-section">
       <div class="notes-header">
         <div class="notes-heade-div">
-          <h2 class="section-title">My Notes</h2>
-          <p class="results-count">Showing {{my_notes.count}} notes</p>
+          <h2 class="section-title">All Notes</h2>
+          <p class="results-count">Showing {{all_notes.count}} notes</p>
         </div>
         <a href="{% url "create_note" %}" class="create-note-btn">
          + Create New Note
@@ -27,25 +27,39 @@
       </div>
 
       <div class="search-filter-container">
+        <div class="search-bar">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" placeholder="Search notes...">
+        </div>
         <div class="filter-options">
-          <select class="filter-select" onchange="window.location.href = this.value;">
-              <option value="{% url 'my_notes_order' order='-created_at'%}">Auto</option>
-              <option value="{% url 'my_notes_order' order='-created_at' %}">Most Recent</option>
-              <option value="{% url 'my_notes_order' order='views_count' %}">Most Popular</option>
-              <option value="{% url 'my_notes_order' order='title' %}">A-Z</option>
-              <option value="{% url 'my_notes_order' order='-title' %}">Z-A</option>
+          <select class="filter-select">
+            <option value="">All Categories</option>
+            <option value="productivity">Productivity</option>
+            <option value="study">Study</option>
+            <option value="health">Health</option>
+            <option value="technology">Technology</option>
+            <option value="cooking">Cooking</option>
           </select>
-
-          
+        
+          <select class="filter-select" onchange="window.location.href = this.value;">
+              <option value="{% url 'all_notes_order' order='-created_at'%}">Auto</option>
+              <option value="{% url 'all_notes_order' order='-created_at' %}">Most Recent</option>
+              <option value="{% url 'all_notes_order' order='views_count' %}">Most Popular</option>
+              <option value="{% url 'all_notes_order' order='title' %}">A-Z</option>
+              <option value="{% url 'all_notes_order' order='-title' %}">Z-A</option>
+          </select>
         </div>
       </div>
 
      
-      <!-- all my notes  -->
+      <!-- all all notes  -->
 
       <div class="notes-container">
 
-        {% for note in my_notes  %}
+        {% for note in all_notes  %}
           <div class="note-card">
             <img src="{{ note.note_image.url}}" alt="Note Image" class="note-img">
             <div class="note-content">

@@ -15,43 +15,43 @@
       {% endif %}
     </div>
     
-    {% if user.is_authenticated %}
-      <!-- My Notes Section -->
-      <section class="notes-section">
-        <h2 class="section-title">My Notes</h2>
+    {% if user.is_authenticated and my_notes %}
+           <!-- My Notes Section -->
+          <section class="notes-section">
+          <h2 class="section-title">My Notes</h2>
 
-        <div class="notes-container">
-          {% for note in my_notes %}
-            <div class="note-card">
-              {% if note.note_image %}
-                <img src="{{note.note_image.url}}" alt="Note Image" class="note-img">
-              {% else %}
-                <img src="media/note_image/note_default.png" alt="Note Image" class="note-img">
-              {% endif %}
-              
-              <div class="note-content">
-                <h3 class="note-title">{{note.title}}</h3>
-                <p class="note-desc">{{note.content|truncatechars:150}}</p>
-                <div class="note-meta">
-                  <div class="user-info">
-                    {% if note.author.profile_image %}
-                      <img src="{{note.author.profile_image.url}}" alt="User Avatar" class="user-avatar">
-                    {% else %}
-                      <img src="https://img.icons8.com/parakeet-line/100/user.png" alt="User Avatar" class="user-avatar">
-                    {% endif %}
-                    <span>{{note.author.username }}</span>
+          <div class="notes-container">
+            {% for note in my_notes %}
+              <div class="note-card">
+                {% if note.note_image %}
+                  <img src="{{note.note_image.url}}" alt="Note Image" class="note-img">
+                {% else %}
+                  <img src="media/note_image/note_default.png" alt="Note Image" class="note-img">
+                {% endif %}
+                
+                <div class="note-content">
+                  <h3 class="note-title">{{note.title}}</h3>
+                  <p class="note-desc">{{note.content|truncatechars:150}}</p>
+                  <div class="note-meta">
+                    <div class="user-info">
+                      {% if note.author.profile_image %}
+                        <img src="{{note.author.profile_image.url}}" alt="User Avatar" class="user-avatar">
+                      {% else %}
+                        <img src="https://img.icons8.com/parakeet-line/100/user.png" alt="User Avatar" class="user-avatar">
+                      {% endif %}
+                      <span>{{note.author.username }}</span>
+                    </div>
+                    <span>{{note.created_at}}</span>
                   </div>
-                  <span>{{note.created_at}}</span>
+
+                  <a href="{% url "view_note" note.id %}" class="read-more">Read More</a>
+
                 </div>
-
-                <a href="{% url "view_note" note.id %}" class="read-more">Read More</a>
-
               </div>
-            </div>
-          {% endfor %}
-        </div>
-        <a href="#" class="view-all">View All My Notes</a>
-      </section>
+            {% endfor %}
+          </div>
+          <a href="#" class="view-all">View All My Notes</a>
+        </section>
       
     {% endif %}
 

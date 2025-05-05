@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from allauth.account.models import  get_user_model
 from django.contrib.auth.models import User
 from .forms import DashboardForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -31,6 +32,7 @@ def dashboard(request):
                     os.remove(old_image)
 
             form.save()
+            messages.success(request, "Your bio has been successfully updated!")
             return redirect('dashboard')
         
     else:
@@ -54,7 +56,12 @@ def confirm_account_delete(request):
 
 @login_required
 def delete_account(request):
-    user:str = request.user
-    UserModel = get_user_model()
-    UserModel.objects.get(username=user).delete()
-    return redirect('home')
+    if request.method == "POST": 
+        user:str = request.user
+        UserModel = get_user_model()
+        UserModel.objects.get(username=user).delete()
+        messages.success(request, "Your account has been successfully deleted!")
+        return redirect('home')
+    else:
+        messages.error(request, "Incorrect deletion request. Please try again.")
+        return redirect('dashboard')

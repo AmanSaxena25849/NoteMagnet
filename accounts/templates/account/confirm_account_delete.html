@@ -13,8 +13,10 @@
             
             <div class="btns">
                 <a class='button submit' href="{% url "home" %}">Cancel</a>
-
-                <a class='button submit delete' href="{% url "delete_account" %}">Delete Account</a>
+                <form action="{% url "delete_account" %}" method="post">
+                    {% csrf_token %}
+                    <button class='button submit delete' type="submit">Delete Account</button>
+                </form>
             </div>
             
         </div>
