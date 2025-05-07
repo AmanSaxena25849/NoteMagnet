@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import NotesForm
+from .forms import NotesForm, EditNoteForm
 from .models import Notes, Tags
 
 # Create your views here.
@@ -37,6 +37,46 @@ def create_note(request):
 def view_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     return render(request, 'notes/view_note.html', {'note':note})
+
+
+@login_required
+def edit_note(request, note_id):
+    note = get_object_or_404(Notes, id=note_id)
+    
+    # retain old image to be used if not provided.
+    old_image = note.note_image 
+    
+    if note.author == request.user:
+        if request.method == 'POST':
+            tag_list = request.POST.getlist('tags')
+            form = EditNoteForm(request.POST, request.FILES, instance=note)
+            
+            if form.is_valid():
+                update_note = form.save(commit=False)
+                
+                # If no new image uploaded, keep the old one
+                if not request.FILES.get('note_image'):
+                    update_note.note_image = old_image
+                       
+                update_note.save()
+                    
+                #remove old and add new tags for the note.
+                note.tag.clear()
+                for tag_name in tag_list:
+                    tag, created = Tags.objects.get_or_create(tag_name = tag_name)
+                    note.tag.add(tag)
+                    
+                messages.success(request, "Your note has been updated successfully!")
+                return redirect('view_note', note_id=note_id)
+                
+            else:
+                print(form.errors)
+        else:
+            form = EditNoteForm(instance=note)
+            return render(request, "notes/edit_note.html", {'form':form, 'note':note})
+    else:
+        messages.error(request, "Can not edit notes from other users.")
+        return redirect("view_note", note_id=note_id)
 
 
 @login_required

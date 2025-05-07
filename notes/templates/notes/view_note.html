@@ -24,7 +24,7 @@
             {% if user == note.author %}
 
               <div class="action-buttons">
-                <a class="edit-btn"> Edit Note </a>
+                <a href="{% url "edit_note" note.id %}" class="edit-btn"> Edit Note </a>
                 <button id="delete-btn" class="delete-btn">Delete Note</button>
               </div>
 
