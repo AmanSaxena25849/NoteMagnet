@@ -26,33 +26,25 @@
         </a>
       </div>
 
-      <div class="search-filter-container">
+      <form action="{% url "all_notes" %}" method="get" class="search-filter-container">
         <div class="search-bar">
           <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" placeholder="Search notes...">
+          <input name="search" type="text" placeholder="Search notes...">
         </div>
         <div class="filter-options">
-          <select class="filter-select">
-            <option value="">All Categories</option>
-            <option value="productivity">Productivity</option>
-            <option value="study">Study</option>
-            <option value="health">Health</option>
-            <option value="technology">Technology</option>
-            <option value="cooking">Cooking</option>
+          <select name="filter" class="filter-select">
+            <option value="-created_at">Most Recent</option>
+            <option value="views_count">Most Popular</option>
+            <option value="title">A-Z</option>
+            <option value="-title">Z-A</option>
           </select>
-        
-          <select class="filter-select" onchange="window.location.href = this.value;">
-              <option value="{% url 'all_notes_order' order='-created_at'%}">Auto</option>
-              <option value="{% url 'all_notes_order' order='-created_at' %}">Most Recent</option>
-              <option value="{% url 'all_notes_order' order='views_count' %}">Most Popular</option>
-              <option value="{% url 'all_notes_order' order='title' %}">A-Z</option>
-              <option value="{% url 'all_notes_order' order='-title' %}">Z-A</option>
-          </select>
+
+          <button type="submit" class="search-btn">Search</button>
         </div>
-      </div>
+      </form>
 
      
       <!-- all all notes  -->

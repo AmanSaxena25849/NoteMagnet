@@ -6,6 +6,7 @@ from allauth.account.models import  get_user_model
 from django.contrib.auth.models import User
 from .forms import DashboardForm
 from django.contrib import messages
+from notes.models import Notes
 
 # Create your views here.
 
@@ -15,8 +16,15 @@ def reauth_with_email(request):
     return redirect('home')
     
     
-@login_required    
+@login_required
 def dashboard(request):
+    user_id = request.user.id
+    my_notes = Notes.objects.filter(author=user_id).order_by('-created_at').prefetch_related('tag')
+    return render(request, 'account/dashboard.html', {'my_notes':my_notes})  
+
+    
+@login_required    
+def profile(request):
     user =request.user
     
     if request.method == 'POST':
@@ -46,12 +54,12 @@ def dashboard(request):
             'bio': request.user.bio,
             })
         
-    return render(request, "account/dashboard.html", {"form":form})
+    return render(request, "account/profile.html", {"form":form})
 
 
 @login_required
 def confirm_account_delete(request):
-    return render (request, 'account/confirm_account_delete.html')
+    return render(request, 'account/confirm_account_delete.html')
 
 
 @login_required
@@ -65,3 +73,8 @@ def delete_account(request):
     else:
         messages.error(request, "Incorrect deletion request. Please try again.")
         return redirect('dashboard')
+    
+    
+
+    
+ 

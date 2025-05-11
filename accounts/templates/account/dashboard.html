@@ -1,133 +1,299 @@
 {% extends "base.html" %}
 
 {% block head %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'accounts/dashboard/dashboard.css' %}">
-    <script defer src="{% static 'accounts/dashboard/dashboard.js' %}"></script>
+  {% load static %}
+  <link rel="stylesheet" href="{% static "accounts/dashboard/dashboard.css" %}">
+  <script defer src="{% static "accounts/dashboard/dashboard.js" %}"></script>
+  <script defer src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
 {% endblock head %}
 
 {% block main %}
-        <main>
-            <!-- User Dashboard Section -->
-            <section class="dashboard-section">
-                <h1 class="section-title">{{user.username}}</h1>
 
-                <form action="{% url "dashboard" %}" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% for error in form.non_field_errors %}
-                        <p>&#x2022; {{ error }}</p>
-                    {% endfor %}
-
-                    
-                    <div class="profile-container">
-                        {% if user.profile_image %}
-                            <img
-                                src="{{user.profile_image.url}}"
-                                alt="Profile Picture"
-                                class="profile-picture"
-                            />
-                        {% else %}
-                            <img src="https://img.icons8.com/office/150/user.png"
-                                 alt="user" 
-                            />
-                        {% endif %}
-                        
-                        <div class="stats">
-                            <p>1k followers</p>
-                            <p>100 Notes</p>
-                        </div>
-                    </div>
-
-                    <div class="center-user-info">
-                        <div class="info-group">
-                            <div class="info-item">
-                                <label for="" class="info-label">First Name</label>
-                                {{form.first_name}}
-                            </div>
-
-                            <div class="info-item">
-                                <label for="" class="info-label">Last Name</label>
-                                {{form.last_name}}
-                            </div>
-
-                            <div class="info-item">
-                                <label for="" class="info-label">User Name</label>
-                                {{form.username}}
-                            </div>
-
-                            <div class="info-item">
-                                <label for="" class="info-label">Age</label>
-                                {{form.age}}
-                            </div>
-
-                            <div class="info-item">
-                                <label for="" class="info-label">Phone Number</label>
-                                {{form.phone_number}}
-                            </div>
-
-                            <div class="info-item">
-                                <label for="" class="info-label">Email</label>
-                                {{form.email}}
-                            </div>
-                            
-                        </div>
-                    </div>
-
-                    <div class="bio-section">
-                        <label for="" class="info-label">Bio</label>
-                        {{form.bio}}
-                    </div>
-
-                    <div class="info-item file" id='file'>
-                        <label>Note Image (optional)</label>
-                        <div class="file-input-wrapper">
-                            <button type="button" class="file-input-button">Choose Image</button>
-                            {{form.profile_image}}
-                        </div>
-                        <span class="file-name" id="file-name">No file chosen</span>
-                        
-                        <div class="image-preview" id="image-preview">
-                        <span class="image-preview-placeholder">Image preview will appear here</span>
-                        </div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button type="button" class="button edit-btn edit-profile-btn">
-                            Edit Profile
-                        </button>
-                        <button type="button" class="button edit-btn edit-profile-btn cancle" style="display: none;">
-                            Cancle
-                        </button>
-                        <button type="submit" class="button edit-btn save-profile-btn">
-                            Save Profile
-                        </button>
-                    </div>
-                
-
-                </form>
-
-                <div class="account-options">
-                    <h3 class="account-options-title">Account Settings</h3>
-                    <div class="account-links">
-
-                        {% if user.is_authenticated %}
-                            {% if user.emailaddress_set.first.verified %}
-
-                                <a href="/accounts/social/connections/" class="account-link">social connections</a>
-
-                                <a href="{% url "account_email" %}" class="account-link">Add email address</a>
-
-                            {% else %}
-                                <a href="{% url "account_reauthenticate" %}" class="account-link">Verify Email Address</a>
-                            {% endif %}
-                        {% endif %}
-
-                        <a href="{% url "account_change_password" %}" class="account-link">Change Password</a>
-
-                        <a href="{% url "confirm_account_delete" %}" class="account-link delete">Delete Account</a>
-                    </div>
+  <!-- Main content with sidebar -->
+  <div class="content-container">
+    <!-- Dashboard Sidebar -->
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-header">
+        <h2>Dashboard</h2>
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li>
+          <button id="overview" class='sidebar-btn active'>
+              <i class="fas fa-tachometer-alt"></i> Overview
+          </button>
+        </li>
+        <li>
+          <button id="my-notes" class='sidebar-btn'>
+              <i class="fas fa-sticky-note"></i> My Notes
+          </button>
+        </li>
+        <li>
+          <button id="bookmark" class='sidebar-btn'>
+              <i class="fas fa-bookmark"></i> Bookmarks
+          </button>
+        </li>
+      </ul>
+      
+      <div id="author" class="sidebar-section">
+        <h3>Following</h3>
+        <ul class="sidebar-menu">
+          <li>
+            <button class='sidebar-btn'>
+              <i class="fas fa-user"></i> Authors
+          </button>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Account</h3>
+        <ul class="sidebar-menu">
+          <li>
+            <a href="{% url "profile" %}">
+              <i class="fas fa-user-circle"></i> Profile
+            </a>
+          </li>
+          <li>
+            <a href="{% url "account_logout" %}">
+              <i class="fas fa-sign-out-alt"></i> Sign Out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    
+    <!-- Dashboard Content -->
+    <main class="dashboard-content">
+      <div id="overview-box" class="content-type ">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">My Notes</h1>
+        </div>
+        
+        <div class="notes-grid">
+          <!-- Note Card 1 -->
+          {% for my_note in my_notes|slice:":4" %}
+            <div class="note-card">
+              <img src="{{my_note.note_image.url}}" alt="Note Image" class="note-img">
+              <div class="note-content">
+                <div class="note-tags">
+                  {% for tag in my_note.tag.all|slice:":2" %}
+                    <span class="note-tag">{{ tag.tag_name }}</span>
+                  {% endfor %}
                 </div>
-            </section>
-        </main>
+                <h3 class="note-title">{{my_note.title}}</h3>
+                <p class="note-desc">{{my_note.content|truncatechars:150}}</p>
+                <div class="note-meta">
+                  <span>{{my_note.created_at}}</span>
+                  <div class="note-stats">
+                    <div class="note-stat">
+                      <i class="fas fa-eye"></i> 128
+                    </div>
+                    <div class="note-stat">
+                      <i class="fas fa-heart"></i> 24
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="{% url "view_note" my_note.id %}"  class="read-more">Read More</a>
+            </div>
+          {% endfor %}
+        </div>
 
-{% endblock main %}
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Bookmarks</h1>
+        </div>
+        
+        <div class="notes-grid">
+          <!-- Note Card 1 -->
+          <div class="note-card">
+            <img src="/api/placeholder/400/150" alt="Note Image" class="note-img">
+            <div class="note-actions">
+              <button class="note-action-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="note-action-btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            <div class="note-content">
+              <div class="note-tags">
+                <span class="note-tag">Productivity</span>
+                <span class="note-tag">Work</span>
+              </div>
+              <h3 class="note-title">Time Management Techniques</h3>
+              <p class="note-desc">My collection of effective time management strategies that helped me boost productivity at work and maintain work-life balance.</p>
+              <div class="note-meta">
+                <span>May 2, 2025</span>
+                <div class="note-stats">
+                  <div class="note-stat">
+                    <i class="fas fa-eye"></i> 128
+                  </div>
+                  <div class="note-stat">
+                    <i class="fas fa-heart"></i> 24
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Note Card 2 -->
+          <div class="note-card">
+            <img src="/api/placeholder/400/150" alt="Note Image" class="note-img">
+            <div class="note-actions">
+              <button class="note-action-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="note-action-btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            <div class="note-content">
+              <div class="note-tags">
+                <span class="note-tag">Recipe</span>
+                <span class="note-tag">Cooking</span>
+              </div>
+              <h3 class="note-title">Favorite Pasta Recipes</h3>
+              <p class="note-desc">A collection of my go-to pasta recipes that are quick to make and absolutely delicious. Perfect for weeknight dinners!</p>
+              <div class="note-meta">
+                <span>Apr 28, 2025</span>
+                <div class="note-stats">
+                  <div class="note-stat">
+                    <i class="fas fa-eye"></i> 73
+                  </div>
+                  <div class="note-stat">
+                    <i class="fas fa-heart"></i> 15
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Note Card 3 -->
+          <div class="note-card">
+            <img src="/api/placeholder/400/150" alt="Note Image" class="note-img">
+            <div class="note-actions">
+              <button class="note-action-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="note-action-btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            <div class="note-content">
+              <div class="note-tags">
+                <span class="note-tag">JavaScript</span>
+                <span class="note-tag">Programming</span>
+              </div>
+              <h3 class="note-title">JavaScript Array Methods</h3>
+              <p class="note-desc">My personal reference guide to JavaScript array methods with examples and use cases for quick lookup during coding sessions.</p>
+              <div class="note-meta">
+                <span>Apr 15, 2025</span>
+                <div class="note-stats">
+                  <div class="note-stat">
+                    <i class="fas fa-eye"></i> 215
+                  </div>
+                  <div class="note-stat">
+                    <i class="fas fa-heart"></i> 42
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Note Card 4 -->
+          <div class="note-card">
+            <img src="/api/placeholder/400/150" alt="Note Image" class="note-img">
+            <div class="note-actions">
+              <button class="note-action-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="note-action-btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            <div class="note-content">
+              <div class="note-tags">
+                <span class="note-tag">Books</span>
+                <span class="note-tag">Reading</span>
+              </div>
+              <h3 class="note-title">2025 Reading List</h3>
+              <p class="note-desc">My reading goals for 2025 with book recommendations and progress tracking for each title I plan to read this year.</p>
+              <div class="note-meta">
+                <span>Mar 30, 2025</span>
+                <div class="note-stats">
+                  <div class="note-stat">
+                    <i class="fas fa-eye"></i> 92
+                  </div>
+                  <div class="note-stat">
+                    <i class="fas fa-heart"></i> 18
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="my-notes-box" class="content-type hidden-box">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">My Notes</h1>
+          <div class="dashboard-actions">
+            <a href="{% url "create_note" %}" class="button create-btn">
+              <i class="fas fa-plus"></i> Create Note
+            </a>
+          </div>
+        
+        </div>
+        <div class="notes-grid">
+          <!-- Note Card 1 -->
+          {% for my_note in my_notes %}
+            <div class="note-card">
+              <img src="{{my_note.note_image.url}}" alt="Note Image" class="note-img">
+              <div class="note-content">
+                <div class="note-tags">
+                  {% for tag in my_note.tag.all|slice:":2" %}
+                    <span class="note-tag">{{ tag.tag_name }}</span>
+                  {% endfor %}
+                </div>
+                <h3 class="note-title">{{my_note.title}}</h3>
+                <p class="note-desc">{{my_note.content|truncatechars:150}}</p>
+                <div class="note-meta">
+                  <span>{{my_note.created_at}}</span>
+                  <div class="note-stats">
+                    <div class="note-stat">
+                      <i class="fas fa-eye"></i> 128
+                    </div>
+                    <div class="note-stat">
+                      <i class="fas fa-heart"></i> 24
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="{% url "view_note" my_note.id %}"  class="read-more">Read More</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="pagination-btn">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="pagination-btn active">1</button>
+        <button class="pagination-btn">2</button>
+        <button class="pagination-btn">3</button>
+        <button class="pagination-btn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Mobile sidebar toggle button -->
+  <button class="mobile-sidebar-toggle">
+    <i class="fas fa-bars"></i>
+  </button>
+{% endblock main %}  
+  
+
+

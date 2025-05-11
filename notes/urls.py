@@ -11,5 +11,4 @@ urlpatterns = [
     path('my_notes/<str:order>/', views.my_notes, name="my_notes_order"),
     
     path('all_notes/', views.all_notes, name="all_notes"),
-    path('all_notes/<str:order>/', views.all_notes, name="all_notes_order"),
 ]

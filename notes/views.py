@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.db.models import Q
 from .forms import NotesForm, EditNoteForm
 from .models import Notes, Tags
 
@@ -36,7 +37,11 @@ def create_note(request):
 
 def view_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
-    return render(request, 'notes/view_note.html', {'note':note})
+    tags = note.tag.all()
+    
+    related_notes = Notes.objects.filter(Q(title__icontains=tags[0].tag_name) | Q(title__icontains=tags[1].tag_name) | Q(content__icontains=tags[0].tag_name) | Q(content__icontains=tags[1].tag_name) | Q(content__icontains="the")).exclude(title=note.title)
+    
+    return render(request, 'notes/view_note.html', {'note':note, 'related_notes':related_notes[0:2]})
 
 
 @login_required
@@ -103,8 +108,20 @@ def my_notes(request, order="-created_at"):
     return render(request, "notes/my_notes.html", {"my_notes":my_notes})
 
 
-def all_notes(request, order="-created_at"):
-    all_notes = Notes.objects.filter(public=True).order_by(order).prefetch_related('tag')
+def all_notes(request):
+    query = request.GET.get('search')
+    order = request.GET.get('filter')
+    print(not query, order)
+    if not query and not order:
+        all_notes = Notes.objects.filter(public=True).order_by("-created_at").prefetch_related('tag')
+        
+    elif not query and order:
+        all_notes = Notes.objects.filter(public=True).order_by(order).prefetch_related('tag')
+        
+    else:
+        all_notes = Notes.objects.filter(Q(title__icontains=query) | Q(content__icontains=query)).order_by(order).prefetch_related('tag')
+        print(all_notes)  
+    
     return render(request, "notes/all_notes.html", {"all_notes":all_notes})
 
 

@@ -218,9 +218,19 @@ body {
 
 .follow-btn:hover,
 .star-btn:hover,
-.edit-btn:hover,
-.delete-btn:hover,
 .cancel-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.edit-btn:hover{
+    background-color: rgba(41, 41, 41, 0.137);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.delete-btn:hover{
+    background-color: rgba(251, 83, 83, 0.13);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px var(--shadow);
 }

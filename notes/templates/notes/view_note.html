@@ -16,7 +16,7 @@
           <div class="author-info">
             <img src="{{note.author.profile_image.url}}" alt="Author Avatar" class="author-avatar">
             <div class="author-details">
-              <span class="author-name">{{note.author.username}}</span>
+              <span class="author-name">{{note.author.first_name}} {{note.author.last_name}}</span>
               <span class="publication-date">Published on {{note.created_at}}</span>
             </div>
           </div>
@@ -87,38 +87,23 @@
         <h2>Related Notes</h2>
         <div class="related-cards">
           <!-- Related Note 1 -->
-          <div class="note-card">
-            <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
-            <div class="note-content">
-              <h3 class="note-title">The Ultimate Study Guide</h3>
-              <p class="note-desc">Comprehensive study techniques for better learning and retention. Perfect for students and lifelong learners...</p>
-              <div class="note-meta">
-                <div class="user-info">
-                  <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
-                  <span>Mike Chen</span>
+          {% for related_note in related_notes %}
+            <div class="note-card">
+              <img src="{{related_note.note_image.url}}" alt="Note Image" class="note-img">
+              <div class="note-content">
+                <h3 class="note-title">{{related_note.title}}</h3>
+                <p class="note-desc">{{related_note.content|truncatechars:150}}</p>
+                <div class="note-meta">
+                  <div class="user-info">
+                    <img src="{{related_note.author.profile_image.url}}" alt="User Avatar" class="user-avatar">
+                    <span>{{related_note.author.username }}</span>
+                  </div>
+                  <span>{{related_note.created_at}}</span>
                 </div>
-                <span>1 week ago</span>
+                <a href="{% url "view_note" related_note.id %}" class="read-more">Read More</a>
               </div>
-              <a href="#" class="read-more">Read More</a>
             </div>
-          </div>
-          
-          <!-- Related Note 2 -->
-          <div class="note-card">
-            <img src="/api/placeholder/400/180" alt="Note Image" class="note-img">
-            <div class="note-content">
-              <h3 class="note-title">Healthy Morning Routines</h3>
-              <p class="note-desc">Start your day right with these science-backed morning habits that boost energy and productivity...</p>
-              <div class="note-meta">
-                <div class="user-info">
-                  <img src="/api/placeholder/30/30" alt="User Avatar" class="user-avatar">
-                  <span>Emma Wilson</span>
-                </div>
-                <span>2 weeks ago</span>
-              </div>
-              <a href="#" class="read-more">Read More</a>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </section>

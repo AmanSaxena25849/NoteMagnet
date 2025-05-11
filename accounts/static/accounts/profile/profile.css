@@ -1,0 +1,338 @@
+:root {
+    --primary-bg: #f6f0f0;
+    --secondary-bg: #f2e2b1;
+    --accent: #e6b89c;
+    --text-dark: #4a4238;
+    --text-light: #6b5b4b;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --card-bg: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-dark);
+}
+
+
+/* Dashboard section */
+.dashboard-section {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    position: relative;
+}
+
+.section-title:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--accent);
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent);
+    margin-bottom: 1rem;
+}
+
+.username {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.stats{
+    display: flex;
+    gap: 1rem;
+}
+
+.stats p{
+    border: 4px solid var(--accent);
+    background-color: var(--primary-bg);
+    border-radius: 25px;
+    padding: 3px 8px;
+    margin: .5rem;
+}
+
+.center-user-info {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.info-item {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item:focus{
+    outline: none;
+}
+
+.info-label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.form-control {
+    padding: 0.75rem;
+    background-color: var(--primary-bg);
+    border-radius: 4px;
+    margin-top: 0.25rem;
+    border: 2px solid transparent;
+    transition: 50ms linear;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.bio-section {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.bio-text {
+    padding: 1rem;
+    background-color: var(--primary-bg);
+    border-radius: 4px;
+    line-height: 1.6;
+    height: auto;
+    max-height: 500px;
+}
+
+.bio-text::-webkit-scrollbar{
+    display: none;
+}
+
+.file{
+    display: none;
+}
+
+.image-preview {
+    margin-top: 1rem;
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.image-preview-placeholder {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+.file-input-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--secondary-bg);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.file-input-button:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+.file-name {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.action-buttons{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.edit-profile-btn {
+    display: block;
+    margin: 2rem;
+    padding: 0.75rem 2rem;
+    background-color: var(--accent);
+}
+
+.save-profile-btn {
+    display: block;
+    margin: 2rem;
+    padding: 0.75rem 2rem;
+    background-color: var(--accent);
+}
+
+.account-options {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--secondary-bg);
+}
+
+.account-options-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.account-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.account-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    background-color: var(--primary-bg);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: all 0.3s;
+}
+
+.account-link:hover {
+    background-color: var(--secondary-bg);
+}
+
+.account-link.delete {
+    color: #d32f2f;
+    border: 1px solid #d32f2f;
+    background-color: transparent;
+}
+
+.account-link.delete:hover {
+    background-color: #ffebee;
+}
+
+/* Footer */
+footer {
+    background-color: var(--secondary-bg);
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-dark);
+    margin-top: 2rem;
+}
+
+footer p {
+    margin-bottom: 1rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.social-icon-footer {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.social-icon-footer:hover {
+    background-color: var(--text-dark);
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 999;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+
+    .dashboard-section {
+        padding: 1.5rem;
+    }
+
+    .info-group {
+        grid-template-columns: 1fr;
+    }
+}

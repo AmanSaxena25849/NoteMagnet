@@ -1,10 +1,12 @@
 from django.urls import path, include
-from .views import reauth_with_email, dashboard, delete_account, confirm_account_delete
+from . import views
 
 urlpatterns = [
     path('', include('allauth.urls')),
-    path('reauth/', reauth_with_email, name='reauth_with_email'),
-    path('dashboard/', dashboard, name='dashboard'),
-    path('confirm_account_delete/', confirm_account_delete, name="confirm_account_delete" ),
-    path('delete_account/', delete_account, name="delete_account" ),
+    path('reauth/', views.reauth_with_email, name='reauth_with_email'),
+    path('user_dashboard/',views.dashboard , name="dashboard" ),
+    path('profile/', views.profile, name='profile'),
+    path('confirm_account_delete/', views.confirm_account_delete, name="confirm_account_delete" ),
+    path('delete_account/', views.delete_account, name="delete_account" ),
+    
 ]
