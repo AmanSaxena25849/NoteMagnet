@@ -39,6 +39,9 @@ def view_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     tags = note.tag.all()
     
+    if request.user.is_authenticated:
+        note.views_count.add(request.user)
+    
     related_notes = Notes.objects.filter(Q(title__icontains=tags[0].tag_name) | Q(title__icontains=tags[1].tag_name) | Q(content__icontains=tags[0].tag_name) | Q(content__icontains=tags[1].tag_name) | Q(content__icontains="the")).exclude(title=note.title)
     
     return render(request, 'notes/view_note.html', {'note':note, 'related_notes':related_notes[0:2]})

@@ -28,7 +28,7 @@ class Notes(models.Model):
     note_image = models.ImageField(upload_to='note_image',blank=True, null=True)
     public = models.BooleanField(default=False)
     tag = models.ManyToManyField(Tags, related_name='Notes')
-    views_count = models.IntegerField(default=0)
+    views_count = models.ManyToManyField(user, related_name="Note")
     created_at = models.DateField(auto_now=False, auto_now_add=True)
     
     def __str__(self):

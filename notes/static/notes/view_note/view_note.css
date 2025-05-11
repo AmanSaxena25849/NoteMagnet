@@ -375,6 +375,20 @@ body {
     color: var(--text-dark);
 }
 
+.note-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.note-stat {
+    display: flex;
+    align-items: center;
+}
+
+.note-stat i {
+    margin-right: 4px;
+}
+
 .social-share {
     display: flex;
     gap: 1rem;
