@@ -34,11 +34,11 @@
         </li>
       </ul>
       
-      <div id="author" class="sidebar-section">
+      <div class="sidebar-section">
         <h3>Following</h3>
         <ul class="sidebar-menu">
           <li>
-            <button class='sidebar-btn'>
+            <button id="authors"  class='sidebar-btn'>
               <i class="fas fa-user"></i> Authors
           </button>
           </li>
@@ -65,74 +65,105 @@
     <!-- Dashboard Content -->
     <main class="dashboard-content">
       <div id="overview-box" class="content-type ">
-        <div class="dashboard-header">
-          <h1 class="dashboard-title">My Notes</h1>
-        </div>
-        
-        <div class="notes-grid">
-          <!-- Note Card -->
-          {% for my_note in my_notes|slice:":4" %}
-            <div class="note-card">
-              <img src="{{my_note.note_image.url}}" alt="Note Image" class="note-img">
-              <div class="note-content">
-                <div class="note-tags">
-                  {% for tag in my_note.tag.all|slice:":2" %}
-                    <span class="note-tag">{{ tag.tag_name }}</span>
-                  {% endfor %}
-                </div>
-                <h3 class="note-title">{{my_note.title}}</h3>
-                <p class="note-desc">{{my_note.content|truncatechars:150}}</p>
-                <div class="note-meta">
-                  <span>{{my_note.created_at}}</span>
-                  <div class="note-stats">
-                    <div class="note-stat">
-                      <i class="fas fa-eye"></i>{{my_note.views_count.count}}
-                    </div>
-                    <div class="note-stat">
-                      <i class="fas fa-heart"></i> {{my_note.User.count}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <a href="{% url "view_note" my_note.id %}"  class="read-more">Read More</a>
-            </div>
-          {% endfor %}
-        </div>
-
-        <div class="dashboard-header">
-          <h1 class="dashboard-title">Bookmarks</h1>
-        </div>
-        
-        <div class="notes-grid">
-          {% for note in bookmarks|slice:":4" %}
-            <div class="note-card">
-              <img src="{{note.note_image.url}}" alt="Note Image" class="note-img">
-              <div class="note-content">
-                <div class="note-tags">
-                  {% for tag in note.tag.all|slice:":2" %}
-                    <span class="note-tag">{{ tag.tag_name }}</span>
-                  {% endfor %}
-                </div>
-                <h3 class="note-title">{{note.title}}</h3>
-                <p class="note-desc">{{note.content|truncatechars:150}}</p>
-                <div class="note-meta">
-                  <span>{{note.created_at}}</span>
-                  <div class="note-stats">
-                    <div class="note-stat">
-                      <i class="fas fa-eye"></i>{{note.views_count.count}}
-                    </div>
-                    <div class="note-stat">
-                      <i class="fas fa-heart"></i> {{note.User.count}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <a href="{% url "view_note" note.id %}"  class="read-more">Read More</a>
-            </div>
-          {% endfor %}
+        {% if my_notes %}
+          <div class="dashboard-header">
+            <h1 class="dashboard-title">My Notes</h1>
+          </div>
           
-        </div>
+          <div class="notes-grid">
+            <!-- Note Card -->
+            {% for my_note in my_notes|slice:":4" %}
+              <div class="note-card">
+                <img src="{{my_note.note_image.url}}" alt="Note Image" class="note-img">
+                <div class="note-content">
+                  <div class="note-tags">
+                    {% for tag in my_note.tag.all|slice:":2" %}
+                      <span class="note-tag">{{ tag.tag_name }}</span>
+                    {% endfor %}
+                  </div>
+                  <h3 class="note-title">{{my_note.title}}</h3>
+                  <p class="note-desc">{{my_note.content|truncatechars:150}}</p>
+                  <div class="note-meta">
+                    <span>{{my_note.created_at}}</span>
+                    <div class="note-stats">
+                      <div class="note-stat">
+                        <i class="fas fa-eye"></i>{{my_note.views_count.count}}
+                      </div>
+                      <div class="note-stat">
+                        <i class="fas fa-heart"></i> {{my_note.bookmark.count}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a href="{% url "view_note" my_note.id %}"  class="read-more">Read More</a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if bookmarks %}
+          <div class="dashboard-header">
+            <h1 class="dashboard-title">Bookmarks</h1>
+          </div>
+          
+          <div class="notes-grid">
+            {% for note in bookmarks|slice:":4" %}
+              <div class="note-card">
+                <img src="{{note.note_image.url}}" alt="Note Image" class="note-img">
+                <div class="note-content">
+                  <div class="note-tags">
+                    {% for tag in note.tag.all|slice:":2" %}
+                      <span class="note-tag">{{ tag.tag_name }}</span>
+                    {% endfor %}
+                  </div>
+                  <h3 class="note-title">{{note.title}}</h3>
+                  <p class="note-desc">{{note.content|truncatechars:150}}</p>
+                  <div class="note-meta">
+                    <span>{{note.created_at}}</span>
+                    <div class="note-stats">
+                      <div class="note-stat">
+                        <i class="fas fa-eye"></i>{{note.views_count.count}}
+                      </div>
+                      <div class="note-stat">
+                        <i class="fas fa-heart"></i> {{note.bookmark.count}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a href="{% url "view_note" note.id %}"  class="read-more">Read More</a>
+              </div>
+            {% endfor %}
+            
+          </div>
+        {% endif %}
+        {% if following_authors %}
+          <div class="dashboard-header">
+            <h1 class="dashboard-title">Following</h1>
+          </div>
+
+          <div class="notes-grid">
+            {% for f_author in following_authors %}
+              <div class="note-card">
+                <img src="{{f_author.profile_image.url}}" alt="Note Image" class="note-img">
+                <div class="note-content">
+                  <h3 class="note-title">{{f_author.first_name}}{{f_author.last_name}}</h3>
+                  <p class="note-desc">{{f_author.bio|truncatechars:150}}</p>
+                  <div class="note-meta">
+                    <a href=""  class="read-more profile">Show Profile</a>
+                    <div class="note-stats followers_count">
+                      <div class="note-stat">
+                        <i class="fas fa-user-plus"></i>{{f_author.follow.count}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            {% endfor %}
+            
+          </div>
+        {% endif %}
       </div>
+
       <div id="my-notes-box" class="content-type hidden-box">
         <div class="dashboard-header">
           <h1 class="dashboard-title">My Notes</h1>
@@ -169,6 +200,68 @@
                 </div>
               </div>
               <a href="{% url "view_note" my_note.id %}"  class="read-more">Read More</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div id="bookmark-box" class="content-type hidden-box">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Bookmarked Notes</h1>
+        </div>
+        <div class="notes-grid">
+          <!-- Note Card  -->
+          {% for note in bookmarks %}
+            <div class="note-card">
+              <img src="{{note.note_image.url}}" alt="Note Image" class="note-img">
+              <div class="note-content">
+                <div class="note-tags">
+                  {% for tag in note.tag.all|slice:":2" %}
+                    <span class="note-tag">{{ tag.tag_name }}</span>
+                  {% endfor %}
+                </div>
+                <h3 class="note-title">{{note.title}}</h3>
+                <p class="note-desc">{{note.content|truncatechars:150}}</p>
+                <div class="note-meta">
+                  <span>{{note.created_at}}</span>
+                  <div class="note-stats">
+                    <div class="note-stat">
+                      <i class="fas fa-eye"></i>{{note.views_count.count}}
+                    </div>
+                    <div class="note-stat">
+                      <i class="fas fa-heart"></i> {{note.bookmark.count}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="{% url "view_note" note.id %}"  class="read-more">Read More</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div id="authors-box" class="content-type hidden-box">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Bookmarked Notes</h1>
+        </div>
+        <div class="notes-grid">
+          <!-- author Card  -->
+          {% for f_author in following_authors %}
+            <div class="note-card">
+              <img src="{{f_author.profile_image.url}}" alt="Note Image" class="note-img">
+              <div class="note-content">
+                <h3 class="note-title">{{f_author.first_name}}{{f_author.last_name}}</h3>
+                <p class="note-desc">{{f_author.bio|truncatechars:150}}</p>
+                <div class="note-meta">
+                  <a href=""  class="read-more profile">Show Profile</a>
+                  <div class="note-stats followers_count">
+                    <div class="note-stat">
+                      <i class="fas fa-user-plus"></i>{{f_author.follow.count}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
             </div>
           {% endfor %}
         </div>

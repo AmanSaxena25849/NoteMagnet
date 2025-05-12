@@ -49,13 +49,25 @@
               </div>
             {% else %}
               <div class="action-buttons">
-                <button class="follow-btn">
-                  <span class="button-icon">+</span> Follow
-                </button>
+                {% if is_following %}
+                  <form action="{% url "unfollow" note.author.id %}" method="post">
+                    {% csrf_token %}
+                    <button style="background-color: #4A4238" class="follow-btn">
+                      <span class="button-icon">✓</span> Following
+                    </button>
+                  </form>
+                {% else %}
+                  <form action="{% url "follow" note.author.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="follow-btn">
+                      <span class="button-icon">+</span> Follow
+                    </button>
+                  </form>
+                {% endif %}
+                
                 {% if note in user.bookmark.all %}
-                <form action="{% url "remove_bookmark" note.id %}" 
-                        method="post">
-                        {% csrf_token %}
+                <form action="{% url "remove_bookmark" note.id %}" method="post">
+                  {% csrf_token %}
                   <button class="star-btn active">
                     <span class="button-icon">★</span> Bookmarked
                   </button>
@@ -97,7 +109,7 @@
               <i class="fas fa-eye"></i> {{note.views_count.count}}
             </div>
             <div class="note-stat">
-              <i class="fas fa-heart"></i> {{note.User.count}}
+              <i class="fas fa-heart"></i> {{note.bookmark.count}}
             </div>
           </div>
         </div>

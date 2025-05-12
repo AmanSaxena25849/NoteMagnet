@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from .forms import NotesForm, EditNoteForm
 from .models import Notes, Tags
-from django.urls import reverse
+from allauth.account.models import  get_user_model
 
 # Create your views here.
 @login_required
@@ -40,14 +40,16 @@ def view_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     tags = note.tag.all()
     
-    #code to add view
+    #code to add view and follow
     if request.user.is_authenticated:
-        note.views_count.add(request.user)        
+        note.views_count.add(request.user)
+        is_following = request.user.following.filter(id=note.author.id).exists()
+        print(is_following)        
 
     
     related_notes = Notes.objects.filter(Q(title__icontains=tags[0].tag_name) | Q(title__icontains=tags[1].tag_name) | Q(content__icontains=tags[0].tag_name) | Q(content__icontains=tags[1].tag_name) | Q(content__icontains="the")).exclude(title=note.title)
     
-    return render(request, 'notes/view_note.html', {'note':note, 'related_notes':related_notes[0:2]})
+    return render(request, 'notes/view_note.html', {'note':note, 'related_notes':related_notes[0:2], 'is_following':is_following})
 
 
 @login_required

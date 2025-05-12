@@ -4,26 +4,29 @@ const dashboardSidebar = document.querySelector(".dashboard-sidebar");
 
 mobileToggle.addEventListener("click", () => {
     dashboardSidebar.classList.toggle("active");
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth", 
+    });
 });
 
 
+const sidebarButtons = document.querySelectorAll(".sidebar-btn");
 
-const sidebarButtons = document.querySelectorAll('.sidebar-btn');
+sidebarButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+        sidebarButtons.forEach((btn) => btn.classList.remove("active"));
 
-sidebarButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        sidebarButtons.forEach(btn => btn.classList.remove('active'));
-
-        document.querySelectorAll('.content-type').forEach(el => {
-            el.classList.add('hidden-box');
+        document.querySelectorAll(".content-type").forEach((el) => {
+            el.classList.add("hidden-box");
         });
 
         const targetId = `${button.id}-box`;
         const targetElement = document.getElementById(targetId);
 
-        if (targetElement) targetElement.classList.remove('hidden-box');
+        if (targetElement) targetElement.classList.remove("hidden-box");
 
-        this.classList.add('active');
+        this.classList.add("active");
+        dashboardSidebar.classList.toggle("active");
     });
-})
-
+});

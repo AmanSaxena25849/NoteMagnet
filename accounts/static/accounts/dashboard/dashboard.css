@@ -263,6 +263,11 @@ body {
     margin-right: 4px;
 }
 
+.followers_count{
+    margin-top: 1rem;
+    justify-content: flex-end;
+}
+
 .note-tags {
     display: flex;
     flex-wrap: wrap;
@@ -281,6 +286,12 @@ body {
 .read-more {
     margin-left: 1rem;
     margin-bottom: 2rem;
+}
+
+.profile {
+    margin-left: 0rem;
+    margin-bottom: 0rem;
+    margin-top: 1rem;
 }
 
 .pagination {

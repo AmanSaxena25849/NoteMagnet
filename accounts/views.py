@@ -21,7 +21,9 @@ def dashboard(request):
     user_id = request.user.id
     my_notes = Notes.objects.filter(author=user_id).order_by('-created_at').prefetch_related('tag')
     bookmarks = request.user.bookmark.all()
-    return render(request, 'account/dashboard.html', {'my_notes':my_notes, "bookmarks":bookmarks})  
+    following_authors = request.user.following.all()
+    
+    return render(request, 'account/dashboard.html', {'my_notes':my_notes, "bookmarks":bookmarks,"following_authors":following_authors })  
 
     
 @login_required    
@@ -74,7 +76,29 @@ def delete_account(request):
     else:
         messages.error(request, "Incorrect deletion request. Please try again.")
         return redirect('dashboard')
-    
+
+@login_required
+def follow_author(request, author_id):
+    if request.method == 'POST':
+        author = get_user_model().objects.get(id=author_id)
+        request.user.following.add(author)
+        messages.success(request, f"You followed {author.username}")
+        return redirect('dashboard')
+    else:
+        messages.error(request, "Failed to follow.")
+        return redirect('dashboard')   
+
+
+@login_required
+def unfollow_author(request, author_id):
+    if request.method == 'POST':
+        author = get_user_model().objects.get(id=author_id)
+        request.user.following.remove(author)
+        messages.success(request, f"You unfollowed {author.username}")
+        return redirect('dashboard')
+    else:
+        messages.error(request, "Failed to unfollow.")
+        return redirect('dashboard')   
     
 
     
