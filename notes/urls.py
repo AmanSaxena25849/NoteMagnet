@@ -11,4 +11,7 @@ urlpatterns = [
     path('my_notes/<str:order>/', views.my_notes, name="my_notes_order"),
     
     path('all_notes/', views.all_notes, name="all_notes"),
+    
+    path('bookmark/<str:note_id>/', views.bookmark_note, name="bookmark"),
+    path('remove_bookmark/<str:note_id>/', views.remove_bookmark, name="remove_bookmark"),
 ]

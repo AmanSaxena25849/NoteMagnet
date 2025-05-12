@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from .forms import NotesForm, EditNoteForm
 from .models import Notes, Tags
+from django.urls import reverse
 
 # Create your views here.
 @login_required
@@ -39,8 +40,10 @@ def view_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     tags = note.tag.all()
     
+    #code to add view
     if request.user.is_authenticated:
-        note.views_count.add(request.user)
+        note.views_count.add(request.user)        
+
     
     related_notes = Notes.objects.filter(Q(title__icontains=tags[0].tag_name) | Q(title__icontains=tags[1].tag_name) | Q(content__icontains=tags[0].tag_name) | Q(content__icontains=tags[1].tag_name) | Q(content__icontains="the")).exclude(title=note.title)
     
@@ -128,6 +131,27 @@ def all_notes(request):
     return render(request, "notes/all_notes.html", {"all_notes":all_notes})
 
 
-
+def bookmark_note(request, note_id):
+    if request.method == "POST":
+        note = Notes.objects.get(id=note_id)
+        request.user.bookmark.add(note)
+        messages.success(request, "Note bookmarked.")
+        return redirect('view_note', note_id=note_id)
+    
+    else:
+        messages.error(request, "Failed to add to Bookmark.")
+        return redirect('view_note', note_id=note_id)
+    
+    
+def remove_bookmark(request, note_id):
+    if request.method == "POST":
+        note = Notes.objects.get(id=note_id)
+        request.user.bookmark.remove(note)
+        messages.success(request, "Note removed from bookmarks.")
+        return redirect('view_note', note_id=note_id)
+    
+    else:
+        messages.error(request, "Failed to remove to Bookmark.")
+        return redirect('view_note', note_id=note_id)
 
     

@@ -4,7 +4,6 @@
   {% load static %}
   <link rel="stylesheet" href="{% static "accounts/dashboard/dashboard.css" %}">
   <script defer src="{% static "accounts/dashboard/dashboard.js" %}"></script>
-  <script defer src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
 {% endblock head %}
 
 {% block main %}
@@ -71,7 +70,7 @@
         </div>
         
         <div class="notes-grid">
-          <!-- Note Card 1 -->
+          <!-- Note Card -->
           {% for my_note in my_notes|slice:":4" %}
             <div class="note-card">
               <img src="{{my_note.note_image.url}}" alt="Note Image" class="note-img">
@@ -87,10 +86,10 @@
                   <span>{{my_note.created_at}}</span>
                   <div class="note-stats">
                     <div class="note-stat">
-                      <i class="fas fa-eye"></i> 128
+                      <i class="fas fa-eye"></i>{{my_note.views_count.count}}
                     </div>
                     <div class="note-stat">
-                      <i class="fas fa-heart"></i> 24
+                      <i class="fas fa-heart"></i> {{my_note.User.count}}
                     </div>
                   </div>
                 </div>
@@ -105,133 +104,33 @@
         </div>
         
         <div class="notes-grid">
-          <!-- Note Card 1 -->
-          <div class="note-card">
-            <img src="/api/placeholder/400/150" alt="Note Image" class="note-img">
-            <div class="note-actions">
-              <button class="note-action-btn">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="note-action-btn">
-                <i class="fas fa-trash"></i>
-              </button>
-            </div>
-            <div class="note-content">
-              <div class="note-tags">
-                <span class="note-tag">Productivity</span>
-                <span class="note-tag">Work</span>
-              </div>
-              <h3 class="note-title">Time Management Techniques</h3>
-              <p class="note-desc">My collection of effective time management strategies that helped me boost productivity at work and maintain work-life balance.</p>
-              <div class="note-meta">
-                <span>May 2, 2025</span>
-                <div class="note-stats">
-                  <div class="note-stat">
-                    <i class="fas fa-eye"></i> 128
-                  </div>
-                  <div class="note-stat">
-                    <i class="fas fa-heart"></i> 24
+          {% for note in bookmarks|slice:":4" %}
+            <div class="note-card">
+              <img src="{{note.note_image.url}}" alt="Note Image" class="note-img">
+              <div class="note-content">
+                <div class="note-tags">
+                  {% for tag in note.tag.all|slice:":2" %}
+                    <span class="note-tag">{{ tag.tag_name }}</span>
+                  {% endfor %}
+                </div>
+                <h3 class="note-title">{{note.title}}</h3>
+                <p class="note-desc">{{note.content|truncatechars:150}}</p>
+                <div class="note-meta">
+                  <span>{{note.created_at}}</span>
+                  <div class="note-stats">
+                    <div class="note-stat">
+                      <i class="fas fa-eye"></i>{{note.views_count.count}}
+                    </div>
+                    <div class="note-stat">
+                      <i class="fas fa-heart"></i> {{note.User.count}}
+                    </div>
                   </div>
                 </div>
               </div>
+              <a href="{% url "view_note" note.id %}"  class="read-more">Read More</a>
             </div>
-          </div>
+          {% endfor %}
           
-          <!-- Note Card 2 -->
-          <div class="note-card">
-            <img src="/api/placeholder/400/150" alt="Note Image" class="note-img">
-            <div class="note-actions">
-              <button class="note-action-btn">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="note-action-btn">
-                <i class="fas fa-trash"></i>
-              </button>
-            </div>
-            <div class="note-content">
-              <div class="note-tags">
-                <span class="note-tag">Recipe</span>
-                <span class="note-tag">Cooking</span>
-              </div>
-              <h3 class="note-title">Favorite Pasta Recipes</h3>
-              <p class="note-desc">A collection of my go-to pasta recipes that are quick to make and absolutely delicious. Perfect for weeknight dinners!</p>
-              <div class="note-meta">
-                <span>Apr 28, 2025</span>
-                <div class="note-stats">
-                  <div class="note-stat">
-                    <i class="fas fa-eye"></i> 73
-                  </div>
-                  <div class="note-stat">
-                    <i class="fas fa-heart"></i> 15
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Note Card 3 -->
-          <div class="note-card">
-            <img src="/api/placeholder/400/150" alt="Note Image" class="note-img">
-            <div class="note-actions">
-              <button class="note-action-btn">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="note-action-btn">
-                <i class="fas fa-trash"></i>
-              </button>
-            </div>
-            <div class="note-content">
-              <div class="note-tags">
-                <span class="note-tag">JavaScript</span>
-                <span class="note-tag">Programming</span>
-              </div>
-              <h3 class="note-title">JavaScript Array Methods</h3>
-              <p class="note-desc">My personal reference guide to JavaScript array methods with examples and use cases for quick lookup during coding sessions.</p>
-              <div class="note-meta">
-                <span>Apr 15, 2025</span>
-                <div class="note-stats">
-                  <div class="note-stat">
-                    <i class="fas fa-eye"></i> 215
-                  </div>
-                  <div class="note-stat">
-                    <i class="fas fa-heart"></i> 42
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Note Card 4 -->
-          <div class="note-card">
-            <img src="/api/placeholder/400/150" alt="Note Image" class="note-img">
-            <div class="note-actions">
-              <button class="note-action-btn">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="note-action-btn">
-                <i class="fas fa-trash"></i>
-              </button>
-            </div>
-            <div class="note-content">
-              <div class="note-tags">
-                <span class="note-tag">Books</span>
-                <span class="note-tag">Reading</span>
-              </div>
-              <h3 class="note-title">2025 Reading List</h3>
-              <p class="note-desc">My reading goals for 2025 with book recommendations and progress tracking for each title I plan to read this year.</p>
-              <div class="note-meta">
-                <span>Mar 30, 2025</span>
-                <div class="note-stats">
-                  <div class="note-stat">
-                    <i class="fas fa-eye"></i> 92
-                  </div>
-                  <div class="note-stat">
-                    <i class="fas fa-heart"></i> 18
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div id="my-notes-box" class="content-type hidden-box">

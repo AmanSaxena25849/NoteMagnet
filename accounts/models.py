@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from phonenumber_field.modelfields import PhoneNumberField
-from django.db.models import JSONField
+from notes.models import Notes
 
 
 # Create your models here.
@@ -14,6 +14,7 @@ class users(AbstractUser):
     notifications = models.BooleanField(default=False)
     varified = models.BooleanField(default=False)
     profile_image = models.ImageField(upload_to='user_profile_image', blank=True, null=True)
+    bookmark = models.ManyToManyField(Notes, related_name="User")
     
     
     def __str__(self):

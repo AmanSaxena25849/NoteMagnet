@@ -2,36 +2,38 @@ const deleteButton = document.querySelector("#delete-btn");
 const closeButton = document.querySelector(".cancel-btn");
 const deleteForm = document.querySelector(".delete-form");
 
-deleteButton.addEventListener("click", () => {
-    deleteForm.style.display = "flex";
+if (deleteButton) {
+    deleteButton.addEventListener("click", () => {
+        deleteForm.style.display = "flex";
+    });
+
+    closeButton.addEventListener("click", () => {
+        deleteForm.style.display = "none";
+    });
+}
+
+// Star button toggle
+const starBtn = document.querySelector(".star-btn");
+
+starBtn.addEventListener("click", () => {
+    starBtn.classList.toggle("active");
+    if (starBtn.classList.contains("active")) {
+        starBtn.innerHTML = '<span class="button-icon">★</span> Bookmarked';
+    } else {
+        starBtn.innerHTML = '<span class="button-icon">★</span> Add to Bookmark';
+    }
 });
 
-closeButton.addEventListener("click", () => {
-    deleteForm.style.display = "none";
+
+// Follow button toggle
+const followBtn = document.querySelector(".follow-btn");
+
+followBtn.addEventListener("click", () => {
+    if (followBtn.textContent.includes("Follow")) {
+        followBtn.innerHTML = '<span class="button-icon">✓</span> Following';
+        followBtn.style.backgroundColor = "#4A4238";
+    } else {
+        followBtn.innerHTML = '<span class="button-icon">+</span> Follow';
+        followBtn.style.backgroundColor = "";
+    }
 });
-
-
- // Star button toggle
- const starBtn = document.querySelector('.star-btn');
-    
- starBtn.addEventListener('click', () => {
-   starBtn.classList.toggle('active');
-   if (starBtn.classList.contains('active')) {
-     starBtn.innerHTML = '<span class="button-icon">★</span> Starred';
-   } else {
-     starBtn.innerHTML = '<span class="button-icon">★</span> Add to Stars';
-   }
- });
- 
- // Follow button toggle
- const followBtn = document.querySelector('.follow-btn');
- 
- followBtn.addEventListener('click', () => {
-   if (followBtn.textContent.includes('Follow')) {
-     followBtn.innerHTML = '<span class="button-icon">✓</span> Following';
-     followBtn.style.backgroundColor = '#4A4238';
-   } else {
-     followBtn.innerHTML = '<span class="button-icon">+</span> Follow';
-     followBtn.style.backgroundColor = '';
-   }
- });
