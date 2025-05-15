@@ -154,7 +154,7 @@
                   <h3 class="note-title">{{f_author.first_name}}{{f_author.last_name}}</h3>
                   <p class="note-desc">{{f_author.bio|truncatechars:150}}</p>
                   <div class="note-meta">
-                    <a href=""  class="read-more profile">Show Profile</a>
+                    <a href="{% url "author_page" f_author.id %}"  class="read-more profile">Show Profile</a>
                     <div class="note-stats followers_count">
                       <div class="note-stat">
                         <i class="fas fa-user-plus"></i>{{f_author.follow.count}}
@@ -268,7 +268,7 @@
                 <h3 class="note-title">{{f_author.first_name}}{{f_author.last_name}}</h3>
                 <p class="note-desc">{{f_author.bio|truncatechars:150}}</p>
                 <div class="note-meta">
-                  <a href=""  class="read-more profile">Show Profile</a>
+                  <a href="{% url "author_page" f_author.id %}"  class="read-more profile">Show Profile</a>
                   <div class="note-stats followers_count">
                     <div class="note-stat">
                       <i class="fas fa-user-plus"></i>{{f_author.follow.count}}

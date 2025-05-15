@@ -77,16 +77,28 @@ def delete_account(request):
         messages.error(request, "Incorrect deletion request. Please try again.")
         return redirect('dashboard')
 
+
+def author_page(request, author_id):
+    author = get_user_model().objects.get(id=author_id)
+    authors_notes = Notes.objects.filter(author=author_id).order_by('-created_at').prefetch_related('tag')
+    is_following = False
+    
+    if request.user.is_authenticated:
+        is_following = request.user.following.filter(id=author.id).exists()
+        
+    return render(request, "account/author_page.html", {"author":author, "author_notes":authors_notes, "is_following":is_following})   
+
+
 @login_required
 def follow_author(request, author_id):
     if request.method == 'POST':
         author = get_user_model().objects.get(id=author_id)
         request.user.following.add(author)
         messages.success(request, f"You followed {author.username}")
-        return redirect('dashboard')
+        return redirect(author_page, author_id=author_id)
     else:
         messages.error(request, "Failed to follow.")
-        return redirect('dashboard')   
+        return redirect(author_page, author_id=author_id)   
 
 
 @login_required
@@ -95,11 +107,11 @@ def unfollow_author(request, author_id):
         author = get_user_model().objects.get(id=author_id)
         request.user.following.remove(author)
         messages.success(request, f"You unfollowed {author.username}")
-        return redirect('dashboard')
+        return redirect(author_page, author_id=author_id)
     else:
         messages.error(request, "Failed to unfollow.")
-        return redirect('dashboard')   
+        return redirect(author_page, author_id=author_id)   
     
 
-    
+
  

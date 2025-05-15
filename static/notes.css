@@ -115,6 +115,11 @@
     gap: 1rem;
   }
   
+  .hidden-anchor-tag{
+    text-decoration: none;
+    color: unset;
+  }
+
   .button {
     padding: 0.5rem 1rem;
     border: none;

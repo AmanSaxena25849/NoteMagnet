@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "accounts/author_page/author_page.css" %}">
+{% endblock head %}
+
+{% block main %}
+    <main>
+        <!-- Author Profile Section -->
+        <section class="author-section">
+            <h1 class="section-title">Author Profile</h1>
+
+            <div class="author-header">
+                <div class="author-info">
+                    <img
+                        src="{{author.profile_image.url}}"
+                        alt="Author Profile Picture"
+                        class="profile-picture"
+                    />
+                    <div class="author-details">
+                        <h2 class="author-name">{{author.first_name}} {{author.last_name}}</h2>
+                        <p class="author-username">@{{author.username}}</p>
+                        
+                        <div class="stats-container">
+                            <div class="stat-item">
+                                <span class="stat-value">{{author.Notes.count}}</span>
+                                <span class="stat-label">Posts</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">{{author.follow.count}}</span>
+                                <span class="stat-label">Followers</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">{{author.following.count}}</span>
+                                <span class="stat-label">Following</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if user.is_authenticated %}
+                    {% if user.id == author.id %}
+
+                    {% else %}
+                        {% if is_following %}
+                            <form action="{% url "unfollow" author.id %}" method="post">
+                                {% csrf_token %}
+                                <button style="background-color: #4A4238" class="button follow-btn">
+                                <span class="button-icon">✓</span> Following
+                                </button>
+                            </form>
+                        {% else %}
+                            <form action="{% url "follow" author.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="button follow-btn">
+                                <span class="button-icon">+</span> Follow
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <div class="action-buttons">
+                        <a href="{% url 'account_login' %}" class="hidden-anchor-tag button follow-btn">Sign in to Follow</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="bio-section">
+                <p class="bio-text">
+                    {{author.bio}}
+                </p>
+            </div>
+
+            <!-- Author's Notes Section -->
+            <div class="notes-section">
+                <h2 class="notes-title">{{author.first_name}}'s Notes</h2>
+                
+                <div class="notes-grid">
+                    <!-- Note Card 1 -->
+                    {% for note in author_notes  %}
+                        <div class="note-card">
+                            <img src="{{note.note_image.url}}" alt="Note Image" class="note-image" />
+                            <div class="note-content">
+                                <div>
+                                    {% for tag in note.tag.all|slice:":3" %}
+                                        <span class="note-category">{{ tag.tag_name }}</span>
+                                    {% endfor %}
+                                </div>
+                                
+                                <h3 class="note-title">{{note.title}}</h3>
+                                <p class="note-excerpt">
+                                    {{note.content|truncatechars:200}}
+                                </p>
+                                <div class="note-meta">
+                                    <span>{{note.created_at}}</span>
+                                    <div class="note-stats">
+                                        <div class="note-stat">
+                                            <i class="fas fa-eye"></i>{{note.views_count.count}}
+                                        </div>
+                                        <div class="note-stat">
+                                            <i class="fas fa-heart"></i> {{note.bookmark.count}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{% url "view_note" note.id %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </section>
+    </main>
+{% endblock main %}
+
+{% block script %}
+    <script>
+        
+        const followBtn = document.querySelector(".follow-btn");
+        followBtn.addEventListener("click", () => {
+            if (followBtn.textContent.includes("Follow")) {
+                followBtn.innerHTML = '<span class="button-icon">✓</span> Following';
+                followBtn.style.backgroundColor = "#4A4238";
+            } else {
+                followBtn.innerHTML = '<span class="button-icon">+</span> Follow';
+                followBtn.style.backgroundColor = "";
+            }
+        });
+    </script>
+{% endblock script %}
+
+        
+            

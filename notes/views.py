@@ -26,7 +26,7 @@ def create_note(request):
                 tag, created = Tags.objects.get_or_create(tag_name = tag_name)
                 note.tag.add(tag)
             messages.success(request, "Your note has been created successfully!")
-            return redirect('my_notes')
+            return redirect('dashboard')
             
         else:
             print(form.errors)
@@ -45,8 +45,6 @@ def view_note(request, note_id):
     if request.user.is_authenticated:
         note.views_count.add(request.user)
         is_following = request.user.following.filter(id=note.author.id).exists()
-               
-
     
     query = Q()
     for i, tag in enumerate(tags[:2]): 

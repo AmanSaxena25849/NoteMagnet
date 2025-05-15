@@ -10,5 +10,5 @@ urlpatterns = [
     path('delete_account/', views.delete_account, name="delete_account" ),
     path('follow/<str:author_id>', views.follow_author, name='follow'),
     path('unfollow/<str:author_id>', views.unfollow_author, name='unfollow'),
-    
+    path('author/<str:author_id>', views.author_page, name="author_page"),
 ]
