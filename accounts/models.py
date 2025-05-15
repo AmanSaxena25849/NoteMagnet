@@ -14,7 +14,7 @@ class users(AbstractUser):
     bio = models.TextField(blank=True, null=True)
     notifications = models.BooleanField(default=False)
     varified = models.BooleanField(default=False)
-    profile_image = models.ImageField(upload_to='user_profile_image', blank=True, null=True)
+    profile_image = models.ImageField(upload_to='user_profile_image', blank=True, null=True, default="default_user.png")
     bookmark = models.ManyToManyField(Notes, related_name="bookmark")
     follow = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='following')
     

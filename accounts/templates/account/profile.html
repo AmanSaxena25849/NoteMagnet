@@ -12,7 +12,7 @@
             <section class="dashboard-section">
                 <h1 class="section-title">{{user.username}}</h1>
 
-                <form action="{% url "dashboard" %}" method="POST" enctype="multipart/form-data">
+                <form action="{% url "profile" %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for error in form.non_field_errors %}
                         <p>&#x2022; {{ error }}</p>

@@ -65,7 +65,6 @@
     <!-- Dashboard Content -->
     <main class="dashboard-content">
       <div id="overview-box" class="content-type ">
-        {% if my_notes %}
           <div class="dashboard-header">
             <h1 class="dashboard-title">My Notes</h1>
           </div>
@@ -97,9 +96,16 @@
                 </div>
                 <a href="{% url "view_note" my_note.id %}"  class="read-more">Read More</a>
               </div>
+            {%empty%}
+              <div class="note-card">
+                <a class="note-card-create" href="{% url "create_note" %}">
+                  <i class="fa-solid fa-plus"></i>
+                  <p class="create-note-p">create new note</p>
+                </a>
+              </div>
             {% endfor %}
           </div>
-        {% endif %}
+       
         {% if bookmarks %}
           <div class="dashboard-header">
             <h1 class="dashboard-title">Bookmarks</h1>
@@ -201,6 +207,13 @@
               </div>
               <a href="{% url "view_note" my_note.id %}"  class="read-more">Read More</a>
             </div>
+            {%empty%}
+              <div class="note-card">
+                <a href="{% url "create_note" %}">
+                  <i class="fa-solid fa-plus"></i>
+                  <p class="create-note-p">create new note</p>
+                </a>
+              </div>
           {% endfor %}
         </div>
       </div>
@@ -236,6 +249,8 @@
               </div>
               <a href="{% url "view_note" note.id %}"  class="read-more">Read More</a>
             </div>
+          {% empty %}
+            <p>Please bookmark some notes first.</p>
           {% endfor %}
         </div>
       </div>
@@ -261,23 +276,13 @@
                   </div>
                 </div>
               </div>
-              
             </div>
+            {% empty %}
+            <p>Please follow some authors first.</p>
           {% endfor %}
         </div>
       </div>
-      <!-- Pagination -->
-      <div class="pagination">
-        <button class="pagination-btn">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="pagination-btn active">1</button>
-        <button class="pagination-btn">2</button>
-        <button class="pagination-btn">3</button>
-        <button class="pagination-btn">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
+      
     </main>
   </div>
   

@@ -24,9 +24,11 @@
       
       <ul class="nav-links">
         <li><a href="{% url "home" %}">Home</a></li>
-        <li><a href="{% url "all_notes" %}">Notes</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{% url "all_notes" %}">All Notes</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        {% endif %}
+        <li><a href="#">About Us</a></li>
       </ul>
 
       {% if user.is_authenticated %}
@@ -39,7 +41,6 @@
           
           <ul>
             <li class="button"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li class="button"><a href="{% url 'my_notes' %}">My Notes</a></li>
             <li class="button"><a href="{% url 'account_logout' %}">Sign Out</a></li>
           </ul>
         </div>
@@ -60,10 +61,12 @@
     <div class="sidebar">
       <button class="close-btn">&times;</button>
       <ul class="sidebar-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Features</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{% url "home" %}">Home</a></li>
+        <li><a href="{% url "all_notes" %}">All Notes</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        {% endif %}
+        <li><a href="#">About Us</a></li>
       </ul>
       {% if user.is_authenticated %}
         <div class="sidebar-auth-info">
@@ -72,8 +75,7 @@
               <img src="{{user.profile_image.url}}" alt="user" width='32' height='32' />
               <p>{{user.username}}</p>
             </div>
-            <a href="{% url 'dashboard' %}">Profile</a>
-            <a href="{% url 'my_notes' %}">My Notes</a>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
             <a href="{% url 'account_logout' %}">Sign out</a>
             
           {% else %}

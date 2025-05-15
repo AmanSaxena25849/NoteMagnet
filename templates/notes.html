@@ -80,7 +80,7 @@
        
         
       </div>
-      <a href="#" class="view-all">View All Popular Notes</a>
+      <a href="{% url "all_notes" %}?filter=views_count" class="view-all">View All Popular Notes</a>
     </section>
     
     <!-- All Notes Section -->
@@ -106,7 +106,7 @@
           </div>
         {% endfor %}
       </div>
-      <a href="#" class="view-all">Explore All Notes</a>
+      <a href="{% url "all_notes" %}" class="view-all">Explore All Notes</a>
     </section>
   </main>
   {% endblock main %}

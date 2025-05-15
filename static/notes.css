@@ -159,30 +159,42 @@
     display: none;
   }
 
-  .messages{
+  .messages {
     position: absolute;
     left: 50%;
     top: 20%;
     transform: translate3d(-50%, -50%, 0px);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    opacity: 100%;
+    animation: message-in-out 6s forwards;
+  }
+
+  .messages li{
     min-width: fit-content;
     background-color: var(--card-bg);
     border: 2px solid var(--accent);
     border-radius: 8px;
     box-shadow: 0 4px 10px var(--shadow);
     padding: 1rem 3rem;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
     color: var(--text-dark);
+    font-size: 1.2rem;
     list-style: none;
-    opacity: 100%;
-    animation: message-in-out 5s forwards;
+    text-align: center;
   }
 
   @keyframes message-in-out {
     0%{
+        top: 0%;
+        opacity: 0%;
+        display: flex;
+    }
+
+    5%{
         top: 0%;
         opacity: 0%;
         display: flex;

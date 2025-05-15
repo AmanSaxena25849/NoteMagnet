@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from .forms import NotesForm, EditNoteForm
 from .models import Notes, Tags
-from allauth.account.models import  get_user_model
+from django.core.paginator import Paginator
 
 # Create your views here.
 @login_required
@@ -39,15 +39,24 @@ def create_note(request):
 def view_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     tags = note.tag.all()
+    is_following = False
     
     #code to add view and follow
     if request.user.is_authenticated:
         note.views_count.add(request.user)
         is_following = request.user.following.filter(id=note.author.id).exists()
-        print(is_following)        
+               
 
     
-    related_notes = Notes.objects.filter(Q(title__icontains=tags[0].tag_name) | Q(title__icontains=tags[1].tag_name) | Q(content__icontains=tags[0].tag_name) | Q(content__icontains=tags[1].tag_name) | Q(content__icontains="the")).exclude(title=note.title)
+    query = Q()
+    for i, tag in enumerate(tags[:2]): 
+        if i == 0:
+            query = Q(title__icontains=tag.tag_name) | Q(content__icontains=tag.tag_name)
+        else:
+            query = query | Q(title__icontains=tag.tag_name) | Q(content__icontains=tag.tag_name)
+    
+    query = query | Q(content__icontains="the")        
+    related_notes = Notes.objects.filter(query).exclude(title=note.title)
     
     return render(request, 'notes/view_note.html', {'note':note, 'related_notes':related_notes[0:2], 'is_following':is_following})
 
@@ -92,6 +101,7 @@ def edit_note(request, note_id):
         return redirect("view_note", note_id=note_id)
 
 
+
 @login_required
 def delete_note(request):
     if request.method == "POST":
@@ -107,32 +117,24 @@ def delete_note(request):
     else:
         messages.error(request, "Something went wrong, please try again.")
         return redirect("home")
-       
-
-@login_required
-def my_notes(request, order="-created_at"):
-    user_id = request.user.id
-    my_notes = Notes.objects.filter(author_id=user_id).order_by(order).prefetch_related('tag')
-    return render(request, "notes/my_notes.html", {"my_notes":my_notes})
+ 
 
 
 def all_notes(request):
     query = request.GET.get('search')
-    order = request.GET.get('filter')
-    print(not query, order)
-    if not query and not order:
-        all_notes = Notes.objects.filter(public=True).order_by("-created_at").prefetch_related('tag')
-        
-    elif not query and order:
-        all_notes = Notes.objects.filter(public=True).order_by(order).prefetch_related('tag')
-        
-    else:
-        all_notes = Notes.objects.filter(Q(title__icontains=query) | Q(content__icontains=query)).order_by(order).prefetch_related('tag')
-        print(all_notes)  
+    order = request.GET.get('filter') or "-created_at"
     
+    if query:
+        all_notes = Notes.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))   
+    else:
+        all_notes = Notes.objects.filter(public=True).prefetch_related('tag')
+        
+    all_notes = all_notes.order_by(order)
+
     return render(request, "notes/all_notes.html", {"all_notes":all_notes})
 
 
+@login_required
 def bookmark_note(request, note_id):
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
@@ -144,7 +146,8 @@ def bookmark_note(request, note_id):
         messages.error(request, "Failed to add to Bookmark.")
         return redirect('view_note', note_id=note_id)
     
-    
+   
+@login_required  
 def remove_bookmark(request, note_id):
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
