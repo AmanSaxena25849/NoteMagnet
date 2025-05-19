@@ -13,13 +13,16 @@
       <div class="note-header">
         <h1 class="note-title">{{note.title}}</h1>
         <div class="note-meta">
+          <a class="hidden-anchor-tag" href="{% url "author_page" note.author.id %}">
           <div class="author-info">
-            <img src="{{note.author.profile_image.url}}" alt="Author Avatar" class="author-avatar">
-            <div class="author-details">
-              <span class="author-name"><a class="hidden-anchor-tag" href="{% url "author_page" note.author.id %}">{{note.author.first_name}} {{note.author.last_name}}</a></span>
-              <span class="publication-date">Published on {{note.created_at}}</span>
-            </div>
+              <img src="{{note.author.profile_image.url}}" alt="Author Avatar" class="author-avatar">
+              <div class="author-details">
+                <span class="author-name">{{note.author.first_name}} {{note.author.last_name}}</span>
+                <span class="publication-date">Published on {{note.created_at}}</span>
+              </div>
+            
           </div>
+          </a>
           {% if user.is_authenticated %}
             {% if user == note.author %}
 

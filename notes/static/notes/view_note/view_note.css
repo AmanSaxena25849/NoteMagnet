@@ -159,6 +159,11 @@ body {
     font-weight: 600;
     font-size: 1.1rem;
     color: var(--text-dark);
+    transition:1ms ease-out;
+}
+
+.author-name:hover{
+    color: var(--accent);
 }
 
 .publication-date {

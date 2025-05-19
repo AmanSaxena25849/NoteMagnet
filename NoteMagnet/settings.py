@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #default apps
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -53,6 +54,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.twitter',
     
     #clean-up
     'django_cleanup.apps.CleanupConfig',
@@ -158,7 +161,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #all auth settings
 
+SOCIALACCOUNT_PROVIDERS = {
+  'google': {
+      "APP": {
+          'client_id': os.getenv('GOOGLE_OAUTH_CLIENT_ID'),
+          'secret': os.getenv('GOOGLE_OAUTH_SECRET'),
+        }, 
+    },
+  'github': {
+      'APP':{
+          'client_id' : os.getenv('GITHUB_OAUTH_CLIENT_ID'),
+          'secret' : os.getenv('GITHUB_OAUTH_SECRET'),
+      }
+    },
+  'twitter':{
+      'APP':{
+          'client_id' : os.getenv('TWITTER_OAUTH_CLIENT_ID'),
+          'secret' : os.getenv('TWITTER_OAUTH_SECRET'),
+      }
+  }
+}
+
 SITE_ID = 1
+
 
 AUTH_USER_MODEL = 'accounts.users' 
 
@@ -184,7 +209,17 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 ACCOUNT_LOGIN_METHODS = {"username", "email"}
 
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_UNIQUE_EMIAL = True
+ACCOUNT_DEFAULT_HTTP_PROTOCOL='http'
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 
+
+ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'accounts.adapters.SocialAccountAdapter'
 
 # MEDIA SETTINGS
 MEDIA_ROOT = BASE_DIR / "media"
