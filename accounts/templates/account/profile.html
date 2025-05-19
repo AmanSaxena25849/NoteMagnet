@@ -31,11 +31,6 @@
                                  alt="user" 
                             />
                         {% endif %}
-                        
-                        <div class="stats">
-                            <p>1k followers</p>
-                            <p>100 Notes</p>
-                        </div>
                     </div>
 
                     <div class="center-user-info">
@@ -123,6 +118,8 @@
                         {% endif %}
 
                         <a href="{% url "account_change_password" %}" class="account-link">Change Password</a>
+
+                        <a href="{% url "account_logout" %}" class="account-link">Sign Out</a>
 
                         <a href="{% url "confirm_account_delete" %}" class="account-link delete">Delete Account</a>
                     </div>

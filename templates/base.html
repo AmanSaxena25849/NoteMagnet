@@ -18,7 +18,7 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="" alt="">
+        <img src="{{ MEDIA_URL }}NM_icon.png" alt="">
         NoteMagnet
       </div>
       
@@ -32,18 +32,16 @@
       </ul>
 
       {% if user.is_authenticated %}
-        <div class="auth-info">
+        <a href="{% url "profile" %}" class="auth-info">
           {% if user.profile_image %}
-            <img src="{{user.profile_image.url}}" alt="user" width='45' height='45' />
+            <img src="{{user.profile_image.url}}" alt="user" width='40' height='40' />
           {% else %}
             <img src="https://img.icons8.com/office/32/user.png" alt="user" />
           {% endif %}
           
-          <ul>
-            <li class="button"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li class="button"><a href="{% url 'account_logout' %}">Sign Out</a></li>
-          </ul>
-        </div>
+          <p>{{user.username | capfirst}}</p>
+          
+        </a>
       {% else %}
         <div class="auth-buttons">
           <a class="button login-btn" href="{% url 'account_login' %}">Login</a>
@@ -71,11 +69,9 @@
       {% if user.is_authenticated %}
         <div class="sidebar-auth-info">
           {% if user.profile_image %}
-            <div>
-              <img src="{{user.profile_image.url}}" alt="user" width='32' height='32' />
-              <p>{{user.username}}</p>
-            </div>
-            <a href="{% url 'dashboard' %}">Dashboard</a>
+            
+            <img src="{{user.profile_image.url}}" alt="user" width='32' height='32' />
+            <a href="{% url "profile" %}">{{user.username | capfirst}}</a>
             <a href="{% url 'account_logout' %}">Sign out</a>
             
           {% else %}

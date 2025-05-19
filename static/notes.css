@@ -40,8 +40,7 @@
   }
   
   .logo img {
-    height: 40px;
-    margin-right: 10px;
+    height: 52px;
   }
   
   .nav-links {
@@ -68,52 +67,33 @@
     position: relative;
     right: 10px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
     padding: 10px;
+    text-decoration: none;
   }
   
   .auth-info img{
-    Border:2px solid var(--text-dark);
+    Border: 2px solid var(--accent);
     background-color: rgba(235, 235, 235, 0.425);
     border-radius: 50%;
+    box-shadow: -2px 0px 10px var(--shadow);
     object-fit: cover;
   }
 
-  .auth-info ul{
-    display: none;
-    flex-direction: column;
-    gap: 0.5rem;
-    position: absolute;
-    top: 50px;
-    list-style: none;
-    min-width: 100px;
-    z-index: 100;
-    padding-top: 10px;
-  }
-
-  .auth-info:hover ul,
-  .auth-info ul:hover {
-    display: flex;
-  }
-
-  .auth-info ul li{
-    background-color: var(--accent);  
-    padding: 5px 10px;
-    text-align: center;
-  }
-
-  .auth-info ul li a{
-    text-decoration: none;
+  .auth-info p{
     color: var(--text-dark);
+    font-weight: 500;
+    transition: color 0.3s;
   }
 
-  .auth-buttons {
-    display: flex;
-    gap: 1rem;
+  .auth-info p:hover{
+    color: var(--accent);
+    font-weight: 500;
   }
+
+ 
   
   .hidden-anchor-tag{
     text-decoration: none;
@@ -543,9 +523,10 @@
     }
 
     .sidebar-auth-info img{
-      Border:2px solid var(--text-dark);
+      Border: 2px solid var(--accent);
       background-color: rgba(235, 235, 235, 0.425);
       border-radius: 50%;
+      box-shadow: -2px 0px 10px var(--shadow);
       object-fit: cover;
     }
     

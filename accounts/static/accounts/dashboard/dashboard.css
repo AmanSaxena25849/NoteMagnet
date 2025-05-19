@@ -49,6 +49,15 @@ body {
 .sidebar-header h2 {
     font-size: 1.5rem;
     color: var(--text-dark);
+    margin-bottom: .5rem;
+}
+
+.sidebar-header div{
+    font-weight: 600;
+}
+
+.sidebar-header div i{
+    font-size: 0.8rem;
 }
 
 .sidebar-menu {
