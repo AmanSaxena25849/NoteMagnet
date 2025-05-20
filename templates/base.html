@@ -28,7 +28,7 @@
         {% if user.is_authenticated %}
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
         {% endif %}
-        <li><a href="#">About Us</a></li>
+        <li><a href="{% url "about_us" %}">About Us</a></li>
       </ul>
 
       {% if user.is_authenticated %}
@@ -64,7 +64,7 @@
         {% if user.is_authenticated %}
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
         {% endif %}
-        <li><a href="#">About Us</a></li>
+        <li><a href="{% url "about_us" %}">About Us</a></li>
       </ul>
       {% if user.is_authenticated %}
         <div class="sidebar-auth-info">

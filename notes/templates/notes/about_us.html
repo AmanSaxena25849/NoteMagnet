@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static "notes/about_us/about_us.css" %}">
+{% endblock head %}
+
+{% block main %}
+  <main>
+    <!-- About Header Section -->
+    <div class="about-header">
+      <h1>About NoteMagnet</h1>
+      <p>Redefining the way we create, share, and experience notes in the digital age.</p>
+    </div>
+    
+    <!-- About Story Section -->
+    <section class="about-section">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>Our Story</h2>
+          <p>NoteMagnet was born from a simple frustration: traditional note-taking tools were either too complicated or too limited. As a software developer with a passion for productivity, I set out to create something different—a platform that combines simplicity with power.</p>
+          <p>What started as a personal project in early 2024 quickly evolved into a mission to revolutionize how people capture and share their thoughts, knowledge, and ideas.</p>
+          <p>Today, NoteMagnet exists to make notes "stick" in a world full of distractions—bringing together intuitive design, powerful organization tools, and seamless sharing capabilities.</p>
+        </div>
+        <div class="about-image">
+          <img src="{{MEDIA_URL}}Workspace.jpg" alt="NoteMagnet Workspace">
+        </div>
+      </div>
+    </section>
+
+     <!-- Meet the Developer Section -->
+    <section class="developer-section">
+      <h2 class="section-title">Meet the Developer</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <h3 class="developer-name">Aman Saxena</h3>
+          <p class="developer-role"><strong>Founder & Lead Developer</strong></p>
+          <p class="developer-bio">Hi, I'm Aman — a passionate backend developer and the creator of NoteMagnet, a collaborative platform built to make studying smarter, easier, and more social. I'm deeply driven by clean, efficient code and always exploring ways to bridge backend logic with practical frontend impact. My stack includes Django, PostgreSQL, Redis, DRF, Celery and I love building fast, secure, and scalable web apps.</p>
+          <p>Beyond code, I believe in knowledge sharing and community learning. That’s why NoteMagnet isn't just a project — it’s my contribution to making study materials more discoverable, engaging, and collaborative.</p>
+          <p>Whether you're a fellow coder or a student looking for helpful notes, I'm always open to connect, collaborate, and improve. Let’s learn together.</p>
+          <div class="contact-info">
+            <h4>Contact:</h4>
+            <p>Email: <a href="mailto:aman25849@gmail.com" target="_blank">aman25849@gmail.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/aman-saxena-949bb9322/">Aman saxena</a></p>
+            <p>GitHub: <a href="https://github.com/AmanSaxena25849">AmanSaxena25849</a></p>
+          </div>
+        </div>
+        <div class="developer-image">
+          <img src="{{ MEDIA_URL }}owner_image.jpg" alt="Aman Saxena - NoteMagnet Developer">
+          <p class="developer-quote">"Notes should be as dynamic as the thoughts they capture."</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Technologies Section -->
+    <section class="tech-stack">
+      <h2>Technologies Behind NoteMagnet</h2>
+      <div class="tech-items">
+        <a href="https://www.w3schools.com/html/" class="hidden-anchor-tag tech-item">
+          <img src="https://img.icons8.com/color/100/html-5--v1.png"  alt="html-5--v1"/>
+          <h3>HTML/CSS</h3>
+          <p>Structuring and styling web interfaces with the precision of semantic markup and modern design control.</p>
+        </a>
+        
+        <a href="https://www.djangoproject.com/" class="hidden-anchor-tag tech-item">
+          <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/100/external-django-a-high-level-python-web-framework-that-encourages-rapid-development-logo-shadow-tal-revivo.png" alt="Django Logo"/>
+          <h3>Django</h3>
+          <p>Powering our backend backends with the efficiency of an powerful and scalable app-based monolithic architecture.</p>
+        </a>
+        
+        <a href="https://www.postgresql.org/" class="hidden-anchor-tag tech-item">
+          <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/100/external-postgre-sql-a-free-and-open-source-relational-database-management-system-logo-shadow-tal-revivo.png" alt="PostgreSQL Logo">
+          <h3>PostgreSQL</h3>
+          <p>Managing structured, relational data with the reliability of a robust and scalable SQL database.</p>
+        </a>
+        
+        <a href="https://docs.allauth.org/en/latest/" class="hidden-anchor-tag tech-item">
+          <img src="https://allauth.org/img/logo-dark.png" alt="Allauth Logo">
+          <h3>Allauth</h3>
+          <p>Streamlining user authentication with the convenience of a pre-built, integrated solution</p>
+        </a>
+        
+        <a href="https://redis.io/" class="hidden-anchor-tag tech-item">
+          <img src="https://img.icons8.com/fluency/48/redis.png" alt="Redis Logo">
+          <h3>Redis</h3>
+          <p>Handling high-speed data operations with the performance of an in-memory key-value store.t</p>
+        </a>
+        
+        <a href="https://icons8.com/" class="hidden-anchor-tag tech-item">
+          <img src="https://img.icons8.com/color/100/icons8-new-logo.png" alt="Icon8 Logo">
+          <h3>Icon8</h3>
+          <p>Enhancing UI/UX design with the flexibility of a premium vector icon library.</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Vision Section -->
+    <section class="vision-section">
+      <h2>My Vision for the Future of Notes</h2>
+      <p>I believe note-taking should be more than just digital text on a screen. Notes should be dynamic, interconnected, and intelligent—adapting to how we think and work.</p>
+      <p>The future of notes isn't just about capturing information; it's about transforming how we interact with our own knowledge. At NoteMagnet, I'm building tools that help ideas connect naturally, surface when you need them, and grow as your thinking evolves.</p>
+      <p>My goal is to create an ecosystem where your notes become an extension of your mind—a true second brain that enhances your creativity, productivity, and learning.</p>
+      {% if user.is_authenticated %}
+        <a href="{% url "create_note" %}" class="cta-button">Join the Future</a>
+      {% else %}
+        <a href="{% url "account_signup" %}" class="cta-button">Join the Future</a>
+      {% endif %}
+      
+    </section>
+  </main>
+{% endblock main %}
+
+

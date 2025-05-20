@@ -3,10 +3,10 @@ from allauth.account.utils import send_email_confirmation
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from allauth.account.models import  get_user_model
-from django.contrib.auth.models import User
 from .forms import DashboardForm
 from django.contrib import messages
 from notes.models import Notes
+from django.db import transaction
 
 # Create your views here.
 
@@ -26,7 +26,8 @@ def dashboard(request):
     return render(request, 'account/dashboard.html', {'my_notes':my_notes, "bookmarks":bookmarks,"following_authors":following_authors })  
 
     
-@login_required    
+@login_required
+@transaction.atomic    
 def profile(request):
     user =request.user
     
@@ -66,6 +67,7 @@ def confirm_account_delete(request):
 
 
 @login_required
+@transaction.atomic 
 def delete_account(request):
     if request.method == "POST": 
         user:str = request.user

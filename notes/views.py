@@ -4,10 +4,11 @@ from django.contrib import messages
 from django.db.models import Q
 from .forms import NotesForm, EditNoteForm
 from .models import Notes, Tags
-from django.core.paginator import Paginator
+from django.db import transaction
 
 # Create your views here.
 @login_required
+@transaction.atomic
 def create_note(request):
     if request.method == 'POST':
         tag_list = request.POST.getlist('tags')
@@ -60,6 +61,7 @@ def view_note(request, note_id):
 
 
 @login_required
+@transaction.atomic
 def edit_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     
@@ -101,6 +103,7 @@ def edit_note(request, note_id):
 
 
 @login_required
+@transaction.atomic
 def delete_note(request):
     if request.method == "POST":
         note_id = request.POST.get("note_id")
@@ -157,4 +160,6 @@ def remove_bookmark(request, note_id):
         messages.error(request, "Failed to remove to Bookmark.")
         return redirect('view_note', note_id=note_id)
 
-    
+
+def about_us(request):
+    return render(request, "notes/about_us.html")    
