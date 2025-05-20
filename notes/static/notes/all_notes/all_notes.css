@@ -278,6 +278,21 @@
     margin-right: 8px;
 }
 
+.note-stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: .5rem;
+}
+
+.note-stat {
+    display: flex;
+    align-items: center;
+}
+
+.note-stat i {
+    margin-right: 4px;
+}
+
 .read-more {
     display: inline-block;
     padding: 0.5rem 1rem;
