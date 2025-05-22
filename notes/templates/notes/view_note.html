@@ -52,6 +52,22 @@
               </div>
             {% else %}
               <div class="action-buttons">
+                {% if liked %}
+                  <form action="{% url "remove_like" note.id %}" method="post">
+                    {% csrf_token %}
+                    <button style="background-color:rgb(224, 20, 20); color:#ffffff"  class="like-btn active">
+                      <span class="button-icon"><i class="fa-solid fa-heart"></i></span>
+                    </button>
+                  </form>
+                {% else %}
+                  <form action="{% url "like_note" note.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="like-btn">
+                      <span class="button-icon"><i class="fa-regular fa-heart"></i></span>
+                    </button>
+                  </form>
+                {% endif %}
+
                 {% if is_following %}
                   <form action="{% url "unfollow" note.author.id %}" method="post">
                     {% csrf_token %}
@@ -112,7 +128,7 @@
               <i class="fas fa-eye"></i> {{note.views_count.count}}
             </div>
             <div class="note-stat">
-              <i class="fas fa-heart"></i> {{note.bookmark.count}}
+              <i class="fas fa-heart"></i> {{note.liked.count}}
             </div>
           </div>
         </div>

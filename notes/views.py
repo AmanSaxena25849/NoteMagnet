@@ -41,11 +41,13 @@ def view_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     tags = note.tag.all()
     is_following = False
+    liked = False
     
     #code to add view and follow
     if request.user.is_authenticated:
         note.views_count.add(request.user)
         is_following = request.user.following.filter(id=note.author.id).exists()
+        liked = request.user.like.filter(id=note_id).exists()
     
     query = Q()
     for i, tag in enumerate(tags[:2]): 
@@ -57,7 +59,7 @@ def view_note(request, note_id):
     query = query | Q(content__icontains="the")        
     related_notes = Notes.objects.filter(query).exclude(title=note.title)
     
-    return render(request, 'notes/view_note.html', {'note':note, 'related_notes':related_notes[0:2], 'is_following':is_following})
+    return render(request, 'notes/view_note.html', {'note':note, 'related_notes':related_notes[0:2], 'is_following':is_following, 'liked':liked})
 
 
 @login_required
@@ -157,7 +159,32 @@ def remove_bookmark(request, note_id):
         return redirect('view_note', note_id=note_id)
     
     else:
-        messages.error(request, "Failed to remove to Bookmark.")
+        messages.error(request, "Failed to remove from Bookmarks.")
+        return redirect('view_note', note_id=note_id)
+
+@login_required
+def like_note(request, note_id):
+    if request.method == "POST":
+        note = Notes.objects.get(id=note_id)
+        request.user.like.add(note)
+        messages.success(request, "Note liked.")
+        return redirect('view_note', note_id=note_id)
+    
+    else:
+        messages.error(request, "Failed to like the note.")
+        return redirect('view_note', note_id=note_id)
+
+
+@login_required  
+def remove_like(request, note_id):
+    if request.method == "POST":
+        note = Notes.objects.get(id=note_id)
+        request.user.like.remove(note)
+        messages.success(request, "Note removed from likes.")
+        return redirect('view_note', note_id=note_id)
+    
+    else:
+        messages.error(request, "Failed to remove from likes.")
         return redirect('view_note', note_id=note_id)
 
 

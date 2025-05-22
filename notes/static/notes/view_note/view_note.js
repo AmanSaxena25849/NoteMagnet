@@ -24,6 +24,22 @@ starBtn.addEventListener("click", () => {
     }
 });
 
+// like button toggle
+const likeBtn = document.querySelector(".like-btn");
+
+likeBtn.addEventListener("click", () => {
+    likeBtn.classList.toggle("active");
+    if (likeBtn.classList.contains("active")) {
+        likeBtn.style.backgroundColor = "red";
+        likeBtn.style.color = "white";
+        likeBtn.innerHTML = '<span class="button-icon"><i class="fa-solid fa-heart"></i></span>';
+    } else {
+        likeBtn.style.backgroundColor = "unset";
+        likeBtn.style.color = "red";
+        likeBtn.innerHTML = '<span class="button-icon"><i class="fa-regular fa-heart"></i></span>';
+    }
+});
+
 
 // Follow button toggle
 const followBtn = document.querySelector(".follow-btn");

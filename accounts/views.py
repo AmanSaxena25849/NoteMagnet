@@ -20,10 +20,11 @@ def reauth_with_email(request):
 def dashboard(request):
     user_id = request.user.id
     my_notes = Notes.objects.filter(author=user_id).order_by('-created_at').prefetch_related('tag')
+    liked_notes = request.user.like.all()
     bookmarks = request.user.bookmark.all()
     following_authors = request.user.following.all()
     
-    return render(request, 'account/dashboard.html', {'my_notes':my_notes, "bookmarks":bookmarks,"following_authors":following_authors })  
+    return render(request, 'account/dashboard.html', {'my_notes':my_notes, "liked_notes":liked_notes, "bookmarks":bookmarks,"following_authors":following_authors })  
 
     
 @login_required
