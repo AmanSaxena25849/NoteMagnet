@@ -13,10 +13,9 @@ class Tags(models.Model):
     def __str__(self):
         return self.tag_name
     
-    
+
 
 class Notes(models.Model):
-    
     class Meta:
         verbose_name_plural = "Notes" 
     
@@ -32,6 +31,30 @@ class Notes(models.Model):
     def __str__(self):
         return self.title
 
+
+
+class Comments(models.Model):
+    class Meta:
+        verbose_name_plural = "Comments"
+    
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    note = models.ForeignKey(Notes, on_delete=models.CASCADE, related_name='comments')
+    comment = models.CharField(max_length=300, blank=False)
+    created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+    
+    liked_by = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_comments', blank=True)
+    disliked_by = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='disliked_comments',blank=True)
+    
+    @property
+    def like_count(self):
+        return self.liked_by.count()
+    
+    @property
+    def dislike_count(self):
+        return self.disliked_by.count()
+    
+    def __str__(self):
+        return self.comment
 
 
     

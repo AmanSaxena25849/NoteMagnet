@@ -406,27 +406,101 @@ body {
     margin-right: 4px;
 }
 
-.social-share {
+.comment-body{
+    margin-top: 2rem;
+   
+    
+}
+
+.comment-body h2{
+    margin-bottom: 1rem;
+}
+
+.comments{
     display: flex;
     gap: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
 }
 
-.share-icon {
-    width: 36px;
-    height: 36px;
+.commenter-image{
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background-color: var(--secondary-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-dark);
-    text-decoration: none;
-    transition: all 0.3s;
+    margin-right: 1rem;
+    margin-top: .5rem;
 }
 
-.share-icon:hover {
+.make-comment{
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.make-comment input{
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: border-color 0.3s;
+}
+
+.comment-right{
+    width: 100%;
+}
+
+.comment-info{
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.comment-info h3{
+    margin: 0px;
+    line-height: initial;
+}
+
+.comment-info p{
+    margin: 0px;
+    line-height: initial;
+}
+
+.comment-actions{
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-btns{
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+} 
+
+.vote-btn{
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.vote-btn:hover{
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--accent);
+}
+
+.submit{
+    margin-top: 1rem;
     background-color: var(--accent);
-    color: white;
+    color: var(--text-dark);
+    position: relative;
 }
 
 .related-notes {

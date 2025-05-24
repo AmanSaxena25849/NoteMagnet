@@ -1,0 +1,39 @@
+{% for comment in comments %}
+<div class="note-body comments">
+    {% load humanize %}
+    <img class="commenter-image" src="{{comment.author.profile_image.url}}" alt="comment_author">
+    <div class="comment-right">
+        <div class="comment-info">
+        <h3>{{comment.author.first_name}} {{comment.author.last_name}}</h3>
+        <p>{{comment.created_at|naturaltime}}</p>
+        </div>
+        <p>{{comment.comment}}</p>
+        <div class="comment-actions">
+
+        <form method="post" class="comment-btns">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+                <button class="vote-btn" type="submit" formaction=""><i class="fa-regular fa-thumbs-up"></i> 10</button>
+                <button class="vote-btn" type="submit" formaction=""><i class="fa-regular fa-thumbs-down"></i> 2</button>  
+            {% else %}
+            <a class="hidden-anchor-tag vote-btn" href="{% url "account_login" %}"><i class="fa-regular fa-thumbs-up"></i> 10</a>
+            <a class="hidden-anchor-tag vote-btn" href="{% url "account_login" %}"><i class="fa-regular fa-thumbs-down"></i> 2</a>
+            {% endif %}
+        </form>
+
+        <form hx-target="#comment-results" hx-swap="innerHTML"  class="comment-btns">
+            {% csrf_token %}
+            {% if user.is_authenticated and comment.author == user %}
+            <button hx-post="{% url "remove_comment" note.id comment.id %}" class="vote-btn" type="submit"><i class="fa-solid fa-trash"></i> Delete</button> 
+            
+            {% elif user.is_authenticated and comment.author != user%}
+            <button class="vote-btn" type="submit" formaction=""><i class="fa-solid fa-flag"></i> Report</button>
+            {% else %}
+
+            {% endif %}
+        </form>
+
+        </div>
+    </div>
+</div>
+{% endfor %}

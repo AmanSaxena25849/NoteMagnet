@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Q, Count
 from .forms import NotesForm, EditNoteForm
-from .models import Notes, Tags
+from .models import Notes, Tags, Comments
 from django.db import transaction
 
 # Create your views here.
@@ -37,6 +37,7 @@ def create_note(request):
     return render(request, "notes/create_note.html", {"form": form})
 
 
+
 def view_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     tags = note.tag.all()
@@ -57,9 +58,11 @@ def view_note(request, note_id):
             query = query | Q(title__icontains=tag.tag_name) | Q(content__icontains=tag.tag_name)
     
     query = query | Q(content__icontains="the")        
+    comments = note.comments.all()
     related_notes = Notes.objects.filter(query).exclude(title=note.title)
     
-    return render(request, 'notes/view_note.html', {'note':note, 'related_notes':related_notes[0:2], 'is_following':is_following, 'liked':liked})
+    return render(request, 'notes/view_note.html', {'note':note, 'comments':comments, 'related_notes':related_notes[0:2], 'is_following':is_following, 'liked':liked})
+
 
 
 @login_required
@@ -104,6 +107,7 @@ def edit_note(request, note_id):
 
 
 
+
 @login_required
 @transaction.atomic
 def delete_note(request):
@@ -131,14 +135,19 @@ def all_notes(request):
         all_notes = Notes.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))   
     else:
         all_notes = Notes.objects.filter(public=True).prefetch_related('tag')
+    
+    if "views_count" in order:
+        all_notes = all_notes.annotate(num_views=Count("views_count"))
+        order = order.replace("views_count", "-num_views")
         
     all_notes = all_notes.order_by(order)
 
     return render(request, "notes/all_notes.html", {"all_notes":all_notes})
 
 
+
 @login_required
-def bookmark_note(request, note_id):
+def bookmark_note(request, note_id:str):
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
         request.user.bookmark.add(note)
@@ -149,9 +158,10 @@ def bookmark_note(request, note_id):
         messages.error(request, "Failed to add to Bookmark.")
         return redirect('view_note', note_id=note_id)
     
+
    
 @login_required  
-def remove_bookmark(request, note_id):
+def remove_bookmark(request, note_id:str):
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
         request.user.bookmark.remove(note)
@@ -162,8 +172,10 @@ def remove_bookmark(request, note_id):
         messages.error(request, "Failed to remove from Bookmarks.")
         return redirect('view_note', note_id=note_id)
 
+
+
 @login_required
-def like_note(request, note_id):
+def like_note(request, note_id:str):
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
         request.user.like.add(note)
@@ -175,8 +187,9 @@ def like_note(request, note_id):
         return redirect('view_note', note_id=note_id)
 
 
+
 @login_required  
-def remove_like(request, note_id):
+def remove_like(request, note_id:str):
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
         request.user.like.remove(note)
@@ -188,5 +201,47 @@ def remove_like(request, note_id):
         return redirect('view_note', note_id=note_id)
 
 
+
+@login_required
+@transaction.atomic
+def add_comment(request, note_id:str):
+    note = get_object_or_404(Notes, id=note_id)
+
+    if request.method == "POST" and request.user.is_authenticated: 
+        Comments.objects.create(note=note, author=request.user, comment=request.POST.get("comment"))
+        
+        comments = note.comments.all()
+        return render(request, "notes/view_note_partials/comment.html", {"comments":comments, "note": note })
+
+    messages.error(request, "Failed to add the comment!")
+    return redirect("view_note", note_id=note.id)
+   
+
+    
+@login_required
+@transaction.atomic
+def remove_comment(request, note_id:str, comment_id:str): 
+    if request.method == "POST" and request.user.is_authenticated:
+        
+        comment = get_object_or_404(Comments, id=comment_id)
+        comment.delete()
+        
+        note = get_object_or_404(Notes, id=note_id)
+        comments = note.comments.all()
+        
+        return render(request, "notes/view_note_partials/comment.html", {"comments": comments, "note": note })
+    else:
+        messages.error(request, "Failed to remove comment!")
+        return redirect('view_note', note_id=note_id)
+
+
+
+# @login_required
+# @transaction.atomic
+# def like(request, note_id:str, comment_id:str):
+    
+
+
+    
 def about_us(request):
     return render(request, "notes/about_us.html")    

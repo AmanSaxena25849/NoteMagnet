@@ -1,5 +1,5 @@
 from django import forms
-from .models import Notes
+from .models import Notes, Comments
 
 class NotesForm(forms.ModelForm):
     class Meta:

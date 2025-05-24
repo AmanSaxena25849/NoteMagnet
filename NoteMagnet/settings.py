@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     
     #clean-up
     'django_cleanup.apps.CleanupConfig',
-    
+    'django.contrib.humanize',
     'el_pagination',
     
     

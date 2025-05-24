@@ -2,6 +2,7 @@
 
 {% block head %}
   {% load static %}
+  {% load humanize %}
   <link rel="stylesheet" href="{% static "notes/view_note/view_note.css" %}">
   <script defer src="{% static "notes/view_note/view_note.js" %}"></script>
 {% endblock head %}
@@ -131,6 +132,32 @@
               <i class="fas fa-heart"></i> {{note.liked.count}}
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="comment-body">
+        <h2>Comments</h2>
+
+        {% if user.is_authenticated %}
+          <div class="note-body comments make-comment">
+            <img class="commenter-image" src="{{user.profile_image.url}}" alt="">
+            <form hx-post="{% url 'add_comment' note.id %}"           
+                  hx-target="#comment-results" 
+                  hx-swap="innerHTML"
+                  class="comment-right">
+              {% csrf_token %}
+              <input name="comment" placeholder="Type your comment...." autocomplete="off" type="text" required>
+              <button type="submit" class="button submit">Submit</button>
+            </form>
+          </div>
+        {% else %}
+          <div class="note-body comments make-comment">
+            <p style="margin-bottom:0rem"><i class="fa-solid fa-comment"></i> Please <a href="{% url "account_login" %}">login</a> to comment on this note.</p>
+          </div>
+        {% endif %}
+
+        <div id="comment-results">
+          {% include "notes/view_note_partials/comment.html" %}
         </div>
       </div>
     </div>
