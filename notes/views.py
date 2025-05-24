@@ -207,7 +207,7 @@ def remove_like(request, note_id:str):
 def add_comment(request, note_id:str):
     note = get_object_or_404(Notes, id=note_id)
 
-    if request.method == "POST" and request.user.is_authenticated: 
+    if request.method == "POST": 
         Comments.objects.create(note=note, author=request.user, comment=request.POST.get("comment"))
         
         comments = note.comments.all()
@@ -221,7 +221,7 @@ def add_comment(request, note_id:str):
 @login_required
 @transaction.atomic
 def remove_comment(request, note_id:str, comment_id:str): 
-    if request.method == "POST" and request.user.is_authenticated:
+    if request.method == "POST":
         
         comment = get_object_or_404(Comments, id=comment_id)
         comment.delete()
@@ -236,12 +236,43 @@ def remove_comment(request, note_id:str, comment_id:str):
 
 
 
-# @login_required
-# @transaction.atomic
-# def like(request, note_id:str, comment_id:str):
+@login_required
+def like(request, comment_id:str):
+    if request.method == 'POST':
+        comment = get_object_or_404(Comments, id=comment_id)
+        user = request.user
+        status = ""
+        
+        if user in comment.liked_by.all():
+            comment.liked_by.remove(user)  
+        else:
+            comment.liked_by.add(user)     
+            comment.disliked_by.remove(user)
+            status = "liked"
+        
+            
+        return render(request, "notes/view_note_partials/like_dislike.html", {"status":status, "comment":comment})
     
-
-
+    
+    
+@login_required
+def dislike(request, comment_id:str):
+    if request.method == 'POST':
+        comment = get_object_or_404(Comments, id=comment_id)
+        user = request.user
+        status = ""
+        
+        if user in comment.disliked_by.all():
+            comment.disliked_by.remove(user)  
+        else:
+            comment.disliked_by.add(user)     
+            comment.liked_by.remove(user)
+            status = "disliked"
+        
+            
+        return render(request, "notes/view_note_partials/like_dislike.html", {"status":status, "comment":comment})
+    
+    
     
 def about_us(request):
     return render(request, "notes/about_us.html")    

@@ -10,15 +10,11 @@
         <p>{{comment.comment}}</p>
         <div class="comment-actions">
 
-        <form method="post" class="comment-btns">
-            {% csrf_token %}
-            {% if user.is_authenticated %}
-                <button class="vote-btn" type="submit" formaction=""><i class="fa-regular fa-thumbs-up"></i> 10</button>
-                <button class="vote-btn" type="submit" formaction=""><i class="fa-regular fa-thumbs-down"></i> 2</button>  
-            {% else %}
-            <a class="hidden-anchor-tag vote-btn" href="{% url "account_login" %}"><i class="fa-regular fa-thumbs-up"></i> 10</a>
-            <a class="hidden-anchor-tag vote-btn" href="{% url "account_login" %}"><i class="fa-regular fa-thumbs-down"></i> 2</a>
-            {% endif %}
+        <form id="like-dislike" 
+              hx-target="#like-dislike"
+              hx-swap="innerHTML"
+              class="comment-btns">
+            {% include "notes/view_note_partials/like_dislike.html" %}
         </form>
 
         <form hx-target="#comment-results" hx-swap="innerHTML"  class="comment-btns">

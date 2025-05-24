@@ -18,5 +18,8 @@ urlpatterns = [
     path("add-comment/<str:note_id>", views.add_comment, name="add_comment"),
     path("remove-comment/<str:note_id>/<str:comment_id>", views.remove_comment, name="remove_comment"),
     
+    path('add-like/<str:comment_id>', views.like , name="like"),
+    path('add-dislike/<str:comment_id>', views.dislike , name="dislike"),
+    
     path('about-us', views.about_us, name="about_us")
 ]
