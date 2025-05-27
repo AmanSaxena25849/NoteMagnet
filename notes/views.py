@@ -5,6 +5,7 @@ from django.db.models import Q, Count
 from .forms import NotesForm, EditNoteForm
 from .models import Notes, Tags, Comments
 from django.db import transaction
+from django.core.cache import cache
 
 # Create your views here.
 @login_required
@@ -131,18 +132,33 @@ def all_notes(request):
     query = request.GET.get('search')
     order = request.GET.get('filter') or "-created_at"
     
+    filter_map = {
+        "-created_at": "newest first",
+        "-title": "title (A-Z)",
+        "title": "title (A-Z)",
+        "views_count": "most popular"
+    }
+    filter_label= filter_map.get(order, "Newest First")
+    
     if query:
         all_notes = Notes.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))   
     else:
         all_notes = Notes.objects.filter(public=True).prefetch_related('tag')
     
     if "views_count" in order:
-        all_notes = all_notes.annotate(num_views=Count("views_count"))
-        order = order.replace("views_count", "-num_views")
-        
-    all_notes = all_notes.order_by(order)
+        popular_notes = cache.get('popular_note')
+        if popular_notes:
+            print("from_cache")
+            all_notes = popular_notes
+        else:
+            print("cache_set")
+            all_notes = all_notes.annotate(num_views=Count("views_count"))
+            order = order.replace("views_count", "-num_views")
+            all_notes = all_notes.order_by(order)
+            cache.set('popular_note', all_notes, timeout=3600)
 
-    return render(request, "notes/all_notes.html", {"all_notes":all_notes})
+
+    return render(request, "notes/all_notes.html", {"all_notes":all_notes, "filter_label":filter_label})
 
 
 
