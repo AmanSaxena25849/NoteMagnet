@@ -1,8 +1,12 @@
 from django.db import transaction
 from django.urls import resolve
-import allauth
+
 
 class AllauthAtomicMiddleware:
+    """
+    middelware for making allauth request atomic in nature
+    (either db saves all data or no data is saved).
+    """
     def __init__(self, get_response):
         self.get_response = get_response
 

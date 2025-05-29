@@ -7,11 +7,17 @@ from .forms import DashboardForm
 from django.contrib import messages
 from notes.models import Notes
 from django.db import transaction
+from django.contrib.admin.views.decorators import staff_member_required
+from .tasks import send_notification
 
 # Create your views here.
 
 @login_required
 def reauth_with_email(request):
+    """Sends confirmation mail to user upon signup. 
+    Returns:
+       redirects user to home page.
+    """
     send_email_confirmation(request, request.user, signup=False)
     return redirect('home')
     
@@ -116,5 +122,15 @@ def unfollow_author(request, author_id):
         return redirect(author_page, author_id=author_id)   
     
 
-
+@staff_member_required
+def send_bulk_notifications(request):
+    if request.method == "POST":
+        subject = request.POST.get("subject")
+        message = request.POST.get("message")
+        send_notification.delay(subject, message)
+        messages.success(request, "Notification is being sent in the background.")
+        return redirect('home')
+    
+    return render(request, "account/send_notifcation.html")
+        
  

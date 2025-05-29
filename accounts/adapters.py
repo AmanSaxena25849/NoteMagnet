@@ -9,12 +9,19 @@ User = get_user_model()
 
 
 class CustomAccountAdapter(DefaultAccountAdapter):
+    """modifies the method that users sign up by rerouting them to their profile page."""
     def get_signup_redirect_url(self, request):
         print("Custom adapter called!")
         messages.success(request, "Tell us more about youself. Please Fill the profile page.")
         return reverse("profile")
+ 
+ 
     
 class SocialAccountAdapter(DefaultSocialAccountAdapter):
+    """ 
+    Checks if its a social login and if user has email and if that email exist in DB
+    and links that email to this social account.
+    """
     def pre_social_login(self, request, sociallogin):
         email = sociallogin.account.extra_data.get("email")
         
