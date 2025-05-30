@@ -107,8 +107,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'NoteMagnet',
-        'USER': 'Aman',
-        'PASSWORD': 'Aman@25849',
+        'USER': os.getenv("POSTGRESQL_USER"),
+        'PASSWORD': os.getenv("POSTGRESQL_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '5432',
     }
