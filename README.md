@@ -98,7 +98,7 @@ sudo service redis-server start
 cd (directory where you put the project)\notemagnet
 
 # Start celery worker.
-celery -A notemagnet worker --pool=solo --loglevel=info
+celery -A NoteMagnet worker --pool=solo --loglevel=info
 
 # In other terminal vscode terminal eun the application
 python manage.py runserver
