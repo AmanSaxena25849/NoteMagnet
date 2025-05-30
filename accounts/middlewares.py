@@ -4,7 +4,8 @@ from django.urls import resolve
 
 class AllauthAtomicMiddleware:
     """
-    middelware for making allauth request atomic in nature
+    middelware  for making allauth requesta atomic in nature
+    takes requests path info if it contains allauth in url it makes it atmoic.
     (either db saves all data or no data is saved).
     """
     def __init__(self, get_response):

@@ -2,6 +2,7 @@ from django import forms
 from .models import Notes, Comments
 
 class NotesForm(forms.ModelForm):
+    """model form for creating new notes."""
     class Meta:
         model = Notes
         fields = ['author', 'title', 'content', 'note_image', 'public']
@@ -34,7 +35,8 @@ class NotesForm(forms.ModelForm):
         
      
         
-class EditNoteForm(forms.ModelForm):  
+class EditNoteForm(forms.ModelForm): 
+    """model form for editing existing notes.""" 
     class Meta:
         model = Notes
         fields = ['title','content', 'note_image', 'public']

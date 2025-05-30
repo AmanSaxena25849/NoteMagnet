@@ -12,6 +12,7 @@ from .tasks import send_note_notification
 @login_required
 @transaction.atomic
 def create_note(request):
+    """view for creating new notes."""
     if request.method == 'POST':
         tag_list = request.POST.getlist('tags')
         data = request.POST.copy()
@@ -21,18 +22,21 @@ def create_note(request):
         if form.is_valid():
             note = form.save(commit=False)
             
+            #if no image is sent by user setect this default image. 
             if not request.FILES.get('note_image'):
                 note.note_image = "note_image/note_default.png"
             
             note.save()
+            # add tags to the note.
             for tag_name in tag_list:
                 tag, created = Tags.objects.get_or_create(tag_name = tag_name)
                 note.tag.add(tag)
             
-            if note.notifications == True:
-                users = request.user.following.all()
+            # send notifications to all the followers.
+            if note.public == True:
+                users = request.user.following.filter(notifications = True)
                 send_note_notification.delay(title=note.title,
-                                            message=note.content, users=list(users.values_list("email", flat=True)),
+                                            message=note.content, emails=list(users.values_list("email", flat=True)),
                                             author=request.user.username)
             
             messages.success(request, "Your note has been created successfully!")
@@ -50,6 +54,7 @@ def create_note(request):
 
 
 def view_note(request, note_id):
+    """view for seeing notes."""
     note = get_object_or_404(Notes, id=note_id)
     tags = note.tag.all()
     is_following = False
@@ -61,6 +66,7 @@ def view_note(request, note_id):
         is_following = request.user.following.filter(id=note.author.id).exists()
         liked = request.user.like.filter(id=note_id).exists()
     
+    # code for showing tags
     query = Q()
     for i, tag in enumerate(tags[:2]): 
         if i == 0:
@@ -79,6 +85,7 @@ def view_note(request, note_id):
 @login_required
 @transaction.atomic
 def edit_note(request, note_id):
+    """view for editing existing notes"""
     note = get_object_or_404(Notes, id=note_id)
     
     # retain old image to be used if not provided.
@@ -122,6 +129,7 @@ def edit_note(request, note_id):
 @login_required
 @transaction.atomic
 def delete_note(request):
+    """view for deleing notes."""
     if request.method == "POST":
         note_id = request.POST.get("note_id")
         try:
@@ -139,9 +147,10 @@ def delete_note(request):
 
 
 def all_notes(request):
+    """view for showing all notes."""
+    
     query = request.GET.get('search')
     order = request.GET.get('filter') or "-created_at"
-    
     filter_map = {
         "-created_at": "newest first",
         "-title": "title (A-Z)",
@@ -155,6 +164,7 @@ def all_notes(request):
     else:
         all_notes = Notes.objects.filter(public=True).prefetch_related('tag')
     
+    #if popular note are requested caching them in redis for 1 hour.
     if "views_count" in order:
         popular_notes = cache.get('popular_note')
         if popular_notes:
@@ -174,6 +184,7 @@ def all_notes(request):
 
 @login_required
 def bookmark_note(request, note_id:str):
+    """view for bookmarking the note"""
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
         request.user.bookmark.add(note)
@@ -188,6 +199,7 @@ def bookmark_note(request, note_id:str):
    
 @login_required  
 def remove_bookmark(request, note_id:str):
+    """view for removing bookmark."""
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
         request.user.bookmark.remove(note)
@@ -202,6 +214,7 @@ def remove_bookmark(request, note_id:str):
 
 @login_required
 def like_note(request, note_id:str):
+    """view for adding like to a note."""
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
         request.user.like.add(note)
@@ -216,6 +229,7 @@ def like_note(request, note_id:str):
 
 @login_required  
 def remove_like(request, note_id:str):
+    """view for removing like from a note."""
     if request.method == "POST":
         note = Notes.objects.get(id=note_id)
         request.user.like.remove(note)
@@ -231,6 +245,7 @@ def remove_like(request, note_id:str):
 @login_required
 @transaction.atomic
 def add_comment(request, note_id:str):
+    """view for adding comment for a note."""
     note = get_object_or_404(Notes, id=note_id)
 
     if request.method == "POST": 
@@ -247,6 +262,7 @@ def add_comment(request, note_id:str):
 @login_required
 @transaction.atomic
 def remove_comment(request, note_id:str, comment_id:str): 
+    """view for removing a comment from a note."""
     if request.method == "POST":
         
         comment = get_object_or_404(Comments, id=comment_id)
@@ -263,7 +279,8 @@ def remove_comment(request, note_id:str, comment_id:str):
 
 
 @login_required
-def like(request, comment_id:str):
+def like_comment(request, comment_id:str):
+    """view for adding like to a comment."""
     if request.method == 'POST':
         comment = get_object_or_404(Comments, id=comment_id)
         user = request.user
@@ -282,7 +299,8 @@ def like(request, comment_id:str):
     
     
 @login_required
-def dislike(request, comment_id:str):
+def dislike_comment(request, comment_id:str):
+    """view for removing like from a comment."""
     if request.method == 'POST':
         comment = get_object_or_404(Comments, id=comment_id)
         user = request.user
@@ -301,4 +319,5 @@ def dislike(request, comment_id:str):
     
     
 def about_us(request):
+    """view for about us page."""
     return render(request, "notes/about_us.html")    

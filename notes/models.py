@@ -4,6 +4,7 @@ from django.conf import settings
 
 # Create your models here.
 class Tags(models.Model):
+    """model for creating new tags for notes."""
     
     tag_name = models.CharField(max_length=50, unique=True)
 
@@ -16,6 +17,7 @@ class Tags(models.Model):
 
 
 class Notes(models.Model):
+    """model for creating new Notes."""
     class Meta:
         verbose_name_plural = "Notes" 
     
@@ -34,6 +36,7 @@ class Notes(models.Model):
 
 
 class Comments(models.Model):
+    """model for creating new comments for notes."""
     class Meta:
         verbose_name_plural = "Comments"
     

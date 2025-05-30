@@ -17,7 +17,8 @@ class CustomSignupForm(SignupForm):
     notifications = forms.BooleanField(required=False )
     agree = forms.BooleanField(required=True)
 
-    
+
+    #adding widgets to custom fields.
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -47,7 +48,7 @@ class CustomSignupForm(SignupForm):
 
 
 class CustomLoginForm(LoginForm):
-    
+    #adding widgets
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -56,9 +57,9 @@ class CustomLoginForm(LoginForm):
         self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'type':'password'})
         
  
-    
+     
 class CustomResetPasswordKeyForm(ResetPasswordKeyForm):
-    
+    #adding widgets
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -66,9 +67,10 @@ class CustomResetPasswordKeyForm(ResetPasswordKeyForm):
         
         self.fields['password2'].widget =  forms.PasswordInput(attrs={'class': 'form-control', 'id':'confirm-password', 'type':'password'})
         
+   
         
 class CustomSetPasswordForm(SetPasswordForm):
-    
+    #adding widgets
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -76,11 +78,10 @@ class CustomSetPasswordForm(SetPasswordForm):
         
         self.fields['password2'].widget =  forms.PasswordInput(attrs={'class': 'form-control', 'id':'confirm-password', 'type':'password'})
         
-
 
 
 class CustomReauthenticateForm(ReauthenticateForm):
-    
+    #adding widgets
      def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -93,7 +94,6 @@ class CustomReauthenticateForm(ReauthenticateForm):
         
 
 class DashboardForm(forms.ModelForm):
-    
     class Meta:
         model = users
         fields = [

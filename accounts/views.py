@@ -36,9 +36,18 @@ def dashboard(request):
 @login_required
 @transaction.atomic    
 def profile(request):
+    """view for showing and updating user profile. 
+
+    Args:
+        request (_type_): request object
+
+    Returns:
+        renders user profile.
+    """
     user =request.user
     
     if request.method == 'POST':
+        #for keeping old user profile image.
         if user.profile_image:
             old_image = user.profile_image.path
         else:
@@ -46,13 +55,14 @@ def profile(request):
             
         form = DashboardForm(request.POST,request.FILES, instance=request.user)
         if form.is_valid():
+            #for updaing user profile image if its changed.
             if old_image and 'profile_image' in request.FILES:
                 if os.path.isfile(old_image):
                     os.remove(old_image)
 
             form.save()
             messages.success(request, "Your bio has been successfully updated!")
-            return redirect('dashboard')
+            return redirect('profile')
         
     else:
         form = DashboardForm(initial={
@@ -124,6 +134,7 @@ def unfollow_author(request, author_id):
 
 @staff_member_required
 def send_bulk_notifications(request):
+    """sends notication to all users by staff members."""
     if request.method == "POST":
         subject = request.POST.get("subject")
         message = request.POST.get("message")
