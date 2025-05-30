@@ -1,6 +1,7 @@
 from celery import shared_task
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
+import logging
 
 User = get_user_model()
 
@@ -17,11 +18,12 @@ def send_notification(subject:str, message:str) -> str:
     """
     
     users = User.objects.filter(notifications = True)
-    
+    logger = logging.getLogger(__name__)
     success_count = 0
     failed = []
     
     for user in users:
+        logger.info(f"[Celery] Sending notifications to {user.email}")
         try:
             send_mail(
                 subject = subject,
