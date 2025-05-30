@@ -6,6 +6,7 @@ from .forms import NotesForm, EditNoteForm
 from .models import Notes, Tags, Comments
 from django.db import transaction
 from django.core.cache import cache
+from .tasks import send_note_notification
 
 # Create your views here.
 @login_required
@@ -27,6 +28,13 @@ def create_note(request):
             for tag_name in tag_list:
                 tag, created = Tags.objects.get_or_create(tag_name = tag_name)
                 note.tag.add(tag)
+            
+            if note.notifications == True:
+                users = request.user.following.all()
+                send_note_notification.delay(title=note.title,
+                                            message=note.content, users=list(users.values_list("email", flat=True)),
+                                            author=request.user.username)
+            
             messages.success(request, "Your note has been created successfully!")
             return redirect('dashboard')
             
@@ -34,6 +42,8 @@ def create_note(request):
             print(form.errors)
     else:        
         form = NotesForm()
+        
+   
         
     return render(request, "notes/create_note.html", {"form": form})
 
