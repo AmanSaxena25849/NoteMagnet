@@ -13,6 +13,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 from django.contrib.messages import constants as messages
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 load_dotenv()
@@ -106,14 +107,15 @@ WSGI_APPLICATION = 'NoteMagnet.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'NoteMagnet',
-        'USER': os.getenv("POSTGRESQL_USER"),
-        'PASSWORD': os.getenv("POSTGRESQL_PASSWORD"),
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': tmpPostgres.path.replace('/', ''),
+        'USER': tmpPostgres.username,
+        'PASSWORD': tmpPostgres.password,
+        'HOST': tmpPostgres.hostname,
+        'PORT': 5432,
     }
 }
 
