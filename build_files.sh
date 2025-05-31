@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install Python dependencies
+# Install dependencies
 pip3 install -r requirements.txt
 
 # Collect static files
