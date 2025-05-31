@@ -99,7 +99,7 @@ def delete_account(request):
 
 def author_page(request, author_id):
     author = get_user_model().objects.get(id=author_id)
-    authors_notes = Notes.objects.filter(author=author_id).order_by('-created_at').prefetch_related('tag')
+    authors_notes = Notes.objects.filter(author=author_id, public=True).order_by('-created_at').prefetch_related('tag')
     is_following = False
     
     if request.user.is_authenticated:

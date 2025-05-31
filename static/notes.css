@@ -545,6 +545,11 @@
       color: var(--accent);
     }
     
+    .mobile-userimage{
+      width: 45px;
+      height: 45px;
+    }
+
     .overlay {
       position: fixed;
       top: 0;

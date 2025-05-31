@@ -14,8 +14,6 @@
     <aside class="dashboard-sidebar">
       <div class="sidebar-header">
         <h2>Dashboard</h2>
-        <div><i class="fa fa-heart" aria-hidden="true"></i> {{user.following.count}} following</div>
-        <div><i class="fa fa-star" aria-hidden="true"></i> {{user.follow.count}} followers</div>
       </div>
       
       <ul class="sidebar-menu">
@@ -63,7 +61,7 @@
           {% if user.is_staff %}
             <li>
               <a href="{% url "send_notifications" %}">
-                <i class="fas fa-user-circle"></i> Send email
+                <i class="fa fa-envelope" aria-hidden="true"></i> Send email
               </a>
             </li>
           {% endif %}
@@ -228,7 +226,7 @@
             </div>
             {%empty%}
               <div class="note-card">
-                <a href="{% url "create_note" %}">
+                <a class="note-card-create" href="{% url "create_note" %}">
                   <i class="fa-solid fa-plus"></i>
                   <p class="create-note-p">create new note</p>
                 </a>
@@ -270,7 +268,7 @@
               <a href="{% url "view_note" note.id %}"  class="read-more">Read More</a>
             </div>
           {%empty%}
-              <p>Please like some notes first.</p>
+              <p> &bull; Please like some notes first.</p>
           {% endfor %}
         </div>
       </div>
@@ -307,7 +305,7 @@
               <a href="{% url "view_note" note.id %}"  class="read-more">Read More</a>
             </div>
           {% empty %}
-            <p>Please bookmark some notes first.</p>
+            <p>&bull; Please bookmark some notes first.</p>
           {% endfor %}
         </div>
       </div>
@@ -335,7 +333,7 @@
               </div>
             </div>
             {% empty %}
-            <p>Please follow some authors first.</p>
+            <p>&bull; Please follow some authors first.</p>
           {% endfor %}
         </div>
       </div>
