@@ -40,19 +40,26 @@
                 </div>
                 {% if user.is_authenticated %}
                     {% if user.id == author.id %}
-
+                        <div class="user-actions">
+                            <a href="{% url "account_logout" %}" class="button follow-btn hidden-anchor-tag">
+                            <i class="fas fa-sign-out-alt"></i> Sign Out
+                            </a>
+                            <a href="{% url "profile" %}" class="button follow-btn hidden-anchor-tag">
+                            <i class="fas fa-user-circle"></i> Profile
+                            </a>
+                        </div>
                     {% else %}
                         {% if is_following %}
                             <form action="{% url "unfollow" author.id %}" method="post">
                                 {% csrf_token %}
-                                <button style="background-color: #4A4238" class="button follow-btn">
+                                <button style="background-color: #4A4238" id="follow-btn" class="button follow-btn">
                                 <span class="button-icon">✓</span> Following
                                 </button>
                             </form>
                         {% else %}
                             <form action="{% url "follow" author.id %}" method="post">
                                 {% csrf_token %}
-                                <button class="button follow-btn">
+                                <button id="follow-btn" class="button follow-btn">
                                 <span class="button-icon">+</span> Follow
                                 </button>
                             </form>
@@ -105,6 +112,18 @@
                                 <a href="{% url "view_note" note.id %}" class="read-more">Read More</a>
                             </div>
                         </div>
+                    {%empty%}
+                        {% if user.id == author.id %}
+                            <div class="note-card">
+                                <a class="note-card-create" href="{% url "create_note" %}">
+                                <i class="fa-solid fa-plus"></i>
+                                <p class="create-note-p">create new note</p>
+                                </a>
+                            </div>
+                        {% else %}
+                                <p class="create-note-p">&bull; {{author.first_name}} have no public notes.</p>
+                            
+                        {% endif %}
                     {% endfor %}
                 </div>
 
@@ -116,7 +135,7 @@
 {% block script %}
     <script>
         
-        const followBtn = document.querySelector(".follow-btn");
+        const followBtn = document.querySelector("#follow-btn");
         followBtn.addEventListener("click", () => {
             if (followBtn.textContent.includes("Follow")) {
                 followBtn.innerHTML = '<span class="button-icon">✓</span> Following';
