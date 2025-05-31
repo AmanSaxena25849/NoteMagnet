@@ -125,7 +125,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "rediss://whole-oryx-22268.upstash.io:6379",
+        "LOCATION": "rediss://curious-minnow-24190.upstash.io:6379",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PASSWORD": os.getenv("UPSTASH_PASSWORD"),
