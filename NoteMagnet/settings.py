@@ -118,13 +118,15 @@ DATABASES = {
 }
 
 
-#redis cache
+# redis cache settings
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "rediss://whole-oryx-22268.upstash.io:6379",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD": UPSTASH_PASSWORD,
+            "SSL": True,
         }
     }
 }
