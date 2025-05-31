@@ -125,7 +125,7 @@ CACHES = {
         "LOCATION": "rediss://whole-oryx-22268.upstash.io:6379",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": UPSTASH_PASSWORD,
+            "PASSWORD": os.getenv("UPSTASH_PASSWORD"),
             "SSL": True,
         }
     }
