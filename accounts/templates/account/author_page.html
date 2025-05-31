@@ -74,13 +74,18 @@
 
             <div class="bio-section">
                 <p class="bio-text">
-                    {{author.bio}}
+                    {% if author.bio %}
+                        {{author.bio}}
+                    {% else %}
+                        No user bio found.
+                    {% endif %}
+                    
                 </p>
             </div>
 
             <!-- Author's Notes Section -->
             <div class="notes-section">
-                <h2 class="notes-title">{{author.first_name}}'s Notes</h2>
+                <h2 class="notes-title">{{author.username}}'s Notes</h2>
                 
                 <div class="notes-grid">
                     <!-- Note Card 1 -->
