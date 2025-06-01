@@ -70,7 +70,6 @@ def profile(request):
             'last_name': request.user.last_name,
             'username': request.user.username,
             'age': request.user.age,
-            'phone_number': request.user.phone_number,
             'email': request.user.email,
             'bio': request.user.bio,
             })

@@ -10,7 +10,6 @@ from django.conf import settings
 
 class users(AbstractUser):
     age = models.PositiveIntegerField(validators=[MinValueValidator(9), MaxValueValidator(110)], null=True)
-    phone_number = PhoneNumberField(max_length=20, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     notifications = models.BooleanField(default=False)
     varified = models.BooleanField(default=False)

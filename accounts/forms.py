@@ -12,8 +12,6 @@ class CustomSignupForm(SignupForm):
     
     age = forms.IntegerField(required=True, label='Age', widget=forms.NumberInput(attrs={'class': 'form-control', 'id':'age', 'type':'number', 'min':'10'}))
     
-    phone_number = forms.CharField(required=False, max_length=15, widget=forms.TextInput(attrs={'class':'form-control','id':'phone', 'type':'tel','placeholder':'e.g. +91 123456789'}))
-    
     notifications = forms.BooleanField(required=False )
     agree = forms.BooleanField(required=True)
 
@@ -37,7 +35,6 @@ class CustomSignupForm(SignupForm):
     def save(self, request):
         user = super().save(request)
         user.age = self.cleaned_data['age']
-        user.phone_number = self.cleaned_data['phone_number']
         user.notifications = self.cleaned_data['notifications']
         user.agree= self.cleaned_data['agree']
         user.first_name = self.cleaned_data['first_name']
@@ -97,7 +94,7 @@ class DashboardForm(forms.ModelForm):
     class Meta:
         model = users
         fields = [
-            'first_name', 'last_name', 'username', 'age', 'phone_number', 'email', 'bio', 'profile_image'
+            'first_name', 'last_name', 'username', 'age', 'email', 'bio', 'profile_image'
         ]
         
         widgets = {
@@ -112,10 +109,6 @@ class DashboardForm(forms.ModelForm):
             }),
             
             'email': forms.EmailInput(attrs={'class': 'form-control', 'readonly': 'true'}),
-            
-            'phone_number': forms.TextInput(attrs={
-                'class': 'form-control', 'id': 'phone', 'type': 'tel', 'placeholder': 'e.g. +91 123456789', 'readonly': 'true'
-            }),
             
             'bio': forms.Textarea(attrs={'class': 'form-control bio-text', 'id': 'bio', 'readonly': 'true'}),
             
