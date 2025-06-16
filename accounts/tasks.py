@@ -19,12 +19,11 @@ def send_notification(subject:str, message:str) -> str:
     
     users = User.objects.filter(notifications = True)
     logger = logging.getLogger(__name__)
-    
     success_count = 0
     failed = []
     
     for user in users:
-        logger.info(f"[Celery] Sending to: {user.email}")
+        logger.info(f"[Celery] Sending notifications to {user.email}")
         try:
             send_mail(
                 subject = subject,
