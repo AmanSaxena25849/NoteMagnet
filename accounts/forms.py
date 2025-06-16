@@ -1,5 +1,6 @@
 from django import forms
 from .models import users
+from django.core.exceptions import ValidationError
 from allauth.account.forms import SignupForm, LoginForm, ResetPasswordKeyForm, ReauthenticateForm, SetPasswordForm
 
 
@@ -115,4 +116,12 @@ class DashboardForm(forms.ModelForm):
             'profile_image': forms.FileInput(attrs={'class':'note-image', 'id':'note-image', 'type':'file', 'accept':'image/*'})
         }
         
+    def clean_profile_image(self):
+        image = self.cleaned_data.get('profile_image')
+        max_size_mb = 5
+
+        if image:
+            if image.size > max_size_mb * 1024 * 1024:
+                raise ValidationError(f"Profile image size cannot exceed {max_size_mb}MB.")
+        return image    
         

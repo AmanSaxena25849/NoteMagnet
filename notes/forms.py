@@ -1,5 +1,7 @@
 from django import forms
-from .models import Notes, Comments
+from .models import Notes
+from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import UploadedFile
 
 class NotesForm(forms.ModelForm):
     """model form for creating new notes."""
@@ -32,6 +34,16 @@ class NotesForm(forms.ModelForm):
                 "id": "note-public"
             })
         }
+        
+    def clean_note_image(self):
+        image = self.cleaned_data.get('note_image')
+        max_size_mb = 5
+
+        if isinstance(image, UploadedFile):
+            if image:
+                if image.size > max_size_mb * 1024 * 1024:
+                    raise ValidationError(f"note_image size cannot exceed {max_size_mb}MB.")
+        return image 
         
      
         
@@ -67,3 +79,14 @@ class EditNoteForm(forms.ModelForm):
                 "id": "note-public"
             })
         }
+    
+    def clean_note_image(self):
+        image = self.cleaned_data.get('note_image')
+        max_size_mb = 5
+
+        if isinstance(image, UploadedFile):
+            if image:
+                if image.size > max_size_mb * 1024 * 1024:
+                    raise ValidationError(f"note_image size cannot exceed {max_size_mb}MB.")
+        return image 
+        

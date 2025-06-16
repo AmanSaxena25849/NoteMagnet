@@ -38,26 +38,31 @@
                             <div class="info-item">
                                 <label for="" class="info-label">First Name</label>
                                 {{form.first_name}}
+                                {{form.first_name.errors}}
                             </div>
 
                             <div class="info-item">
                                 <label for="" class="info-label">Last Name</label>
                                 {{form.last_name}}
+                                {{form.last_name.errors}}
                             </div>
 
                             <div class="info-item">
                                 <label for="" class="info-label">User Name</label>
                                 {{form.username}}
+                                {{form.username.errors}}
                             </div>
 
                             <div class="info-item">
                                 <label for="" class="info-label">Age</label>
                                 {{form.age}}
+                                {{form.age.errors}}
                             </div>
 
                             <div class="info-item">
                                 <label for="" class="info-label">Email</label>
                                 {{form.email}}
+                                {{form.email.errors}}
                             </div>
                             
                         </div>
@@ -66,6 +71,7 @@
                     <div class="bio-section">
                         <label for="" class="info-label">Bio</label>
                         {{form.bio}}
+                        {{form.bio.errors}}
                     </div>
 
                     <div class="info-item file" id='file'>
@@ -73,6 +79,7 @@
                         <div class="file-input-wrapper">
                             <button type="button" class="file-input-button">Choose Image</button>
                             {{form.profile_image}}
+                            {{form.profile_image.errors}}
                         </div>
                         <span class="file-name" id="file-name">No file chosen</span>
                         
