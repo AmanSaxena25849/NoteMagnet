@@ -237,7 +237,6 @@ SOCIALACCOUNT_ADAPTER = 'accounts.adapters.SocialAccountAdapter'
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
 
-
 #MESSAGE STORAGE SETTINGS
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 

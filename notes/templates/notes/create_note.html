@@ -29,6 +29,7 @@
             <div class="form-group">
                 <label for="note-title">Note Title</label>
                 {{form.title}}
+                {{form.title.errors}}
             </div>
             
             <div class="form-group">
@@ -45,6 +46,7 @@
             <div class="form-group">
                 <label for="note-content">Note Content</label>
                 {{form.content}}
+                {{form.content.errors}}
             </div>
             
             <div class="form-group">
@@ -52,6 +54,7 @@
                 <div class="file-input-wrapper">
                     <button type="button" class="file-input-button">Choose Image</button>
                     {{form.note_image}}
+                    {{form.note_image.errors}}
                 </div>
                 <span class="file-name" id="file-name">No file chosen</span>
                 
@@ -63,6 +66,7 @@
             <div class="form-group checkbox">
                 <label for="note-public">Make this note public(All users will see this note).</label>
                 {{form.public}}
+                {{form.public.errors}}
             </div>
             
             
