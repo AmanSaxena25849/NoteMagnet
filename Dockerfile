@@ -35,6 +35,7 @@ WORKDIR /app
 
 # Copy the application code
 COPY . .
+COPY NoteMagnet/.env /app/.env
 
 # Set env variables to optimize python
 ENV PYTHONDONTWRITEBYTECODE=1

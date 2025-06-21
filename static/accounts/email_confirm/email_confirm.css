@@ -1,0 +1,127 @@
+:root {
+    --primary-bg: #f6f0f0;
+    --secondary-bg: #f2e2b1;
+    --accent: #e6b89c;
+    --text-dark: #4a4238;
+    --text-light: #6b5b4b;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --card-bg: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-dark);
+}
+
+/* Header section */
+main {
+    /* Border:2px solid red; */
+    padding: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.center {
+    width: 70vw;
+    min-width: fit-content;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px var(--shadow);
+    padding: 20px;
+}
+
+.center h1 {
+    font-size: 1.5em;
+    margin-bottom: 0.3rem;
+}
+
+.center p {
+    margin-bottom: 1rem;
+}
+
+
+.button {
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    background-color: var(--accent);
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+    color: var(--card-bg);
+}
+
+/* Footer */
+footer {
+    background-color: var(--secondary-bg);
+    padding: 2rem;
+    margin-top: min(60.7vh);
+    text-align: center;
+    color: var(--text-dark);
+}
+
+footer p {
+    margin-bottom: 1rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.social-icon:hover {
+    background-color: var(--text-dark);
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 999;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+
+    .header h1 {
+        font-size: 2.5rem;
+    }
+}
