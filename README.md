@@ -27,7 +27,27 @@ NoteMagnet is a collaborative study platform where users can create, share, and 
 
 - **Scalable Backend**: Built with Django, Redis, and Celery for performance and reliability.
 
+
+
 ## Installation
+
+### Docker
+
+```bash
+# Install docker from this link according to your system.
+https://www.docker.com/get-started/
+
+# Pull images from docker hub by running this command.
+docker pull amansaxena25849/notemagnet:github
+
+# Run the image by this command.
+docker run -p 8000:80 --env-file NoteMagnet/.env amansaxena25849/notemagnet:github
+
+# Now open the browser and type this link.
+http://localhost:8000/
+```
+
+### Locally
 
 ```bash
 #(for windows users only) Install or enable WSL2 from window store
