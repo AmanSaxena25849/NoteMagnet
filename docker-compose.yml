@@ -1,7 +1,7 @@
 services:
   django-web:
     build: .
-    image: notemagnet-image
+    image: amansaxena25849/notemagnet-web:github
     container_name: notemagnet-django
     volumes:
       - ./static:/app/staticfiles
@@ -11,6 +11,7 @@ services:
 
   celery:
     build: .
+    image: amansaxena25849/notemagnet-celery:github
     command: celery -A NoteMagnet worker --loglevel=info
     volumes:
       - .:/app
