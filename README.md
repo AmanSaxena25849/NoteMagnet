@@ -37,17 +37,24 @@ NoteMagnet is a collaborative study platform where users can create, share, and 
 # Install docker from this link according to your system.
 https://www.docker.com/get-started/
 
-# Pull images from docker hub by running this command.
-docker pull amansaxena25849/notemagnet:github
+# create a new folder and create 3 files:
+1. Docker-compose.yaml
+2. .env 
+3. nginx.conf
 
-# Run the image by this command.
-docker run -p 8000:80 --env-file NoteMagnet/.env amansaxena25849/notemagnet:github
+#Copy code from these snippets into their appropriate files.
+1. [Docker-compose.yaml](https://codefile.io/f/jlPjgj2tHg)
+2. [.env](https://codefile.io/f/BMQFFZBOxX)
+3. [nginx.conf](https://codefile.io/f/Cp2EREn7Aj)
+
+# Run the images by this command.
+docker-compose up -d
 
 # Now open the browser and type this link.
-http://localhost:8000/
+http://localhost:80001/
 ```
 
-### Locally
+### Full Local Installation
 
 ```bash
 #(for windows users only) Install or enable WSL2 from window store
