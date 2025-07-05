@@ -54,10 +54,9 @@
                 <div class="file-input-wrapper">
                     <button type="button" class="file-input-button">Choose Image</button>
                     {{form.note_image}}
-                    {{form.note_image.errors}}
                 </div>
                 <span class="file-name" id="file-name">No file chosen</span>
-                
+                {{form.note_image.errors}}
                 <div class="image-preview" id="image-preview">
                 <span class="image-preview-placeholder">Image preview will appear here</span>
                 </div>

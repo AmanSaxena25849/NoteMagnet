@@ -43,7 +43,8 @@ def create_note(request):
             return redirect('dashboard')
             
         else:
-            print(form.errors)
+            error_message = form.errors["note_image"][0]
+            messages.error(request, error_message)
     else:        
         form = NotesForm()
         
@@ -115,7 +116,10 @@ def edit_note(request, note_id):
                 return redirect('view_note', note_id=note_id)
                 
             else:
-                print(form.errors)
+                error_message = form.errors["note_image"][0]
+                messages.error(request, error_message)
+                return redirect('edit_note', note_id=note_id)
+                
         else:
             form = EditNoteForm(instance=note)
             return render(request, "notes/edit_note.html", {'form':form, 'note':note})
