@@ -162,4 +162,4 @@ http://127.0.0.1:8000/
 
 - [FontAwesome](https://fontawesome.com/) for awesome fonts and icons.
 - [Icon8](https://icons8.com/) for awesome icons.
-- All contributors who have helped or will help build and improve AtmosphereAI.
+- All contributors who have helped or will help build and improve NoteMagnet.
