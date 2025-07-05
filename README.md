@@ -154,6 +154,7 @@ http://127.0.0.1:8000/
 - Email: amansaxena25849@gmail.com
 - Linkedin: https://www.linkedin.com/in/aman-saxena-949bb9322/
 - Project Link: [https://github.com/AmanSaxena25849/NoteMagnet](https://github.com/AmanSaxena25849/NoteMagnet)
+- Live Demo: [https://notemagnet.onrender.com/](https://notemagnet.onrender.com/)
 
 
 
