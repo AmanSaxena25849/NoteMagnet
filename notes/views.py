@@ -20,12 +20,7 @@ def create_note(request):
         form = NotesForm(data, request.FILES)
         
         if form.is_valid():
-            note = form.save(commit=False)
-            
-            #if no image is sent by user setect this default image. 
-            if not request.FILES.get('note_image'):
-                note.note_image = "note_image/note_default.png"
-            
+            note = form.save(commit=False) 
             note.save()
             # add tags to the note.
             for tag_name in tag_list:

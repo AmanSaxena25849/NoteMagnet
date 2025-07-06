@@ -15,9 +15,12 @@ from pathlib import Path
 from urllib.parse import urlparse
 import ssl
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -50,6 +53,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    #cloudinary media storage apps
+    'cloudinary_storage',
+    'cloudinary',
+    
     #allauth apps
     'allauth',
     'allauth.account',
@@ -61,10 +68,9 @@ INSTALLED_APPS = [
     #clean-up
     'django_cleanup.apps.CleanupConfig',
     'django.contrib.humanize',
-    'el_pagination',
-    
-    
+    'el_pagination',     
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -102,9 +108,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'NoteMagnet.wsgi.application'
 
 
+#cloudinary online media storage
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+    'API_KEY': os.getenv('API_KEY'),
+    'API_SECRET': os.getenv('API_SECRET')
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 DATABASES = {
     'default': {
@@ -243,11 +257,6 @@ SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'accounts.adapters.SocialAccountAdapter'
-
-# MEDIA SETTINGS
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
-
 
 
 #MESSAGE STORAGE SETTINGS
