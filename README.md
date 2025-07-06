@@ -7,7 +7,7 @@
 # NoteMagnet
 
  A scalable note-sharing platform that empowers users to create, publish and share rich, visually
-appealing notes with the public.
+appealing notes with the public. Check us out at [NoteMagnet](https://notemagnet.onrender.com/). 
 
 ## Overview
 
@@ -152,10 +152,10 @@ http://127.0.0.1:8000/
 ## Contact
 
 **Aman saxena**
+- Website: https://amansaxena.pythonanywhere.com/
 - Email: amansaxena25849@gmail.com
 - Linkedin: https://www.linkedin.com/in/aman-saxena-949bb9322/
-- Project Link: [https://github.com/AmanSaxena25849/NoteMagnet](https://github.com/AmanSaxena25849/NoteMagnet)
-- Live Demo: [https://notemagnet.onrender.com/](https://notemagnet.onrender.com/)
+- Live Demo: https://notemagnet.onrender.com/
 
 
 
