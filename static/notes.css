@@ -118,12 +118,14 @@
     border: 1px solid var(--accent);
     color: var(--text-dark);
     text-decoration: none;
+    text-align: center;
   }
   
   .signup-btn {
     background-color: var(--accent);
     color: white;
     text-decoration: none; 
+    text-align: center;
   }
   
   .button:hover {
