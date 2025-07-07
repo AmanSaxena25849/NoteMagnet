@@ -7,7 +7,7 @@
 # NoteMagnet
 
  A scalable note-sharing platform that empowers users to create, publish and share rich, visually
-appealing notes with the public. Check us out at [NoteMagnet](https://notemagnet.onrender.com/). 
+appealing notes with the public. Check us out at [NoteMagnet](https://notemagnet.vercel.app/). 
 
 ## Overview
 
@@ -155,7 +155,8 @@ http://127.0.0.1:8000/
 - Website: https://amansaxena.pythonanywhere.com/
 - Email: amansaxena25849@gmail.com
 - Linkedin: https://www.linkedin.com/in/aman-saxena-949bb9322/
-- Live Demo: https://notemagnet.onrender.com/
+- Live Demo(vercel): https://notemagnet.onrender.com/
+- Live Demo(render): https://notemagnet.onrender.com/
 
 
 
