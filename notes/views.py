@@ -20,12 +20,7 @@ def create_note(request):
         form = NotesForm(data, request.FILES)
         
         if form.is_valid():
-            note = form.save(commit=False)
-            
-            #if no image is sent by user setect this default image. 
-            if not request.FILES.get('note_image'):
-                note.note_image = "note_image/note_default.png"
-            
+            note = form.save(commit=False) 
             note.save()
             # add tags to the note.
             for tag_name in tag_list:
@@ -43,7 +38,8 @@ def create_note(request):
             return redirect('dashboard')
             
         else:
-            print(form.errors)
+            error_message = form.errors["note_image"][0]
+            messages.error(request, error_message)
     else:        
         form = NotesForm()
         
@@ -115,7 +111,10 @@ def edit_note(request, note_id):
                 return redirect('view_note', note_id=note_id)
                 
             else:
-                print(form.errors)
+                error_message = form.errors["note_image"][0]
+                messages.error(request, error_message)
+                return redirect('edit_note', note_id=note_id)
+                
         else:
             form = EditNoteForm(instance=note)
             return render(request, "notes/edit_note.html", {'form':form, 'note':note})

@@ -49,7 +49,7 @@ def profile(request):
     if request.method == 'POST':
         #for keeping old user profile image.
         if user.profile_image:
-            old_image = user.profile_image.path
+            old_image = user.profile_image.url
         else:
             old_image = None
             

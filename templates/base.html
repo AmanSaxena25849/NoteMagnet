@@ -21,10 +21,12 @@
   <!-- Navigation Bar -->
   <header>
     <nav class="navbar">
+      <a class="hidden-anchor-tag" href="{% url "home" %}">
       <div class="logo">
-        <img src="{{ MEDIA_URL }}NM_icon.png" alt="">
+        <img src="{% static "images/NM_icon.png" %}" alt="">
         NoteMagnet
       </div>
+      </a>
       
       <ul class="nav-links">
         <li><a href="{% url "home" %}">Home</a></li>
@@ -84,8 +86,8 @@
         </div>
       {% else %}
         <div class="sidebar-auth">
-          <button class="button login-btn">Login</button>
-          <button class="button signup-btn">Sign Up</button>
+          <a class="button login-btn" href="{% url 'account_login' %}">Login</a>
+          <a class="button signup-btn" href="{% url 'account_signup' %}">Sign Up</a>
         </div>
       {% endif %}
     </div>

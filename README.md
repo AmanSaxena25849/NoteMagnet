@@ -7,7 +7,7 @@
 # NoteMagnet
 
  A scalable note-sharing platform that empowers users to create, publish and share rich, visually
-appealing notes with the public. Check us out at [NoteMagnet](https://notemagnet.onrender.com/). 
+appealing notes with the public.
 
 ## Overview
 
@@ -146,23 +146,19 @@ http://127.0.0.1:8000/
 - Redis
 - Celery
 - PostgreSQL
-- Cloudinary 
 
 
 ## Contact
 
 **Aman saxena**
-- Website: https://amansaxena.pythonanywhere.com/
 - Email: amansaxena25849@gmail.com
 - Linkedin: https://www.linkedin.com/in/aman-saxena-949bb9322/
-- Live Demo: https://notemagnet.onrender.com/
+- Project Link: [https://github.com/AmanSaxena25849/NoteMagnet](https://github.com/AmanSaxena25849/NoteMagnet)
 
 
 
 ## Acknowledgments
 
-- [NeonDB](https://neon.com/) for free online PostgreSQL Database.
-- [Upstash](https://upstash.com/) for free online Redis Database.
-- [Cloudinary](https://cloudinary.com/) for free online image storage.
+- [FontAwesome](https://fontawesome.com/) for awesome fonts and icons.
 - [Icon8](https://icons8.com/) for awesome icons.
-- All contributors who have helped or will help build and improve NoteMagnet.
+- All contributors who have helped or will help build and improve AtmosphereAI.
