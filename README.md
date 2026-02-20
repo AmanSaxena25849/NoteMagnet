@@ -155,7 +155,7 @@ http://127.0.0.1:8000/
 - Website: https://amansaxena.pythonanywhere.com/
 - Email: amansaxena25849@gmail.com
 - Linkedin: https://www.linkedin.com/in/aman-saxena-949bb9322/
-- Live Demo(vercel): https://notemagnet.onrender.com/
+- Live Demo(vercel): https://notemagnet.vercel.app/
 - Live Demo(render): https://notemagnet.onrender.com/
 
 
